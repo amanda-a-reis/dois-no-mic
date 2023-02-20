@@ -1,0 +1,35 @@
+{
+  "name": "dois-no-mic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amanda-a-reis/dois-no-mic.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amanda-a-reis/dois-no-mic/issues"
+  },
+  "homepage": "https://github.com/amanda-a-reis/dois-no-mic#readme",
+  "dependencies": {
+    "next": "^13.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.28",
+    "eslint": "8.34.0",
+    "eslint-config-next": "13.1.6",
+    "eslint-config-standard-with-typescript": "^34.0.0",
+    "typescript": "4.9.5"
+  }
+}
