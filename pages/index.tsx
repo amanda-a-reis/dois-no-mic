@@ -1,11 +1,11 @@
 import type { ReactElement } from 'react'
-import Oscar from '../components/Oscar'
+import HomePage from '../components/Home/HomePage'
+import style from '../styles/oscar.module.scss'
 
 export default function Home (): ReactElement {
   return (
-        <div>
-            <Oscar />
-            <h1>Testando...</h1>
-        </div>
+    <div className={style.container}>
+      <HomePage />
+    </div>
   )
 }
