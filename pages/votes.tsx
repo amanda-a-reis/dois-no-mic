@@ -11,17 +11,7 @@ export default function Votes ({ votes }): ReactElement {
 }
 
 export async function getServerSideProps (): Promise<any> {
-  const config = {
-    method: 'get',
-    url: '/api/oscar/votes',
-    baseURL: process.env.VERCEL_URL,
-    proxy: {
-      protocol: process.env.PROTOCOL,
-      host: '',
-      port: Number(process.env.PORT)
-    }
-  }
-  const votes = (await axios.request(config)).data
+  const votes = (await axios.get(process.env.URL)).data
 
   return {
     props: {
