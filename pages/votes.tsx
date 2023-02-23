@@ -17,7 +17,7 @@ export async function getServerSideProps (): Promise<any> {
     baseURL: process.env.VERCEL_URL,
     proxy: {
       protocol: process.env.PROTOCOL,
-      host: process.env.HOST,
+      host: '',
       port: Number(process.env.PORT)
     }
   }
