@@ -13,7 +13,7 @@ class MongoDB {
 
   connect (): void {
     mongoose.set('strictQuery', true)
-    void mongoose.connect(process.env.MONGO_CONNECTION)
+    void mongoose.connect(process.env.MONGODB_URI)
   }
 
   async close (): Promise<void> {
