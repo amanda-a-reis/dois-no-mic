@@ -11,7 +11,7 @@ export default function Votes ({ votes }): ReactElement {
 }
 
 export async function getServerSideProps (): Promise<any> {
-  const votes = await (await axios.get(`${process.env.URL}`)).data
+  const votes = (await axios.get(`${process.env.URL}`)).data
 
   return {
     props: {
