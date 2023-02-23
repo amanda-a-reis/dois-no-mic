@@ -1,0 +1,30 @@
+@import "../../styles/patterns/sizes.scss";
+@import "../../styles/patterns/z-index.scss";
+
+.container {
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: $hero-image-margin-mobile-small;
+  }
+}
+
+.figurine {
+  @media screen and (max-width: $small-screen) {
+    z-index: $top;
+    width: auto;
+    height: $hero-image-mobile-small-height;
+    position: absolute;
+  }
+}
+
+.bg {
+  @media screen and (max-width: $small-screen) {
+    width: 100%;
+    height: auto;
+    opacity: 0.3;
+    filter: blur(1px);
+  }
+}

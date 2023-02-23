@@ -1,0 +1,34 @@
+@import "../patterns/sizes.scss";
+@import "../patterns/fonts.scss";
+
+.container {
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: $open-sans;
+    color: white;
+    margin-top: $home-text-margin-mobile-large;
+    margin-bottom: $home-text-margin-mobile-large;
+  }
+}
+
+.title {
+  @media screen and (max-width: $small-screen) {
+    font-weight: $bold;
+    font-size: $home-text-font-size-mobile-large;
+    line-height: $line-height-small;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.description {
+  @media screen and (max-width: $small-screen) {
+    width: $home-text-mobile-small-width;
+    font-size: $home-text-font-size-mobile-small;
+    text-align: center;
+    margin: 0;
+    margin-top: $home-text-margin-mobile-small;
+  }
+}

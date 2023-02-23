@@ -1,0 +1,34 @@
+@import "../../patterns/colors.scss";
+@import "../../patterns/sizes.scss";
+
+.images {
+  width: 100vw;
+  height: 100%;
+  background-color: aquamarine;
+
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: $top-menu-mobile;
+    background-color: $menu;
+    padding-left: $top-menu-padding-mobile;
+    padding-right: $top-menu-padding-mobile;
+  }
+}
+
+.container {
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.logo {
+  @media screen and (max-width: $small-screen) {
+    width: auto;
+    height: $top-menu-icons-mobile;
+  }
+}
