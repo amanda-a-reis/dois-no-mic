@@ -22,9 +22,8 @@
   "homepage": "https://github.com/amanda-a-reis/dois-no-mic#readme",
   "dependencies": {
     "clsx": "^1.2.1",
-    "mongodb": "^5.0.1",
+    "mongoose": "^6.9.3",
     "next": "^13.1.6",
-    "next-connect": "^0.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
