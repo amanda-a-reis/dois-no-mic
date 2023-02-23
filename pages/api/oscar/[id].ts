@@ -1,10 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import MongoDB from '../../../mongodb/config'
 import { Votes } from '../../../mongodb/model'
+import type { Vote } from '../../../mongodb/model'
 
 MongoDB.instance.connect()
 
-async function getVote (_id: string): Promise<any> {
+async function getVote (_id: string): Promise<Vote> {
   return await Votes.findOne({ _id })
 }
 
