@@ -4,46 +4,56 @@
 @import "../../patterns/fonts.scss";
 
 .flexConfig {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
   @media screen and (max-width: $small-screen) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100vw;
   }
 }
 
 .textDefault {
+  z-index: $top;
+  font-size: $oscar-title-font-size-small;
+  font-weight: $regular;
+
   @media screen and (max-width: $small-screen) {
-    z-index: $top;
     font-size: $oscar-title-font-size-mobile-small;
-    font-weight: $regular;
   }
 }
 
 .marginDefault {
-  @media screen and (max-width: $small-screen) {
-    margin: 0;
-  }
+  margin: 0;
 }
 
 .container {
+  flex-direction: column;
+  font-family: $nanum;
+  color: $statuette;
+  margin-top: $oscar-title-margin-large;
+
   @media screen and (max-width: $small-screen) {
-    flex-direction: column;
-    font-family: $nanum;
-    color: $statuette;
     margin-top: $oscar-title-margin-mobile-large;
   }
 }
 
 .top {
+  flex-direction: row;
+  height: $oscar-title-font-size-small;
+  margin-bottom: $oscar-title-margin-small;
+
   @media screen and (max-width: $small-screen) {
-    flex-direction: row;
     height: $oscar-title-font-size-mobile-small;
     margin-bottom: $oscar-title-margin-mobile-small;
   }
 }
 
 .the {
+  padding-left: $oscar-title-padding-mobile-small;
+  padding-right: $oscar-title-padding-mobile-small;
+  
   @media screen and (max-width: $small-screen) {
     padding-left: $oscar-title-padding-mobile-small;
     padding-right: $oscar-title-padding-mobile-small;
@@ -51,6 +61,9 @@
 }
 
 .year {
+  height: $oscar-title-font-size-small;
+  margin-top: $oscar-title-margin-small;
+
   @media screen and (max-width: $small-screen) {
     height: $oscar-title-font-size-mobile-small;
     margin-top: $oscar-title-margin-mobile-small;
@@ -58,11 +71,15 @@
 }
 
 .oscars {
+  z-index: $top;
+  height: $oscar-title-font-size-large;
+  font-size: $oscar-title-font-size-large;
+  font-weight: $regular;
+  padding: 0;
+  
   @media screen and (max-width: $small-screen) {
-    z-index: $top;
     height: $oscar-title-font-size-mobile-large;
     font-size: $oscar-title-font-size-mobile-large;
-    font-weight: $regular;
     padding: 0;
   }
 }

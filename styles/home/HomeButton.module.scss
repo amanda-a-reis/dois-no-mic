@@ -4,44 +4,64 @@
 @import "../../styles/patterns/z-index.scss";
 
 .container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-35vw);
+
   @media screen and (max-width: $small-screen) {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
     padding-bottom: $home-button-padding-mobile-small;
+    transform: translateY(0px);
   }
 }
 
 .homeButtonLink {
+  width: $home-button-width;
+  height: $home-button-height;
+  margin: 0;
+
   @media screen and (max-width: $small-screen) {
     width: $home-button-mobile-width;
     height: $home-button-mobile-height;
-    margin: 0;
   }
 }
 
 .homeButton {
+  z-index: $top;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: $open-sans;
+  font-size: $home-button-font-size;
+  font-weight: $bold;
+  color: $elegant-white;
+  background-color: $red-carpet;
+  border: none;
+  border-radius: $home-button-border-radius-mobile;
+  margin: 0;
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+
+  &:hover {
+    background-color: $red-carpet-hover;
+  }
+
   @media screen and (max-width: $small-screen) {
-    z-index: $top;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
     width: 100%;
     height: 100%;
-    font-family: $open-sans;
     font-size: $home-button-font-size-mobile;
-    font-weight: $bold;
-    color: $elegant-white;
-    background-color: $red-carpet;
-    border: none;
-    border-radius: $home-button-border-radius-mobile;
-    margin: 0;
   }
 }
 
 .icon {
+  width: auto;
+  height: $home-button-mobile-icon-height;
+  filter: invert(1);
+  margin-left: $home-button-margin-mobile-small;
   @media screen and (max-width: $small-screen) {
     width: auto;
     height: $home-button-mobile-icon-height;

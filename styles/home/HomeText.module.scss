@@ -2,33 +2,42 @@
 @import "../patterns/fonts.scss";
 
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: $open-sans;
+  color: white;
+  transform: translateY(-43vw);
+
   @media screen and (max-width: $small-screen) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: $open-sans;
-    color: white;
+    transform: translateY(0px);
     margin-top: $home-text-margin-mobile-large;
     margin-bottom: $home-text-margin-mobile-large;
   }
 }
 
 .title {
+  font-weight: $bold;
+  font-size: $home-text-font-size-large;
+  text-align: center;
+  margin: 0;
+
   @media screen and (max-width: $small-screen) {
-    font-weight: $bold;
     font-size: $home-text-font-size-mobile-large;
     line-height: $line-height-small;
-    text-align: center;
-    margin: 0;
   }
 }
 
 .description {
+  width: $home-text-small-width;
+  font-size: $home-text-font-size-small;
+  text-align: center;
+  margin: 0;
+  margin-top: $home-text-margin-mobile-small;
+
   @media screen and (max-width: $small-screen) {
     width: $home-text-mobile-small-width;
     font-size: $home-text-font-size-mobile-small;
-    text-align: center;
-    margin: 0;
     margin-top: $home-text-margin-mobile-small;
   }
 }

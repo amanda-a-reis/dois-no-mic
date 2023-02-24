@@ -2,25 +2,42 @@
 @import "../../styles/patterns/z-index.scss";
 
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  transform: translateY(-12vw);
+  margin-top: $hero-image-margin-small;
+
   @media screen and (max-width: $small-screen) {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    transform: translateY(0px);
     margin-top: $hero-image-margin-mobile-small;
   }
 }
 
 .figurine {
+  z-index: $top;
+  width: auto;
+  height: $hero-image-small-height;
+  position: absolute;
+  transform: translate(8vw, 3vw);
+
   @media screen and (max-width: $small-screen) {
-    z-index: $top;
     width: auto;
     height: $hero-image-mobile-small-height;
-    position: absolute;
+    transform: translateY(0px);
+    transform: translateX(0px);
   }
 }
 
 .bg {
+  width: 100%;
+  height: auto;
+  opacity: 0.1;
+  filter: blur(2px);
+  
   @media screen and (max-width: $small-screen) {
     width: 100%;
     height: auto;

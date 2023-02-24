@@ -3,10 +3,14 @@
 @import "../../patterns/z-index.scss";
 
 .container {
+  z-index: $top;
+  width: 8%;
+  height: 0;
+  border: 2px solid $statuette;
+  border-radius: 20%;
+
   @media screen and (max-width: $small-screen) {
-    z-index: $top;
     width: 18%;
-    height: 0;
     border: 1px solid $statuette;
   }
 }
