@@ -1,14 +1,4 @@
-@import "../../styles/patterns/colors.scss";
-@import "../../styles/patterns/sizes.scss";
-
 .container {
-  width: auto;
-  height: auto;
-  background-color: $home-bg;
-  
-  @media screen and (max-width: $small-screen) {
-    width: auto;
-    height: auto;
-    background-color: $home-bg;
-  }
+  width: 100%;
+  height: 100%;
 }

@@ -1,22 +1,21 @@
-@import "../../patterns/colors.scss";
-@import "../../patterns/sizes.scss";
+@import '../pattern/index.scss';
 
 .container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: $top-menu-social-width;
-  height: $top-menu-icons;
+  width: $box-width-large-relative;
+  height: $icon-height-large;
 
   @media screen and (max-width: $small-screen) {
-    width: $top-menu-social-mobile-width;
+    width: $box-width-small-relative;
   }
 }
 
 .icons {
   width: auto;
-  height: $top-menu-social-height;
+  height: $icon-height-small;
   transition: ease-in 0.1s;
 
   &:hover {

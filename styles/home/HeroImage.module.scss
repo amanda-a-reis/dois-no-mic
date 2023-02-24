@@ -1,5 +1,4 @@
-@import "../../styles/patterns/sizes.scss";
-@import "../../styles/patterns/z-index.scss";
+@import '../pattern/index.scss';
 
 .container {
   display: flex;
@@ -7,28 +6,26 @@
   justify-content: flex-start;
   align-items: flex-start;
   transform: translateY(-12vw);
-  margin-top: $hero-image-margin-small;
+  margin-top: $margin-medium;
 
   @media screen and (max-width: $small-screen) {
     justify-content: center;
     align-items: center;
     transform: translateY(0px);
-    margin-top: $hero-image-margin-mobile-small;
+    margin-top: $margin-xlarge;
   }
 }
 
 .figurine {
   z-index: $top;
   width: auto;
-  height: $hero-image-small-height;
+  height: $image-height-small-relative;
   position: absolute;
   transform: translate(8vw, 3vw);
 
   @media screen and (max-width: $small-screen) {
-    width: auto;
-    height: $hero-image-mobile-small-height;
-    transform: translateY(0px);
-    transform: translateX(0px);
+    height: $image-height-large-relative;
+    transform: translate(0px, 0px);
   }
 }
 
@@ -39,8 +36,6 @@
   filter: blur(2px);
   
   @media screen and (max-width: $small-screen) {
-    width: 100%;
-    height: auto;
     opacity: 0.3;
     filter: blur(1px);
   }

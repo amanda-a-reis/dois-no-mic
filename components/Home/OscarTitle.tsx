@@ -1,6 +1,5 @@
 import type { ReactElement } from 'react'
-import style from '../../../styles/home/oscar-title/OscarTitle.module.scss'
-import LineTitle from './LineTitle'
+import style from '../../styles/home/OscarTitle.module.scss'
 
 export default function OscarTitle (): ReactElement {
   return (
@@ -8,9 +7,9 @@ export default function OscarTitle (): ReactElement {
       <div
         className={`${style.top} ${style.flexConfig} ${style.marginDefault}`}
       >
-        <LineTitle />
+        <div className={style.line}></div>
         <p className={`${style.the} ${style.textDefault}`}>THE</p>
-        <LineTitle />
+        <div className={style.line}></div>
       </div>
       <h1
         className={`${style.oscars} ${style.flexConfig} ${style.marginDefault}`}

@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactElement } from 'react'
-import style from '../../../styles/home/top-menu/SocialMedia.module.scss'
+import style from '../../styles/top-menu/SocialMedia.module.scss'
 
-import instagram from '../../../public/instagram.webp'
-import spotify from '../../../public/spotify.webp'
+import instagram from '../../public/instagram.webp'
+import spotify from '../../public/spotify.webp'
 
 export default function SocialMedia (): ReactElement {
   return (
