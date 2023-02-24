@@ -1,15 +1,17 @@
+//palett
 $elegant-black: #0d0d0d;
+$elegant-white: #fcfcfc;
 $red-carpet: #9c1c1c;
 $red-carpet-hover: #551111;
-$elegant-white: #fcfcfc;
 $statuette: #edce74;
 
-$menu: #000000;
+//background
+$principal-bg: #131313;
+$secondary-bg: #222222;
+$tertiary-bg: #000000;
 
-$home-bg: #131313;
-$principal-bg: #222222;
-
-$gradient: linear-gradient(
+//gradient
+$principal-gradient: linear-gradient(
   rgba(0, 0, 0, 0.808) 0%,
   rgba(0, 0, 0, 0.3) 50%,
   rgba(0, 0, 0, 0.15) 65%,
@@ -21,4 +23,5 @@ $gradient: linear-gradient(
   rgba(0, 0, 0, 0) 100%
 );
 
-$divider: rgba(255, 255, 255, 0.544);
+//divider
+$principal-divider: rgba(255, 255, 255, 0.544);
