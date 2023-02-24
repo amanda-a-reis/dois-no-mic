@@ -1,4 +1,4 @@
-@import '../../pattern/index.scss';
+@import '../pattern/index.scss';
 
 .flexConfig {
   display: flex;
@@ -72,5 +72,18 @@
   @media screen and (max-width: $small-screen) {
     height: $font-size-title-large;
     font-size: $font-size-title-large;
+  }
+}
+
+.line {
+  z-index: $top;
+  width: 8%;
+  height: 0;
+  border: 2px solid $statuette;
+  border-radius: $border-radius-medium-relative;
+
+  @media screen and (max-width: $small-screen) {
+    width: 18%;
+    border: 1px solid $statuette;
   }
 }
