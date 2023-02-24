@@ -1,5 +1,4 @@
-@import "../../patterns/colors.scss";
-@import "../../patterns/sizes.scss";
+@import '../../pattern/index.scss';
 
 .images {
   display: flex;
@@ -8,9 +7,9 @@
   justify-content: space-between;
   width: 100%;
   height: $top-menu-height;
-  background-color: $menu;
-  padding-left: $top-menu-padding;
-  padding-right: $top-menu-padding;
+  background-color: $principal-bg;
+  padding-left: $padding-small-relative;
+  padding-right: $padding-small-relative;
   
   @media screen and (max-width: $small-screen) {
     width: 100vw;
@@ -25,5 +24,5 @@
 
 .logo {
   width: auto;
-  height: $top-menu-icons;
+  height: $icon-height-large;
 }

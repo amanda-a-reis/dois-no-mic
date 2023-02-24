@@ -1,13 +1,11 @@
-@import "../../patterns/colors.scss";
-@import "../../patterns/sizes.scss";
-@import "../../patterns/z-index.scss";
+@import '../../pattern/index.scss';
 
 .container {
   z-index: $top;
   width: 8%;
   height: 0;
   border: 2px solid $statuette;
-  border-radius: 20%;
+  border-radius: $border-radius-medium-relative;
 
   @media screen and (max-width: $small-screen) {
     width: 18%;

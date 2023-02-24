@@ -1,16 +1,14 @@
-@import "../../patterns/colors.scss";
-@import "../../patterns/sizes.scss";
-@import "../../patterns/z-index.scss";
+@import '../../pattern/index.scss';
 
 .shadow {
   z-index: $middle;
   width: 100%;
-  height: $top-menu-gradient;
+  height: $gradient-large;
   position: absolute;
-  background: $gradient;
+  background: $principal-gradient;
   transform: translateY($top-menu-height);
 
   @media screen and (max-width: $small-screen) {
-    height: $top-menu-gradient-mobile;
+    height: $gradient-medium;
   }
 }

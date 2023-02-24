@@ -1,7 +1,4 @@
-@import "../../patterns/colors.scss";
-@import "../../patterns/sizes.scss";
-@import "../../patterns/z-index.scss";
-@import "../../patterns/fonts.scss";
+@import '../../pattern/index.scss';
 
 .flexConfig {
   display: flex;
@@ -16,11 +13,11 @@
 
 .textDefault {
   z-index: $top;
-  font-size: $oscar-title-font-size-small;
+  font-size: $font-size-title-small-relative;
   font-weight: $regular;
 
   @media screen and (max-width: $small-screen) {
-    font-size: $oscar-title-font-size-mobile-small;
+    font-size: $font-size-title-small;
   }
 }
 
@@ -30,56 +27,50 @@
 
 .container {
   flex-direction: column;
-  font-family: $nanum;
+  font-family: $secondary-font;
   color: $statuette;
-  margin-top: $oscar-title-margin-large;
+  margin-top: $margin-large;
 
   @media screen and (max-width: $small-screen) {
-    margin-top: $oscar-title-margin-mobile-large;
+    margin-top: $margin-medium;
   }
 }
 
 .top {
   flex-direction: row;
-  height: $oscar-title-font-size-small;
-  margin-bottom: $oscar-title-margin-small;
+  height: $font-size-title-small-relative;
+  margin-bottom: $margin-xxsmall;
 
   @media screen and (max-width: $small-screen) {
-    height: $oscar-title-font-size-mobile-small;
-    margin-bottom: $oscar-title-margin-mobile-small;
+    height: $font-size-title-small;
+    margin-bottom: $margin-xxsmall;
   }
 }
 
 .the {
-  padding-left: $oscar-title-padding-mobile-small;
-  padding-right: $oscar-title-padding-mobile-small;
-  
-  @media screen and (max-width: $small-screen) {
-    padding-left: $oscar-title-padding-mobile-small;
-    padding-right: $oscar-title-padding-mobile-small;
-  }
+  padding-left: $padding-small-rel;
+  padding-right: $padding-small-rel;
 }
 
 .year {
-  height: $oscar-title-font-size-small;
-  margin-top: $oscar-title-margin-small;
+  height: $font-size-title-small-relative;
+  margin-top: $margin-xxsmall;
 
   @media screen and (max-width: $small-screen) {
-    height: $oscar-title-font-size-mobile-small;
-    margin-top: $oscar-title-margin-mobile-small;
+    height: $font-size-title-small;
+    margin-top: $margin-xxsmall;
   }
 }
 
 .oscars {
   z-index: $top;
-  height: $oscar-title-font-size-large;
-  font-size: $oscar-title-font-size-large;
+  height: $font-size-title-large-relative;
+  font-size: $font-size-title-large-relative;
   font-weight: $regular;
   padding: 0;
   
   @media screen and (max-width: $small-screen) {
-    height: $oscar-title-font-size-mobile-large;
-    font-size: $oscar-title-font-size-mobile-large;
-    padding: 0;
+    height: $font-size-title-large;
+    font-size: $font-size-title-large;
   }
 }
