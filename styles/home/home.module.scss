@@ -2,6 +2,10 @@
 @import "../../styles/patterns/sizes.scss";
 
 .container {
+  width: auto;
+  height: auto;
+  background-color: $home-bg;
+  
   @media screen and (max-width: $small-screen) {
     width: auto;
     height: auto;

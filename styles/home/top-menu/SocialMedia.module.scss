@@ -2,22 +2,24 @@
 @import "../../patterns/sizes.scss";
 
 .container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: $top-menu-social-width;
+  height: $top-menu-icons;
+
   @media screen and (max-width: $small-screen) {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     width: $top-menu-social-mobile-width;
-    height: $top-menu-icons-mobile;
   }
 }
 
 .icons {
-  width: 100vw;
-  height: 100%;
+  width: auto;
+  height: $top-menu-social-height;
+  transition: ease-in 0.1s;
 
-  @media screen and (max-width: $small-screen) {
-    width: auto;
-    height: $top-menu-social-mobile;
+  &:hover {
+    filter: invert(0.5);
   }
 }

@@ -12,14 +12,13 @@ export default function HeroImage (): ReactElement {
         alt="Oscar statuette photo"
         className={style.figurine}
         placeholder="blur"
-        quality={100}
       />
       <Image
         src={bg}
         alt="Composite of various movie posters from Oscar 2023 awards"
         className={style.bg}
         placeholder="blur"
-        quality={100}
+        sizes="(max-width: 414px) 100vw"
       />
     </div>
   )

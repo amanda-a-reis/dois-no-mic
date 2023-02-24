@@ -1,16 +1,23 @@
-//fonts
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
-
 //mobile
 $small-screen: 414px;
 
+//top-menu
+$top-menu-height: 80px;
+$top-menu-padding: 8%;
+$top-menu-icons: 32px;
+$top-menu-social-width: 10vw;
+$top-menu-social-height: 28px;
+$top-menu-gradient: 100px;
+
 //top-menu-mobile
-$top-menu-mobile: 80px;
-$top-menu-icons-mobile: 32px;
-$top-menu-social-mobile: 28px;
 $top-menu-social-mobile-width: 25%;
-$top-menu-padding-mobile: 8%;
 $top-menu-gradient-mobile: 88px;
+
+//oscar-title
+$oscar-title-font-size-small: 2.5vw;
+$oscar-title-font-size-large: 6vw;
+$oscar-title-margin-large: 40px;
+$oscar-title-margin-small: 5px;
 
 //oscar-title-mobile
 $oscar-title-font-size-mobile-small: 24px;
@@ -19,9 +26,18 @@ $oscar-title-padding-mobile-small: 0.5rem;
 $oscar-title-margin-mobile-large: 30px;
 $oscar-title-margin-mobile-small: 5px;
 
+//hero-image
+$hero-image-small-height: 40vw;
+$hero-image-margin-small: 30px;
+
 //hero-image-mobile
 $hero-image-mobile-small-height: 65vw;
 $hero-image-margin-mobile-small: 50px;
+
+//home-text
+$home-text-font-size-large: 3.5vw;
+$home-text-font-size-small: 1.8vw;
+$home-text-small-width: 40%;
 
 //home-text-mobile
 $home-text-margin-mobile-small: 20px;
@@ -29,6 +45,11 @@ $home-text-margin-mobile-large: 40px;
 $home-text-font-size-mobile-small: 16px;
 $home-text-font-size-mobile-large: 45px;
 $home-text-mobile-small-width: 85%;
+
+//home-button
+$home-button-width: 20vw;
+$home-button-height: 3.5vw;
+$home-button-font-size: 1.3vw;
 
 //home-button-mobile
 $home-button-margin-mobile-small: 10px;
