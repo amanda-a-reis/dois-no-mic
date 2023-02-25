@@ -95,26 +95,26 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
 
   return (
     <div className={style.view}>
-      <TopMenu />
       <div
-        className={clsx({
-          [style.container]: id < userVotesId,
-          [style.containerVotes]: id === userVotesId
-        })}
+        className={style.container}
       >
+        <TopMenu />
         <div
           className={style.categoryContainer}
         >
           <div className={style.line}></div>
-          <h1 className={style.category}>{categories[id].name}</h1>
+          <h1 className={style.categoryName}>{categories[id].name}</h1>
           <div className={style.line}></div>
         </div>
-        <div className={style.movies}>
+        <div className={clsx({
+          [style.containerMovies]: id < userVotesId,
+          [style.containerUserVotes]: id === userVotesId
+        })}>
           {categories[id].movies.map((movie, index) => (
             <button
             className={clsx({
-              [style.select]: id < userVotesId,
-              [style.default]: id === userVotesId
+              [style.buttonMovies]: id < userVotesId,
+              [style.buttonUserVotes]: id === userVotesId
             })}
               key={index}
               onClick={async () => {
@@ -131,8 +131,8 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
                   )
                 : id === userVotesId
                   ? (
-                <div className={style.choosed}>
-                  <p className={style.categorieName}>{categoryNames[index]}</p>
+                <div>
+                  <p className={style.choosedName}>{categoryNames[index]}</p>
                   <Card
                     title={movie.titlePT}
                     image={movie.image}
