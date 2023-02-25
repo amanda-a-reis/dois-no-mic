@@ -1,17 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import MongoDB from '../../../../mongodb/config'
-import { Votes } from '../../../../mongodb/model'
-import type { Vote } from '../../../../mongodb/model'
+import { UserVote } from '../../../../mongodb/vote'
 
 MongoDB.instance.connect()
 
-async function createVote (movie: string): Promise<void> {
-  const newVote = new Votes({ vote: movie })
+async function createVote (movie: string, category: string, savedAt: Date): Promise<void> {
+  const newVote = new UserVote({ movie, category, savedAt })
   await newVote.save()
-}
-
-async function getAllVotes (): Promise<Vote[]> {
-  return await Votes.find()
 }
 
 export default async function handler (
@@ -24,23 +19,19 @@ export default async function handler (
 
   if (id === process.env.API_KEY) {
     switch (method) {
-      case 'GET': {
-        const votes = await getAllVotes()
-        res.status(200).json(votes)
-        break
-      }
       case 'POST': {
-        const { vote } = req.body
-        const message = `Created vote ${vote as string}`
-        await createVote(vote)
-        res.status(201).json({ message })
+        const { movie, category }: { movie: string, category: string } = req.body
+        const date = new Date()
+        const message = `The vote for movie ${movie} in ${category} was saved at ${date.toLocaleString()}`
+        await createVote(movie, category, date)
+        res.status(201).end(message)
         break
       }
       default:
-        res.setHeader('Allow', ['GET', 'POST'])
+        res.setHeader('Allow', ['POST'])
         res.status(405).end(`Method ${method} Not Allowed`)
     }
   } else {
-    res.status(401).json({ message: 'Sorry, you do not have access.' })
+    res.status(401).end('Sorry, you do not have access.')
   }
 }
