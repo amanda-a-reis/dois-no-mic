@@ -1,0 +1,165 @@
+@import "../pattern/index.scss";
+
+.container {
+  font-family: $principal-font;
+  color: $elegant-white;
+
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    width: 170px;
+    height: 260px;
+    margin: 0;
+    margin-bottom: 120px;
+  }
+}
+
+.card {
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 160px;
+    height: 260px;
+    background-color: $tertiary-bg;
+    box-shadow: 3px 8px 10px black;
+    border-radius: 4px;
+    margin: 0;
+  }
+}
+
+.image {
+  @media screen and (max-width: $small-screen) {
+    width: 155px;
+    height: 215px;
+    object-fit:cover;
+    border-radius: 4px;
+  }
+}
+
+.icon {
+  @media screen and (max-width: $small-screen) {
+    width: auto;
+    height: 25px;
+    padding: 2px;
+  }
+}
+
+.vote {
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    height: 50px;
+    margin: 0;
+  }
+}
+
+.text {
+  @media screen and (max-width: $small-screen) {
+    font-size: 18px;
+    height: auto;
+    padding-right: 20px;
+    margin: 0;
+  }
+}
+
+.title {
+  @media screen and (max-width: $small-screen) {
+    width: 160px;
+    height: auto;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    margin: 0;
+    margin-top: 20px;
+  }
+}
+
+.votedCard {
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 160px;
+    height: 260px;
+    background-color: $statuette;
+    box-shadow: 3px 8px 10px black;
+    border-radius: 4px;
+    margin: 0;
+  }
+}
+
+.votedIcon {
+  @media screen and (max-width: $small-screen) {
+    width: auto;
+    height: 25px;
+    filter: invert(1);
+    padding: 2px;
+  }
+}
+
+.votedText {
+  @media screen and (max-width: $small-screen) {
+    height: auto;
+    font-size: 18px;
+    font-weight: $bold;
+    color: $elegant-black;
+    padding-right: 20px;
+    margin: 0;
+  }
+}
+
+.excludedCard {
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 160px;
+    height: 260px;
+    background-color: $tertiary-bg;
+    border-radius: 4px;
+    opacity: 0.3;
+    margin: 0;
+  }
+}
+
+.excludedText {
+  @media screen and (max-width: $small-screen) {
+    font-size: 18px;
+    height: auto;
+    padding-right: 20px;
+    margin: 0;
+  }
+}
+
+.excludedTitle {
+  @media screen and (max-width: $small-screen) {
+    width: 160px;
+    height: auto;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    margin: 0;
+    margin-top: 20px;
+    opacity: 0.3;
+  }
+}
+
+.votedTitle {
+  @media screen and (max-width: $small-screen) {
+    width: 160px;
+    height: auto;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    margin: 0;
+    margin-top: 20px;
+  }
+}
