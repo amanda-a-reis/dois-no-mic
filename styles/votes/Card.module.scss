@@ -163,3 +163,9 @@
     margin-top: 20px;
   }
 }
+
+.disabled {
+  @media screen and (max-width: $small-screen) {
+    display: none;
+  }
+}

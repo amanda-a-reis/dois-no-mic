@@ -39,7 +39,8 @@ export default function Card ({ title, image, type, vote, result = '' }: MoviePr
             className={clsx({
               [style.text]: type === 'default',
               [style.votedText]: type === 'voted',
-              [style.excludedText]: type === 'excluded'
+              [style.excludedText]: type === 'excluded',
+              [style.disabled]: vote === 'DISABLED'
             })}
           >
             {vote}
