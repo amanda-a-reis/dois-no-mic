@@ -75,7 +75,6 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
     } else {
       setId(id + 1)
     }
-    console.log(chosenMovies)
   }
 
   function previous (): void {
