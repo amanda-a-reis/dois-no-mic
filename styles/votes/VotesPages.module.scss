@@ -2,12 +2,8 @@
 
 .view {
   @media screen and (max-width: $small-screen) {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
     width: 100vw;
     height: 100vh;
-    position: relative;
   }
 }
 
@@ -19,30 +15,6 @@
     align-items: center;
     width: 100vw;
     height: 100%;
-  }
-}
-
-.containerVotes {
-  @media screen and (max-width: $small-screen) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100%;
-  }
-}
-
-.movies {
-  @media screen and (max-width: $small-screen) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: auto;
-    margin-top: 30px;
-    padding-bottom: 50px;
   }
 }
 
@@ -58,7 +30,52 @@
   }
 }
 
-.category {
+.containerUserVotes {
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: auto;
+    margin-top: 30px;
+    padding-bottom: 50px;
+  }
+}
+
+.containerMovies {
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: auto;
+    margin-top: 30px;
+    padding-bottom: 50px;
+  }
+}
+
+.categoryButtonContainer {
+  @media screen and (max-width: $small-screen) {
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: $principal-font;
+    color: $elegant-white;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    background-color: $red-carpet;
+    transform: translateY(-50px);
+    margin: 0;
+  }
+}
+
+.categoryName {
   @media screen and (max-width: $small-screen) {
     z-index: $top;
     width: 45%;
@@ -84,7 +101,7 @@
   }
 }
 
-.select {
+.buttonMovies {
   @media screen and (max-width: $small-screen) {
     display: flex;
     flex-direction: column;
@@ -98,18 +115,22 @@
   }
 }
 
-.categoryButtonContainer {
+.buttonUserVotes {
   @media screen and (max-width: $small-screen) {
-    z-index: 10;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-family: $principal-font;
-    color: $elegant-white;
-    width: 100%;
-    height: 50px;
-    position: fixed;
-    background-color: $red-carpet;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.choosedName {
+  @media screen and (max-width: $small-screen) {
+    font-size: 5.5vw;
+    width: 155px;
+    text-align: center;
+    color: $statuette;
+    margin: 0;
+    margin-bottom: 20px;
   }
 }
 
@@ -134,28 +155,6 @@
     text-align: center;
     font-weight: $bold;
     margin: 0;
-  }
-}
-
-.categorieName {
-  @media screen and (max-width: $small-screen) {
-    font-size: 5.5vw;
-    width: 155px;
-    text-align: center;
-    color: $statuette;
-    margin: 0;
-    margin-bottom: 20px;
-  }
-}
-
-.default {
-  @media screen and (max-width: $small-screen) {
-    font-size: 6vw;
-    text-align: center;
-    color: $statuette;
-    margin: 0;
-    background-color: transparent;
-    border: none;
   }
 }
 
