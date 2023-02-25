@@ -19,11 +19,11 @@ interface Environment {
 export default function VotesPage ({ environment }: Environment): ReactElement {
   const [id, setId] = useState(0)
   const [chosenMovies, setChosenMovies] = useState([])
-  const [categoriesName, setCategoriesName] = useState([])
+  const [categoryNames, setCategoryNames] = useState([])
 
   const userVotes = {
     name: 'Meus Votos',
-    categories: categoriesName,
+    categories: categoryNames,
     movies: chosenMovies,
     voted: true,
     status: [],
@@ -31,10 +31,9 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
   }
 
   const [categories, setCategories] = useState([...categoriesData, userVotes])
-  const categoriesSize = categories.length
-
   const [, setStatus] = useState(categories[id].status)
-  const [isVoted, setIsVoted] = useState(false)
+
+  const userVotesId = categories.length - 1
 
   function changeStatus (index: number): void {
     const updateCategories = categories
@@ -45,8 +44,6 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
     setStatus(list)
 
     updateCategories[id].status = list
-
-    setIsVoted(true)
     updateCategories[id].voted = true
 
     setCategories(updateCategories)
@@ -59,26 +56,28 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
     newVotes.push(categories[id].movies[index])
     setChosenMovies(newVotes)
 
-    updateCategories[categoriesSize - 1].movies = chosenMovies
-    const newCategName = categoriesName
+    updateCategories[userVotesId].movies = chosenMovies
+    const newCategName = categoryNames
     newCategName.push(categories[id].name)
-    setCategoriesName(newCategName)
+    setCategoryNames(newCategName)
 
-    const list = Array.from({ length: chosenMovies.length }, () => 'voted')
-    updateCategories[categoriesSize - 1].status = list
+    updateCategories[userVotesId].size = chosenMovies.length
+
+    const list = Array.from({ length: updateCategories[userVotesId].size }, () => 'voted')
+    updateCategories[userVotesId].status = list
 
     setCategories(updateCategories)
   }
 
-  function increment (): void {
-    if (id === categoriesSize - 1) {
-      setId(categoriesSize - 1)
+  function next (): void {
+    if (id === userVotesId) {
+      setId(userVotesId)
     } else {
       setId(id + 1)
     }
   }
 
-  function decrement (): void {
+  function previous (): void {
     if (id === 0) {
       setId(0)
     } else {
@@ -99,8 +98,8 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
       <TopMenu />
       <div
         className={clsx({
-          [style.container]: id < categoriesSize - 1,
-          [style.containerVotes]: id === categoriesSize - 1
+          [style.container]: id < userVotesId,
+          [style.containerVotes]: id === userVotesId
         })}
       >
         <div
@@ -114,8 +113,8 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
           {categories[id].movies.map((movie, index) => (
             <button
             className={clsx({
-              [style.select]: id < categoriesSize - 1,
-              [style.default]: id === categoriesSize - 1
+              [style.select]: id < userVotesId,
+              [style.default]: id === userVotesId
             })}
               key={index}
               onClick={async () => {
@@ -125,22 +124,22 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
               }}
               disabled={categories[id].voted}
             >
-              {id === categoriesSize - 1 &&
-              categories[categoriesSize - 1].movies.length === 0
+              {id === userVotesId &&
+              categories[userVotesId].size === 0
                 ? (
                     ''
                   )
-                : id === categoriesSize - 1
+                : id === userVotesId
                   ? (
                 <div className={style.choosed}>
-                  <p className={style.categorieName}>{categoriesName[index]}</p>
+                  <p className={style.categorieName}>{categoryNames[index]}</p>
                   <Card
                     title={movie.titlePT}
                     image={movie.image}
                     key={index}
                     type={categories[id].status[index]}
                     vote={
-                      isVoted && categories[id].status[index] === 'voted'
+                      categories[id].voted && categories[id].status[index] === 'voted'
                         ? 'VOTADO'
                         : 'VOTAR'
                     }
@@ -155,7 +154,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
                   key={index}
                   type={categories[id].status[index]}
                   vote={
-                    isVoted && categories[id].status[index] === 'voted'
+                    categories[id].voted && categories[id].status[index] === 'voted'
                       ? 'VOTADO'
                       : 'VOTAR'
                   }
@@ -170,7 +169,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
         <button
           className={style.categoryButton}
           onClick={() => {
-            decrement()
+            previous()
           }}
         >
           {id === 0 ? '' : '< Anterior'}
@@ -179,12 +178,12 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
         <button
           className={style.categoryButton}
           onClick={() => {
-            increment()
+            next()
           }}
         >
-          {id === categoriesSize - 2
+          {id === userVotesId - 1
             ? 'MEUS VOTOS'
-            : id === categoriesSize - 1
+            : id === userVotesId
               ? ''
               : 'Próximo >'}
         </button>
