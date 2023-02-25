@@ -32,6 +32,7 @@ export default function Card ({ title, image, type, vote, result = '' }: MoviePr
           className={
             style.image
           }
+          priority
         />
         <div className={style.vote}>
           <p

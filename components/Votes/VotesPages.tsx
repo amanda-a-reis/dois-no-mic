@@ -6,56 +6,73 @@ import axios from 'axios'
 import { clsx } from 'clsx'
 
 import {
-  categories,
-  categoriesLenght
+  categoriesData
 } from '../../movies/moviesData'
 
-interface ApiKey {
-  apiKey: string
+interface Environment {
+  environment: {
+    apiKey: string
+    url: string
+  }
 }
 
-export default function VotesPage ({ apiKey }: ApiKey): ReactElement {
-  const listDefault = Array.from({ length: categoriesLenght }, () => 'default')
-  const listExcluded = Array.from({ length: categoriesLenght }, () => 'excluded')
-  const listVoted = Array.from({ length: categoriesLenght }, () => 'voted')
-
-  const [, setTypeList] = useState(listDefault)
-  const [voted, setVoted] = useState(false)
+export default function VotesPage ({ environment }: Environment): ReactElement {
   const [id, setId] = useState(0)
-  const [votes, setVotes] = useState([])
+  const [chosenMovies, setChosenMovies] = useState([])
   const [categoriesName, setCategoriesName] = useState([])
 
-  const r = {
+  const userVotes = {
     name: 'Meus Votos',
     categories: categoriesName,
-    movies: votes,
+    movies: chosenMovies,
     voted: true,
-    list: listVoted
+    status: [],
+    size: chosenMovies.length
   }
 
-  const [categ, setCateg] = useState([...categories, r])
+  const [categories, setCategories] = useState([...categoriesData, userVotes])
+  const categoriesSize = categories.length
 
-  function changeList (index: number, title: string): void {
+  const [, setStatus] = useState(categories[id].status)
+  const [isVoted, setIsVoted] = useState(false)
+
+  function changeStatus (index: number): void {
+    const updateCategories = categories
+
+    const listExcluded = Array.from({ length: categories[id].size }, () => 'excluded')
     const list = listExcluded
     list[index] = 'voted'
-    setTypeList(list)
-    setVoted(true)
-    const newVotes = votes
-    newVotes.push(categ[id].movies[index])
-    setVotes(newVotes)
-    const updateCateg = categ
-    updateCateg[id].voted = voted
-    updateCateg[id].list = list
-    updateCateg[categ.length - 1].movies = votes
+    setStatus(list)
+
+    updateCategories[id].status = list
+
+    setIsVoted(true)
+    updateCategories[id].voted = true
+
+    setCategories(updateCategories)
+  }
+
+  function changeUserVotes (index: number): void {
+    const updateCategories = categories
+
+    const newVotes = chosenMovies
+    newVotes.push(categories[id].movies[index])
+    setChosenMovies(newVotes)
+
+    updateCategories[categoriesSize - 1].movies = chosenMovies
     const newCategName = categoriesName
-    newCategName.push(categ[id].name)
+    newCategName.push(categories[id].name)
     setCategoriesName(newCategName)
-    setCateg(updateCateg)
+
+    const list = Array.from({ length: chosenMovies.length }, () => 'voted')
+    updateCategories[categoriesSize - 1].status = list
+
+    setCategories(updateCategories)
   }
 
   function increment (): void {
-    if (id === categ.length - 1) {
-      setId(categ.length - 1)
+    if (id === categoriesSize - 1) {
+      setId(categoriesSize - 1)
     } else {
       setId(id + 1)
     }
@@ -70,8 +87,8 @@ export default function VotesPage ({ apiKey }: ApiKey): ReactElement {
   }
 
   async function postVote (movie: string, category: string): Promise<void> {
-    const url = `http://localhost:3000/api/oscar/votes/${apiKey}`
-    await axios.post(url, {
+    const URL = `${environment.url}/api/oscar/votes/${environment.apiKey}`
+    await axios.post(URL, {
       movie,
       category
     })
@@ -82,37 +99,38 @@ export default function VotesPage ({ apiKey }: ApiKey): ReactElement {
       <TopMenu />
       <div
         className={clsx({
-          [style.container]: id < categ.length - 1,
-          [style.containerVotes]: id === categ.length - 1
+          [style.container]: id < categoriesSize - 1,
+          [style.containerVotes]: id === categoriesSize - 1
         })}
       >
         <div
           className={style.categoryContainer}
         >
           <div className={style.line}></div>
-          <h1 className={style.category}>{categ[id].name}</h1>
+          <h1 className={style.category}>{categories[id].name}</h1>
           <div className={style.line}></div>
         </div>
         <div className={style.movies}>
-          {categ[id].movies.map((movie, index) => (
+          {categories[id].movies.map((movie, index) => (
             <button
             className={clsx({
-              [style.select]: id < categ.length - 1,
-              [style.default]: id === categ.length - 1
+              [style.select]: id < categoriesSize - 1,
+              [style.default]: id === categoriesSize - 1
             })}
               key={index}
               onClick={async () => {
-                changeList(index, movie.titlePT)
-                await postVote(movie.titlePT, categ[id].name)
+                changeStatus(index)
+                changeUserVotes(index)
+                await postVote(movie.titlePT, categories[id].name)
               }}
-              disabled={categ[id].voted}
+              disabled={categories[id].voted}
             >
-              {id === categ.length - 1 &&
-              categ[categ.length - 1].movies.length === 0
+              {id === categoriesSize - 1 &&
+              categories[categoriesSize - 1].movies.length === 0
                 ? (
                     ''
                   )
-                : id === categ.length - 1
+                : id === categoriesSize - 1
                   ? (
                 <div className={style.choosed}>
                   <p className={style.categorieName}>{categoriesName[index]}</p>
@@ -120,9 +138,9 @@ export default function VotesPage ({ apiKey }: ApiKey): ReactElement {
                     title={movie.titlePT}
                     image={movie.image}
                     key={index}
-                    type={categ[id].list[index]}
+                    type={categories[id].status[index]}
                     vote={
-                      voted && categ[id].list[index] === 'voted'
+                      isVoted && categories[id].status[index] === 'voted'
                         ? 'VOTADO'
                         : 'VOTAR'
                     }
@@ -135,9 +153,9 @@ export default function VotesPage ({ apiKey }: ApiKey): ReactElement {
                   title={movie.titlePT}
                   image={movie.image}
                   key={index}
-                  type={categ[id].list[index]}
+                  type={categories[id].status[index]}
                   vote={
-                    voted && categ[id].list[index] === 'voted'
+                    isVoted && categories[id].status[index] === 'voted'
                       ? 'VOTADO'
                       : 'VOTAR'
                   }
@@ -164,9 +182,9 @@ export default function VotesPage ({ apiKey }: ApiKey): ReactElement {
             increment()
           }}
         >
-          {id === categ.length - 2
+          {id === categoriesSize - 2
             ? 'MEUS VOTOS'
-            : id === categ.length - 1
+            : id === categoriesSize - 1
               ? ''
               : 'Próximo >'}
         </button>
