@@ -75,6 +75,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
     } else {
       setId(id + 1)
     }
+    console.log(chosenMovies)
   }
 
   function previous (): void {
@@ -95,10 +96,10 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
 
   return (
     <div className={style.view}>
+      <TopMenu />
       <div
         className={style.container}
       >
-        <TopMenu />
         <div
           className={style.categoryContainer}
         >
@@ -140,7 +141,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
                     type={categories[id].status[index]}
                     vote={
                       categories[id].voted && categories[id].status[index] === 'voted'
-                        ? 'VOTADO'
+                        ? id === userVotesId ? 'DISABLED' : 'VOTADO'
                         : 'VOTAR'
                     }
                     result=''
