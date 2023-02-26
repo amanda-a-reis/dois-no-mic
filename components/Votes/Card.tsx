@@ -32,6 +32,8 @@ export default function Card ({ title, image, type, vote, result = '' }: MoviePr
           className={
             style.image
           }
+          placeholder="blur"
+          blurDataURL="../../public/placeholder.webp"
           priority
         />
         <div className={style.vote}>
