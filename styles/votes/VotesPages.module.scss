@@ -16,7 +16,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: auto;
 
   @media screen and (max-width: $small-screen) {
     display: flex;
@@ -35,7 +35,7 @@
   width: 100%;
   height: 50px;
   margin-top: 80px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 
   @media screen and (max-width: $small-screen) {
     height: 50px;
@@ -46,20 +46,20 @@
 
 .containerUserVotes {
   display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: auto;
-    margin-top: 0px;
-    padding-bottom: 200px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: auto;
+  margin-top: 0px;
+  padding-bottom: 200px;
 
   @media screen and (max-width: $small-screen) {
     flex-direction: column;
     width: 100vw;
     margin-top: 30px;
-    padding-bottom: 50px;
+    padding-bottom: 150px;
   }
 }
 
@@ -69,9 +69,9 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 95vw;
+  width: 100vw;
   height: auto;
-  margin-top: 80px;
+  margin-top: 50px;
   padding-bottom: 50px;
 
   @media screen and (max-width: $small-screen) {
@@ -109,7 +109,7 @@
   width: 40%;
   height: auto;
   font-family: $secondary-font;
-  font-size: 4vw;
+  font-size: 2.5vw;
   line-height: 80px;
   color: $statuette;
   text-align: center;
@@ -147,11 +147,11 @@
   flex-direction: column;
   align-items: center;
   justify-items: center;
-  width: 370px;
-  height: 470px;
+  width: 240px;
+  height: 360px;
   background-color: transparent;
   border: none;
-  margin-bottom: 250px;
+  margin-bottom: 160px;
 
   @media screen and (max-width: $small-screen) {
     display: flex;
@@ -167,28 +167,52 @@
 }
 
 .buttonUserVotes {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  width: 240px;
+  height: 360px;
   background-color: transparent;
   border: none;
-}
-
-.choosedName {
-  font-size: 1.5vw;
-  width: 100%;
-  text-align: center;
-  color: $statuette;
-  margin: 0;
-  margin-bottom: 20px;
-  margin-top: 100px;
+  margin-bottom: 230px;
 
   @media screen and (max-width: $small-screen) {
-    font-size: 5.5vw;
-    width: 155px;
-    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    width: 170px;
+    height: 300px;
+    background-color: transparent;
+    border: none;
+    margin-bottom: 140px;
   }
 }
 
-.categoryButton {
+.choosedName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  width: 200px;
+  height: 60px;
+  text-align: center;
+  color: $statuette;
+  margin: 0;
+  margin-bottom: 10px;
+  margin-top: 0px;
+
+  @media screen and (max-width: $small-screen) {
+    font-size: 5.5vw;
+    width: 170px;
+    height: auto;
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
+}
+
+.selectedCategoryButton {
   width: 33%;
   height: 100%;
   background-color: transparent;
@@ -196,11 +220,32 @@
   color: $elegant-white;
   font-size: 30px;
   font-weight: $bold;
-  word-spacing: 10px;
+  transition: ease-in 0.05s;
+
+  &:hover {
+    background-color: $red-carpet-hover;
+  }
 
   @media screen and (max-width: $small-screen) {
     font-size: 4.5vw;
-    word-spacing: 10px;
+
+    &:hover {
+      background-color: $red-carpet;
+    }
+  }
+}
+
+.noButton{
+  width: 33%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  color: $elegant-white;
+  font-size: 30px;
+  font-weight: $bold;
+
+  @media screen and (max-width: $small-screen) {
+    font-size: 4.5vw;
   }
 }
 
@@ -221,3 +266,40 @@
     margin: 0;
   }
 }
+
+.choosedContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-content: center;
+  height: 400px;
+  width: 200px;
+  margin-top: 50px;
+
+  @media screen and (max-width: $small-screen) {
+    display: flex;
+    width: 170px;
+    height: 460px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
+
+.noFade {
+  opacity: 0;
+}
+
+.fade {
+  animation: fadeIn 0.5s ease-in;
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
