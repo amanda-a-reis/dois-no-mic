@@ -52,7 +52,9 @@ export default function Card ({ title, image, type, vote, result = '' }: MoviePr
             alt="Heart icon"
             className={clsx({
               [style.icon]: type === 'default',
-              [style.votedIcon]: type === 'voted'
+              [style.votedIcon]: type === 'voted',
+              [style.excludedIcon]: type === 'excluded',
+              [style.disabledIcon]: vote === 'DISABLED'
             })}
           />
         </div>

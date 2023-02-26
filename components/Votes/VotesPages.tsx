@@ -1,4 +1,4 @@
-import { type ReactElement, useState } from 'react'
+import { type ReactElement, useState, useEffect } from 'react'
 import TopMenu from '../TopMenu/TopMenu'
 import Card from './Card'
 import style from '../../styles/votes/VotesPages.module.scss'
@@ -32,6 +32,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
 
   const [categories, setCategories] = useState([...categoriesData, userVotes])
   const [, setStatus] = useState(categories[id].status)
+  const [fade, setFade] = useState(style.noFade)
 
   const userVotesId = categories.length - 1
 
@@ -74,6 +75,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
       setId(userVotesId)
     } else {
       setId(id + 1)
+      setFade(style.noFade)
     }
   }
 
@@ -82,8 +84,13 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
       setId(0)
     } else {
       setId(id - 1)
+      setFade(style.noFade)
     }
   }
+
+  useEffect(() => {
+    setFade(style.fade)
+  }, [id])
 
   async function postVote (movie: string, category: string): Promise<void> {
     const URL = `${environment.url}/api/oscar/votes/${environment.apiKey}`
@@ -92,6 +99,9 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
       category
     })
   }
+
+  const categoryButtonNext = id === 0 ? style.noButton : style.selectedCategoryButton
+  const categoryButtonPrevious = id === userVotesId ? style.noButton : style.selectedCategoryButton
 
   return (
     <div className={style.view}>
@@ -103,7 +113,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
           className={style.categoryContainer}
         >
           <div className={style.line}></div>
-          <h1 className={style.categoryName}>{categories[id].name}</h1>
+          <h1 className={`${style.categoryName} ${fade}`}>{categories[id].name}</h1>
           <div className={style.line}></div>
         </div>
         <div className={clsx({
@@ -131,7 +141,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
                   )
                 : id === userVotesId
                   ? (
-                <div>
+                <div className={`${style.choosedContainer} ${fade}`}>
                   <p className={style.choosedName}>{categoryNames[index]}</p>
                   <Card
                     title={movie.titlePT}
@@ -148,6 +158,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
                 </div>
                     )
                   : (
+                <div className={fade}>
                 <Card
                   title={movie.titlePT}
                   image={movie.image}
@@ -160,6 +171,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
                   }
                   result=''
                 />
+                </div>
                     )}
             </button>
           ))}
@@ -167,7 +179,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
       </div>
       <div className={style.categoryButtonContainer}>
         <button
-          className={style.categoryButton}
+          className={categoryButtonNext}
           onClick={() => {
             previous()
           }}
@@ -176,13 +188,13 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
         </button>
         <p className={style.categoryText}>Categoria</p>
         <button
-          className={style.categoryButton}
+          className={categoryButtonPrevious}
           onClick={() => {
             next()
           }}
         >
           {id === userVotesId - 1
-            ? 'MEUS VOTOS'
+            ? 'Meus Votos'
             : id === userVotesId
               ? ''
               : 'Próximo >'}
