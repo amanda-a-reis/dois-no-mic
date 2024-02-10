@@ -1,22 +1,23 @@
 import { type ReactElement, useState, useEffect } from 'react'
-import TopMenu from '../TopMenu/TopMenu'
-import Card from './Card'
+
 import style from '../../styles/votes/VotesPages.module.scss'
-import axios from 'axios'
 import { clsx } from 'clsx'
 
-import {
-  categoriesData
-} from '../../movies/moviesData'
+import { categoriesData } from '../../movies/moviesData'
+import TopMenu from '../../components/TopMenu/TopMenu'
+import Card from '../../components/Votes/MovieCard'
+import usePostVote from './hooks/usePostVote'
+import { EnvironmentVariables } from '../../types/IVotes'
 
-interface Environment {
-  environment: {
-    apiKey: string
-    url: string
-  }
+interface VotesPageProps {
+  environment: EnvironmentVariables
 }
 
-export default function VotesPage ({ environment }: Environment): ReactElement {
+export default function VotesPage (props: VotesPageProps): ReactElement {
+  const { environment } = props
+
+  const { postVote } = usePostVote(environment)
+
   const [id, setId] = useState(0)
   const [chosenMovies, setChosenMovies] = useState([])
   const [categoryNames, setCategoryNames] = useState([])
@@ -39,7 +40,10 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
   function changeStatus (index: number): void {
     const updateCategories = categories
 
-    const listExcluded = Array.from({ length: categories[id].size }, () => 'excluded')
+    const listExcluded = Array.from(
+      { length: categories[id].size },
+      () => 'excluded'
+    )
     const list = listExcluded
     list[index] = 'voted'
     setStatus(list)
@@ -64,7 +68,10 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
 
     updateCategories[userVotesId].size = chosenMovies.length
 
-    const list = Array.from({ length: updateCategories[userVotesId].size }, () => 'voted')
+    const list = Array.from(
+      { length: updateCategories[userVotesId].size },
+      () => 'voted'
+    )
     updateCategories[userVotesId].status = list
 
     setCategories(updateCategories)
@@ -92,40 +99,34 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
     setFade(style.fade)
   }, [id])
 
-  async function postVote (movie: string, category: string): Promise<void> {
-    const URL = `${environment.url}/api/oscar/votes/${environment.apiKey}`
-    await axios.post(URL, {
-      movie,
-      category
-    })
-  }
-
-  const categoryButtonNext = id === 0 ? style.noButton : style.selectedCategoryButton
-  const categoryButtonPrevious = id === userVotesId ? style.noButton : style.selectedCategoryButton
+  const categoryButtonNext =
+    id === 0 ? style.noButton : style.selectedCategoryButton
+  const categoryButtonPrevious =
+    id === userVotesId ? style.noButton : style.selectedCategoryButton
 
   return (
     <div className={style.view}>
       <TopMenu />
-      <div
-        className={style.container}
-      >
-        <div
-          className={style.categoryContainer}
-        >
+      <div className={style.container}>
+        <div className={style.categoryContainer}>
           <div className={style.line}></div>
-          <h1 className={`${style.categoryName} ${fade}`}>{categories[id].name}</h1>
+          <h1 className={`${style.categoryName} ${fade}`}>
+            {categories[id].name}
+          </h1>
           <div className={style.line}></div>
         </div>
-        <div className={clsx({
-          [style.containerMovies]: id < userVotesId,
-          [style.containerUserVotes]: id === userVotesId
-        })}>
+        <div
+          className={clsx({
+            [style.containerMovies]: id < userVotesId,
+            [style.containerUserVotes]: id === userVotesId
+          })}
+        >
           {categories[id].movies.map((movie, index) => (
             <button
-            className={clsx({
-              [style.buttonMovies]: id < userVotesId,
-              [style.buttonUserVotes]: id === userVotesId
-            })}
+              className={clsx({
+                [style.buttonMovies]: id < userVotesId,
+                [style.buttonUserVotes]: id === userVotesId
+              })}
               key={index}
               onClick={async () => {
                 changeStatus(index)
@@ -134,8 +135,7 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
               }}
               disabled={categories[id].voted}
             >
-              {id === userVotesId &&
-              categories[userVotesId].size === 0
+              {id === userVotesId && categories[userVotesId].size === 0
                 ? (
                     ''
                   )
@@ -144,33 +144,35 @@ export default function VotesPage ({ environment }: Environment): ReactElement {
                 <div className={`${style.choosedContainer} ${fade}`}>
                   <p className={style.choosedName}>{categoryNames[index]}</p>
                   <Card
-                    title={movie.titlePT}
-                    image={movie.image}
+                    movieTitle={movie.titlePT}
+                    posterImage={movie.image}
                     key={index}
                     type={categories[id].status[index]}
-                    vote={
-                      categories[id].voted && categories[id].status[index] === 'voted'
-                        ? id === userVotesId ? 'DISABLED' : 'VOTADO'
+                    voteStatusLabel={
+                      categories[id].voted &&
+                      categories[id].status[index] === 'voted'
+                        ? id === userVotesId
+                          ? 'DISABLED'
+                          : 'VOTADO'
                         : 'VOTAR'
                     }
-                    result=''
                   />
                 </div>
                     )
                   : (
                 <div className={fade}>
-                <Card
-                  title={movie.titlePT}
-                  image={movie.image}
-                  key={index}
-                  type={categories[id].status[index]}
-                  vote={
-                    categories[id].voted && categories[id].status[index] === 'voted'
-                      ? 'VOTADO'
-                      : 'VOTAR'
-                  }
-                  result=''
-                />
+                  <Card
+                    movieTitle={movie.titlePT}
+                    posterImage={movie.image}
+                    key={index}
+                    type={categories[id].status[index]}
+                    voteStatusLabel={
+                      categories[id].voted &&
+                      categories[id].status[index] === 'voted'
+                        ? 'VOTADO'
+                        : 'VOTAR'
+                    }
+                  />
                 </div>
                     )}
             </button>

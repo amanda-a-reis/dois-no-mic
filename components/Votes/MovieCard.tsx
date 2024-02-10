@@ -5,16 +5,17 @@ import { clsx } from 'clsx'
 
 import like from '../../public/white-heart.svg'
 
-interface MovieProp {
-  title: string
-  image: string
-  type: string
-  vote: string
-  result: string
+interface MovieCardProps {
+  movieTitle: string
+  posterImage: string
+  type: 'default' | 'voted' | 'excluded'
+  voteStatusLabel: string
 }
 
-export default function Card ({ title, image, type, vote, result = '' }: MovieProp): ReactElement {
-  const altInfo = `${title} Movie Poster`
+export default function MovieCard (props: MovieCardProps): ReactElement {
+  const { movieTitle, posterImage, type, voteStatusLabel } = props
+
+  const altInfo = `${movieTitle} Movie Poster`
   return (
     <div className={style.container}>
       <div
@@ -25,7 +26,7 @@ export default function Card ({ title, image, type, vote, result = '' }: MoviePr
         })}
       >
         <Image
-          src={image}
+          src={posterImage}
           alt={altInfo}
           width={400}
           height={400}
@@ -42,10 +43,10 @@ export default function Card ({ title, image, type, vote, result = '' }: MoviePr
               [style.text]: type === 'default',
               [style.votedText]: type === 'voted',
               [style.excludedText]: type === 'excluded',
-              [style.disabled]: vote === 'DISABLED'
+              [style.disabled]: voteStatusLabel === 'DISABLED'
             })}
           >
-            {vote}
+            {voteStatusLabel}
           </p>
           <Image
             src={like}
@@ -54,7 +55,7 @@ export default function Card ({ title, image, type, vote, result = '' }: MoviePr
               [style.icon]: type === 'default',
               [style.votedIcon]: type === 'voted',
               [style.excludedIcon]: type === 'excluded',
-              [style.disabledIcon]: vote === 'DISABLED'
+              [style.disabledIcon]: voteStatusLabel === 'DISABLED'
             })}
           />
         </div>
@@ -66,7 +67,7 @@ export default function Card ({ title, image, type, vote, result = '' }: MoviePr
           [style.excludedTitle]: type === 'excluded'
         })}
       >
-        {title}
+        {movieTitle}
       </p>
     </div>
   )
