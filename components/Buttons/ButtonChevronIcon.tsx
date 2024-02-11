@@ -1,12 +1,23 @@
-import { memo } from "react"
-import ChevronRight from "../Icons/ChrevronRight"
-import Button from "./Button"
 import ChevronLeft from "../Icons/ChevronLeft"
+import ChevronRight from "../Icons/ChrevronRight"
+import { IconColors, IconSizes } from "../Icons/types/IconProps"
+import Button, { ButtonProps } from "./Button"
 
-interface ButtonChevronProps {
-  variant?: "primary" | "secondary"
+import { memo } from "react"
+
+interface ButtonChevronProps extends ButtonProps {
   direction: "left" | "right"
-  label: string
+}
+
+const theme = {
+  primary: {
+    iconColor: IconColors.black,
+    iconSize: IconSizes.small
+  },
+  secondary: {
+    iconColor: IconColors.selected,
+    iconSize: IconSizes.default
+  }
 }
 
 const ButtonChevronIcon = (props: ButtonChevronProps) => {
@@ -19,8 +30,8 @@ const ButtonChevronIcon = (props: ButtonChevronProps) => {
           label={label}
           iconRight={
             <ChevronRight
-              size={variant === "primary" ? "small" : ""}
-              color={variant === "primary" ? "black" : "selected"}
+              size={theme[variant].iconSize}
+              color={theme[variant].iconColor}
             />
           }
         />
@@ -32,8 +43,8 @@ const ButtonChevronIcon = (props: ButtonChevronProps) => {
           label={label}
           iconLeft={
             <ChevronLeft
-              size={variant === "primary" ? "small" : ""}
-              color={variant === "primary" ? "black" : "selected"}
+              size={theme[variant].iconSize}
+              color={theme[variant].iconColor}
             />
           }
         />

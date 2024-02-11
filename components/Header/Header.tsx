@@ -13,7 +13,7 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 12px 16px;
   height: 60px;
-  background-color: #2f2f2f;
+  background-color: ${(props) => props.theme.color.gray_secondary};
   border-radius: 8px;
 
   &.hasTransparency {

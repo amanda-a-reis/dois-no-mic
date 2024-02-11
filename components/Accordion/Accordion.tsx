@@ -1,13 +1,15 @@
+import Check from "../Icons/Check"
+import CheckFill from "../Icons/CheckFill"
+import { IconColors } from "../Icons/types/IconProps"
+import Text, { TextColors } from "../Typography/Text"
+
 import { memo } from "react"
 import styled from "styled-components"
-import Check from "../Icons/Check"
-import { IconColors } from "../Icons/types/IconProps"
-import CheckFill from "../Icons/CheckFill"
 
 const Container = styled.div`
   width: 360px;
   height: 42px;
-  background-color: #2f2f2f;
+  background-color: ${(props) => props.theme.color.gray_secondary};
   display: flex;
   align-items: center;
   border-radius: 8px;
@@ -26,29 +28,21 @@ const IconContainer = styled.div`
   height: 100%;
 `
 
-const Label = styled.p`
-  @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
-
-  height: 100%;
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-
-  &.fontColor-secondary {
-    color: #edce74;
-  }
-
-  &.fontColor-primary {
-    color: #ffffff;
-  }
-`
-
 interface AccordionProps {
   label: string
   variant?: "primary" | "secondary"
   hasVoted?: boolean
+}
+
+const theme = {
+  primary: {
+    fontColor: TextColors.white,
+    iconColor: IconColors.default
+  },
+  secondary: {
+    fontColor: TextColors.yellow,
+    iconColor: IconColors.selected
+  }
 }
 
 const Accordion = (props: AccordionProps) => {
@@ -58,18 +52,10 @@ const Accordion = (props: AccordionProps) => {
     <Container>
       <InlineContainer>
         <IconContainer>
-          {!hasVoted && (
-            <Check
-              color={
-                variant === "secondary"
-                  ? IconColors.selected
-                  : IconColors.default
-              }
-            />
-          )}
+          {!hasVoted && <Check color={theme[variant].iconColor} />}
           {hasVoted && <CheckFill color={IconColors.selected} />}
         </IconContainer>
-        <Label className={`fontColor-${variant}`}>{label}</Label>
+        <Text color={theme[variant].fontColor}>{label}</Text>
       </InlineContainer>
     </Container>
   )

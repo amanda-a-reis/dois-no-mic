@@ -4,6 +4,12 @@ export enum IconColors {
   black = "#000000",
 }
 
+export enum IconSizes {
+  small = "small",
+  default = "",
+}
+
 export interface IconProps {
   color?: IconColors
+  size?: IconSizes
 }

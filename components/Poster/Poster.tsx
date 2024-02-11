@@ -1,9 +1,11 @@
-import Image from "next/image"
-import styled from "styled-components"
 import Heart from "../Icons/Heart"
-import { IconColors } from "../Icons/types/IconProps"
 import HeartFill from "../Icons/HeartFill"
+import { IconColors } from "../Icons/types/IconProps"
+import Text, { TextColors } from "../Typography/Text"
+
+import Image from "next/image"
 import { memo } from "react"
+import styled from "styled-components"
 
 const Container = styled.div`
   width: 240px;
@@ -15,6 +17,14 @@ const Container = styled.div`
 
 const MovieImage = styled(Image)`
   border-radius: 8px;
+`
+
+const MovieTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: 0%;
 `
 
 const MovieInfoContainer = styled.div`
@@ -30,35 +40,25 @@ const IconContainer = styled.div`
   align-items: center;
 `
 
-const MovieTitle = styled.p`
-  @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
-
-  display: flex;
-  align-items: center;
-  font-family: "Inter", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  height: 100%;
-  width: 100%;
-  margin: 0%;
-
-  &.fontColor-selected {
-    color: #edce74;
-  }
-
-  &.fontColor-default {
-    color: #ffffff;
-  }
-
-  &.fontColor-active {
-    color: #ffffff;
-  }
-`
-
 interface PosterProps {
   movieTile: string
   moviePoster: string
   variant: "default" | "active" | "selected"
+}
+
+const theme = {
+  default: {
+    fontColor: TextColors.white,
+    icon: null
+  },
+  active: {
+    fontColor: TextColors.white,
+    icon: <Heart />
+  },
+  selected: {
+    fontColor: TextColors.yellow,
+    icon: <HeartFill color={IconColors.selected} />
+  }
 }
 
 const Poster = (props: PosterProps) => {
@@ -73,11 +73,11 @@ const Poster = (props: PosterProps) => {
       />
       <MovieInfoContainer>
         <IconContainer>
-          {variant === "default" && null}
-          {variant === "active" && <Heart />}
-          {variant === "selected" && <HeartFill color={IconColors.selected} />}
+          {theme[variant].icon}
         </IconContainer>
-        <MovieTitle className={`fontColor-${variant}`}>{movieTile}</MovieTitle>
+        <MovieTitleContainer>
+          <Text color={theme[variant].fontColor}>{movieTile}</Text>
+        </MovieTitleContainer>
       </MovieInfoContainer>
     </Container>
   )

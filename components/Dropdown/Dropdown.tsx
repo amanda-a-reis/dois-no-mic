@@ -1,8 +1,10 @@
-import styled from "styled-components"
-import ChrevronRight from "../Icons/ChrevronRight"
 import Accordion from "../Accordion/Accordion"
-import { memo, useCallback, useState } from "react"
+import ChrevronRight from "../Icons/ChrevronRight"
+import Text from "../Typography/Text"
+
 import clsx from "clsx"
+import { memo, useCallback, useState } from "react"
+import styled from "styled-components"
 
 const Container = styled.div`
   display: flex;
@@ -13,7 +15,7 @@ const Container = styled.div`
 const Header = styled.button`
   width: 360px;
   height: 42px;
-  background-color: #2f2f2f;
+  background-color: ${(props) => props.theme.color.gray_secondary};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,19 +29,11 @@ const Header = styled.button`
   }
 `
 
-const HeaderLabel = styled.p`
-  @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
-
-  height: 100%;
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  color: #ffffff;
+const HeaderLabel = styled(Text)`
+  color: ${(props) => props.theme.color.white};
 
   &.isOpen {
-    color: #edce74;
+    color: ${(props) => props.theme.color.yellow};
   }
 `
 
@@ -73,7 +67,7 @@ const Dropdown = () => {
           Todas as categorias
         </HeaderLabel>
 
-        { !isOpen && <ChrevronRight />}
+        {!isOpen && <ChrevronRight />}
       </Header>
 
       {isOpen && (
