@@ -7,7 +7,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 420px;
+  min-height: 420px;
   background-color: rgba(63, 63, 63, 0.74);
   border-radius: 8px;
   padding: 0 16px;

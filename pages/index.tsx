@@ -10,20 +10,10 @@ const Img = styled(Image)`
   object-position: right top;
 
   z-index: -1;
-  position: fixed;
-
-  min-height: 100%;
+  position: fixed !important;
 
   @media (max-width: 345px) {
     object-position: center;
-  }
-
-  @media (max-height: 638px) {
-    min-height: calc(100% + 10%);
-  }
-
-  @media (max-height: 583px) {
-    min-height: calc(100% + 25%);
   }
 `
 
@@ -65,7 +55,7 @@ const ButtonsContainer = styled.div`
 export default function Home() {
   return (
     <Container>
-      <Img src="/bg-home.jpg" alt="background image" fill priority />
+      <Img src="/bg-home.webp" alt="background image" fill priority />
       <HeaderContainer>
         <Header hasTransparency />
       </HeaderContainer>
