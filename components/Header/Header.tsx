@@ -25,6 +25,11 @@ const SocialMediaContainer = styled.div`
   width: 60px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+`
+
+const LinkContainer = styled(Link)`
+  height: 24px;
 `
 
 interface HeaderProps {
@@ -39,13 +44,19 @@ const Header = (props: HeaderProps) => {
       <DoisNoMicLogo />
 
       <SocialMediaContainer>
-        <Link href="https://open.spotify.com/show/5C6L6u5zfnilGXocFPHGLP?si=c2179ebab7f94884&nd=1" target="_blank">
+        <LinkContainer
+          href="https://open.spotify.com/show/5C6L6u5zfnilGXocFPHGLP?si=c2179ebab7f94884&nd=1"
+          target="_blank"
+        >
           <SpotifyLogo />
-        </Link>
+        </LinkContainer>
 
-        <Link href="https://www.instagram.com/doisnomic/" target="_blank">
+        <LinkContainer
+          href="https://www.instagram.com/doisnomic/"
+          target="_blank"
+        >
           <InstagramLogo />
-        </Link>
+        </LinkContainer>
       </SocialMediaContainer>
     </Container>
   )

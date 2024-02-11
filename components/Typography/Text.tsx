@@ -22,32 +22,62 @@ const TextStyled = styled.p`
 
   &.fontSize-small {
     font-size: 14px;
+    line-height: 17px;
   }
 
   &.fontSize-medium {
     font-size: 16px;
+    line-height: 19px;
   }
 
   &.fontSize-large {
     font-size: 20px;
+    line-height: 24px;
+  }
+
+  &.fontSize-xLarge {
+    font-size: 32px;
+    line-height: 44px;
+  }
+
+  &.fontWeight-medium {
+    font-weight: 500;
+  }
+
+  &.fontWeight-regular {
+    font-weight: 400;
   }
 `
 
 export enum TextColors {
   yellow = "yellow",
   white = "white",
-  black = "black",
+  black = "black"
 }
 
 interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode
   color?: TextColors
-  size?: "small" | "medium" | "large"
+  size?: "small" | "medium" | "large" | "xLarge"
+  weigth?: "medium" | "regular"
 }
 
 const Text = (props: TextProps) => {
-  const { children, color = TextColors.yellow, size = "medium", ...rest } = props
-  return <TextStyled className={`fontColor-${color} fontSize-${size}`} {...rest}>{children}</TextStyled>
+  const {
+    children,
+    color = TextColors.yellow,
+    size = "medium",
+    weigth = "regular",
+    ...rest
+  } = props
+  return (
+    <TextStyled
+      className={`fontColor-${color} fontSize-${size} fontWeight-${weigth}`}
+      {...rest}
+    >
+      {children}
+    </TextStyled>
+  )
 }
 
 export default memo(Text)

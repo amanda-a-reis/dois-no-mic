@@ -4,7 +4,7 @@ import { memo } from "react"
 import styled from "styled-components"
 
 const ButtonStyled = styled.button`
-  width: 323px;
+  width: 100%;
   height: 42px;
   border-radius: 6px;
   border: none;
