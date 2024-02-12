@@ -1,6 +1,7 @@
 import Accordion from "../components/Accordion/Accordion"
 import Button from "../components/Buttons/Button"
 import Dropdown from "../components/Dropdown/Dropdown"
+import DropdownHeader from "../components/Dropdown/DropdownHeader"
 import Header from "../components/Header/Header"
 import Poster from "../components/Poster/Poster"
 
@@ -42,7 +43,7 @@ const DropdownContainer = styled.div`
   padding: 0 8px 8px 8px;
 
   &.isDropdownOpen {
-    padding-top: 76px;
+    padding-top: 134px;
   }
 `
 
@@ -52,7 +53,7 @@ const AccordionContainer = styled.div`
 `
 
 const ButtonsCard = styled.div`
-  background-color: ${(props) => props.theme.color.gray_secondary};
+  background-color: ${(props) => props.theme.color.gray_primary};
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -80,40 +81,35 @@ export default function Votes() {
 
   return (
     <Container>
+      <FixedContainer>
+        <HeaderContainer>
+          <Header />
+        </HeaderContainer>
+        <DropdownContainer>
+          <DropdownHeader isOpen={isDropdownOpen} handleToggle={handleToggle} />
+        </DropdownContainer>
+        {!isDropdownOpen && (
+          <AccordionContainer>
+            <Accordion
+              label="Melhor filme"
+              variant="secondary"
+              hasTransparency
+            />
+          </AccordionContainer>
+        )}
+      </FixedContainer>
       {isDropdownOpen && (
-        <>
-          <FixedContainer>
-            <HeaderContainer>
-              <Header />
-            </HeaderContainer>
-          </FixedContainer>
-          <DropdownContainer className="isDropdownOpen">
-            <Dropdown handleToggle={handleToggle} isOpen={isDropdownOpen} />
-          </DropdownContainer>
-        </>
+        <DropdownContainer className="isDropdownOpen">
+            <Dropdown isOpen={isDropdownOpen} />
+        </DropdownContainer>
       )}
       {!isDropdownOpen && (
         <>
-          <FixedContainer>
-            <HeaderContainer>
-              <Header />
-            </HeaderContainer>
-            <DropdownContainer>
-              <Dropdown handleToggle={handleToggle} isOpen={isDropdownOpen} />
-            </DropdownContainer>
-            <AccordionContainer>
-              <Accordion
-                label="Melhor filme"
-                variant="secondary"
-                hasTransparency
-              />
-            </AccordionContainer>
-          </FixedContainer>
           <PostersContainer>
             <Poster
               movieTile="Top Gun"
               moviePoster="https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
-              variant="default"
+              variant="selected"
             />
             <Poster
               movieTile="Top Gun"
