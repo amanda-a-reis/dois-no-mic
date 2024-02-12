@@ -77,7 +77,7 @@ export default function VotesPage() {
     handleNextCategory
   } = useVotes()
 
-  const handleDropdownClick = useCallback(
+  const handleAccordionClick = useCallback(
     (categoryLabel: string) => {
       handleActiveCategory(categoryLabel)
       setIsDropdownOpen(false)
@@ -109,7 +109,7 @@ export default function VotesPage() {
         <DropdownContainer className="isDropdownOpen">
           <Dropdown
             isOpen={isDropdownOpen}
-            handleClick={handleDropdownClick}
+            handleClick={handleAccordionClick}
             categoryList={categoryList}
           />
         </DropdownContainer>
