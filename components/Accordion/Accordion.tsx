@@ -4,7 +4,7 @@ import CheckFill from "../Icons/CheckFill"
 import { IconColors } from "../Icons/types/IconProps"
 import Text, { TextColors } from "../Typography/Text"
 
-import { memo, useCallback, useMemo } from "react"
+import { memo, useCallback } from "react"
 import styled from "styled-components"
 
 const Container = styled.button`
@@ -49,7 +49,6 @@ interface AccordionProps {
   hasTransparency?: boolean
   hasLightBg?: boolean
   isButton?: boolean
-  activeCategory?: string
   handleActiveCategory?: (category: string) => void
 }
 
@@ -67,11 +66,11 @@ const theme = {
 const Accordion = (props: AccordionProps) => {
   const {
     label,
+    variant,
     hasVoted = false,
     hasTransparency = false,
     hasLightBg = false,
     isButton = false,
-    activeCategory,
     handleActiveCategory
   } = props
 
@@ -82,13 +81,6 @@ const Accordion = (props: AccordionProps) => {
     handleActiveCategory(label)
   }, [isButton, label, handleActiveCategory])
 
-  const categoryVariant = useMemo(() => {
-    if (activeCategory === label) {
-      return "secondary"
-    }
-    return "primary"
-  }, [activeCategory, label])
-
   return (
     <Container
       className={clsx({ hasTransparency, hasLightBg, isButton })}
@@ -96,10 +88,11 @@ const Accordion = (props: AccordionProps) => {
     >
       <InlineContainer>
         <IconContainer>
-          {!hasVoted && <Check color={theme[categoryVariant].iconColor} />}
+          {!hasVoted && <Check color={theme[variant].iconColor} />}
           {hasVoted && <CheckFill color={IconColors.selected} />}
         </IconContainer>
-        <Text color={theme[categoryVariant].fontColor}>{label}</Text>
+        {!hasVoted && <Text color={theme[variant].fontColor}>{label}</Text>}
+        {hasVoted && <Text color={TextColors.yellow}>{label}</Text>}
       </InlineContainer>
     </Container>
   )

@@ -15,50 +15,27 @@ const MovieCategoryList = styled.div`
   gap: 8px;
 `
 
-const mockMovieList = [
-  "Melhor Filme",
-  "Melhor Ator",
-  "Melhor Atriz",
-  "Melhor Filme Internacional",
-  "Melhor Canção Original",
-  "Melhor Filme de Animação",
-  "Melhor Direção",
-  "Melhores Efeitos Visuais",
-  "Melhor Roteiro Original",
-  "Melhor Atriz Coadjuvante",
-  "Melhor Ator Coadjuvante",
-  "Melhor Roteiro Adaptado",
-  "Melhor Trilha Sonora Original",
-  "Melhor Fotografia",
-  "Melhor Maquiagem e Penteados",
-  "Melhor Direção de Arte",
-  "Melhor Montagem",
-  "Melhor Figurino",
-  "Melhor Som"
-]
-
 interface DropdownProps {
   isOpen: boolean
-  hasVoted?: boolean
   handleActiveCategory: (category: string) => void
-  activeCategory: string
+  categoryList: any[]
 }
 
 const Dropdown = (props: DropdownProps) => {
-  const { isOpen, handleActiveCategory, activeCategory, hasVoted } = props
+  const { isOpen, handleActiveCategory, categoryList } = props
   return (
     <Container>
       {isOpen && (
         <MovieCategoryList>
-          {mockMovieList.map((movie, index) => (
+          {categoryList.map((category, index) => (
             <Accordion
-              key={movie}
-              label={movie}
+              key={category.label}
+              label={category.label}
               hasLightBg={index % 2 === 0}
               isButton
               handleActiveCategory={handleActiveCategory}
-              activeCategory={activeCategory}
-              hasVoted={hasVoted}
+              variant={category.isActive ? "secondary" : "primary"}
+              hasVoted={category.hasVote}
             />
           ))}
         </MovieCategoryList>

@@ -4,8 +4,9 @@ import Dropdown from "../components/Dropdown/Dropdown"
 import DropdownHeader from "../components/Dropdown/DropdownHeader"
 import Header from "../components/Header/Header"
 import PosterList from "../components/Poster/PosterList"
+import { data, categoryData } from "../movies/data"
 
-import { useCallback, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -62,85 +63,57 @@ const ButtonsCard = styled.div`
   padding: 16px;
 `
 
-const movieList = [
-  {
-    movieTitle: "Openheimer",
-    moviePoster:
-      "https://image.tmdb.org/t/p/w500/c0DCmfC7Et2K3URnIJ4ahJpeXR2.jpg"
-  },
-
-  {
-    movieTitle: "Barbie",
-    moviePoster:
-      "https://image.tmdb.org/t/p/w500/yRRuLt7sMBEQkHsd1S3KaaofZn7.jpg"
-  },
-
-  {
-    movieTitle: "American Fiction",
-    moviePoster:
-      "https://image.tmdb.org/t/p/w500/bndwT7YCJv9nEHGSXuzvx9PJ013.jpg"
-  },
-
-  {
-    movieTitle: "Zona de Interesse",
-    moviePoster:
-      "https://image.tmdb.org/t/p/w500/7cvX39QbSykkK4aYx4MQhQpXRdc.jpg"
-  },
-
-  {
-    movieTitle: "Os Rejeitados",
-    moviePoster:
-      "https://image.tmdb.org/t/p/w500/nuljFk9VbHR8JPPl2uNbu9aMlqg.jpg"
-  },
-
-  {
-    movieTitle: "Pobres Criaturas",
-    moviePoster:
-      "https://image.tmdb.org/t/p/w500/kTbBzzdVICzzbv9iFaX0aadvjg0.jpg"
-  },
-
-  {
-    movieTitle: "Vidas Passadas",
-    moviePoster:
-      "https://image.tmdb.org/t/p/w500/toSI71gFF11VnLfz2uiNx6jjNUF.jpg"
-  },
-
-  {
-    movieTitle: "Anatomia de uma Queda",
-    moviePoster:
-      "https://image.tmdb.org/t/p/w500/woXYl0DJTx6TsfYWPkSfNHTsoOx.jpg"
-  },
-
-  {
-    movieTitle: "Maestro",
-    moviePoster:
-      "https://image.tmdb.org/t/p/w500/kxj7rMco6RNYsVcNwuGAIlfWu64.jpg"
-  },
-
-  {
-    movieTitle: "Assassinos da Lua das Flores",
-    moviePoster:
-      "https://image.tmdb.org/t/p/w500/sz0HswdqLa6I5ialoyBvn5gm0r5.jpg"
-  }
-]
-
 export default function Votes() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [movieSelected, setMovieSelected] = useState<string | null>(null)
-  const [categoryActive, setCategoryActive] = useState("Melhor Filme")
+
+  const [movieData, setMovieData] = useState<any>(data)
+
+  const [categoryActive, setCategoryActive] = useState(categoryData[0].label)
+  const [category, setCategoryData] = useState(categoryData)
 
   const handleToggle = useCallback(() => {
     setIsDropdownOpen((prevState) => !prevState)
   }, [])
 
-  const handleSelectMovie = useCallback((movieTitle: string) => {
-    setMovieSelected(movieTitle)
-  }, [])
+  const categoryActiveId = useMemo(() => {
+    return category.findIndex((x: any) => x.label === categoryActive)
+  }, [categoryActive, category])
+
+  const handleSelectMovie = useCallback(
+    (movieTitle: string) => {
+      setMovieData((prevState: any) => {
+        const newState = [...prevState]
+        newState[categoryActiveId].selectedMovie = movieTitle
+        return newState
+      })
+      setCategoryData((prevState: any) => {
+        const newState = [...prevState]
+        newState[categoryActiveId].hasVote = true
+        return newState
+      })
+    },
+    [categoryActiveId]
+  )
 
   const handleActiveCategory = useCallback((category: string) => {
     setCategoryActive(category)
+    setCategoryData((prevState: any) => {
+      const newState = [...prevState]
+      newState.forEach((x: any) => {
+        x.isActive = x.label === category
+      })
+      return newState
+    })
     setIsDropdownOpen(false)
   }, [])
+
+  const selectedMovie = useMemo(() => {
+    return movieData[categoryActiveId].selectedMovie
+  }, [categoryActiveId, movieData])
+
+  const movieList = useMemo(() => {
+    return movieData[categoryActiveId].list
+  }, [categoryActiveId, movieData])
 
   return (
     <Container>
@@ -155,9 +128,9 @@ export default function Votes() {
           <AccordionContainer>
             <Accordion
               label={categoryActive}
-              activeCategory={categoryActive}
+              variant={categoryActive ? "secondary" : "primary"}
               hasTransparency
-              hasVoted={!!movieSelected}
+              hasVoted={!!selectedMovie}
             />
           </AccordionContainer>
         )}
@@ -167,7 +140,7 @@ export default function Votes() {
           <Dropdown
             isOpen={isDropdownOpen}
             handleActiveCategory={handleActiveCategory}
-            activeCategory={categoryActive}
+            categoryList={category}
           />
         </DropdownContainer>
       )}
@@ -175,7 +148,7 @@ export default function Votes() {
         <>
           <PosterList
             list={movieList}
-            movieSelected={movieSelected}
+            movieSelected={selectedMovie}
             handleSelectMovie={handleSelectMovie}
           />
           <ButtonsContainer>
@@ -183,7 +156,7 @@ export default function Votes() {
               <Button
                 label="Próxima categoria"
                 onClick={() => {
-                  alert(movieSelected)
+                  alert(selectedMovie)
                 }}
               />
             </ButtonsCard>
