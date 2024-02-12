@@ -8,8 +8,8 @@ import { memo } from "react"
 import styled from "styled-components"
 
 const Container = styled.div`
-  width: 240px;
-  height: 387px;
+  width: 150px;
+  height: 250px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -68,13 +68,11 @@ const Poster = (props: PosterProps) => {
       <MovieImage
         src={moviePoster}
         alt="Movie Poster"
-        width={240}
-        height={360}
+        width={150}
+        height={225}
       />
       <MovieInfoContainer>
-        <IconContainer>
-          {theme[variant].icon}
-        </IconContainer>
+        <IconContainer>{theme[variant].icon}</IconContainer>
         <MovieTitleContainer>
           <Text color={theme[variant].fontColor}>{movieTile}</Text>
         </MovieTitleContainer>

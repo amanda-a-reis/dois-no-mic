@@ -3,7 +3,7 @@ import ChrevronRight from "../Icons/ChrevronRight"
 import Text from "../Typography/Text"
 
 import clsx from "clsx"
-import { memo, useCallback, useState } from "react"
+import { memo } from "react"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -13,9 +13,9 @@ const Container = styled.div`
 `
 
 const Header = styled.button`
-  width: 360px;
+  width: 100%;
   height: 42px;
-  background-color: ${(props) => props.theme.color.gray_secondary};
+  background-color: ${(props) => props.theme.color.gray_primary};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,22 +44,34 @@ const MovieCategoryList = styled.div`
 `
 
 const mockMovieList = [
-  "Ação",
-  "Aventura",
-  "Comédia",
-  "Drama",
-  "Ficção Científica",
-  "Romance",
-  "Terror"
+  "Melhor Filme",
+  "Melhor Ator",
+  "Melhor Atriz",
+  "Melhor Filme Internacional",
+  "Melhor Canção Original",
+  "Melhor Filme de Animação",
+  "Melhor Direção",
+  "Melhores Efeitos Visuais",
+  "Melhor Roteiro Original",
+  "Melhor Atriz Coadjuvante",
+  "Melhor Ator Coadjuvante",
+  "Melhor Roteiro Adaptado",
+  "Melhor Trilha Sonora Original",
+  "Melhor Fotografia",
+  "Melhor Maquiagem e Penteados",
+  "Melhor Direção de Arte",
+  "Melhor Montagem",
+  "Melhor Figurino",
+  "Melhor Som"
 ]
 
-const Dropdown = () => {
-  const [isOpen, setIsOpen] = useState(false)
+interface DropdownProps {
+  handleToggle: () => void
+  isOpen: boolean
+}
 
-  const handleToggle = useCallback(() => {
-    setIsOpen((prevState) => !prevState)
-  }, [])
-
+const Dropdown = (props: DropdownProps) => {
+  const { handleToggle, isOpen } = props
   return (
     <Container>
       <Header className={clsx({ isOpen })} onClick={handleToggle}>
@@ -72,8 +84,8 @@ const Dropdown = () => {
 
       {isOpen && (
         <MovieCategoryList>
-          {mockMovieList.map((movie) => (
-            <Accordion key={movie} label={movie} />
+          {mockMovieList.map((movie, index) => (
+            <Accordion key={movie} label={movie} hasLightBg={(index % 2) === 0}/>
           ))}
         </MovieCategoryList>
       )}

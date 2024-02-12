@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import Check from "../Icons/Check"
 import CheckFill from "../Icons/CheckFill"
 import { IconColors } from "../Icons/types/IconProps"
@@ -7,13 +8,21 @@ import { memo } from "react"
 import styled from "styled-components"
 
 const Container = styled.div`
-  width: 360px;
+  width: 100%;
   height: 42px;
   background-color: ${(props) => props.theme.color.gray_secondary};
   display: flex;
   align-items: center;
   border-radius: 8px;
   padding: 12px;
+  
+  &.hasLightBg {
+    background-color: ${(props) => props.theme.color.gray_primary};
+  }
+
+  &.hasTransparency {
+    background-color: transparent;
+  }
 `
 
 const InlineContainer = styled.div`
@@ -32,6 +41,8 @@ interface AccordionProps {
   label: string
   variant?: "primary" | "secondary"
   hasVoted?: boolean
+  hasTransparency?: boolean
+  hasLightBg?: boolean
 }
 
 const theme = {
@@ -46,10 +57,10 @@ const theme = {
 }
 
 const Accordion = (props: AccordionProps) => {
-  const { label, variant = "primary", hasVoted = false } = props
+  const { label, variant = "primary", hasVoted = false, hasTransparency = false, hasLightBg = false } = props
 
   return (
-    <Container>
+    <Container className={clsx({ hasTransparency, hasLightBg })}>
       <InlineContainer>
         <IconContainer>
           {!hasVoted && <Check color={theme[variant].iconColor} />}
