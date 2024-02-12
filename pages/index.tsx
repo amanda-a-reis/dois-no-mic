@@ -1,3 +1,4 @@
+import Link from "next/link"
 import Banner from "../components/Banner/Banner"
 import Button from "../components/Buttons/Button"
 import Header from "../components/Header/Header"
@@ -52,6 +53,10 @@ const ButtonsContainer = styled.div`
   padding: 0 8px 8px 8px;
 `
 
+const LinkStyled = styled(Link)`
+  width: 100%;
+`
+
 export default function Home() {
   return (
     <Container>
@@ -64,8 +69,12 @@ export default function Home() {
       </BannerContainer>
       <ButtonsContainer>
         <ButtonsCard>
-          <Button label="Iniciar votação" />
-          <Button label="Todas as categorias" variant="secondary" />
+          <LinkStyled href="/votes">
+            <Button label="Iniciar votação" />
+          </LinkStyled>
+          <LinkStyled href="/votes?q=allCategories">
+            <Button label="Todas as categorias" variant="secondary" />
+          </LinkStyled>
         </ButtonsCard>
       </ButtonsContainer>
     </Container>

@@ -6,7 +6,8 @@ import Header from "../Header/Header"
 import PosterList from "../Poster/PosterList"
 import useVotes from "./hooks/useVotes"
 
-import { useCallback, useState } from "react"
+import { usePathname, useSearchParams, useRouter } from "next/navigation"
+import { useCallback, useMemo, useState } from "react"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -64,7 +65,11 @@ const ButtonsCard = styled.div`
 `
 
 export default function VotesPage() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isOpen, setIsDropdownOpen] = useState(false)
+
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
 
   const handleToggle = useCallback(() => {
     setIsDropdownOpen((prevState) => !prevState)
@@ -81,10 +86,17 @@ export default function VotesPage() {
     (categoryLabel: string) => {
       handleActiveCategory(categoryLabel)
       setIsDropdownOpen(false)
+
+      router.replace(`${pathname}`)
     },
-    [handleActiveCategory]
+    [pathname, router, handleActiveCategory]
   )
 
+  const isDropdownOpen = useMemo(() => {
+    const search = searchParams.get("q")
+
+    return search === "allCategories" || isOpen
+  }, [searchParams, isOpen])
   return (
     <Container>
       <FixedContainer>
