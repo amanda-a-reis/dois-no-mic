@@ -1,3 +1,4 @@
+import { ICategory } from "../../movies/data"
 import Accordion from "../Accordion/Accordion"
 
 import { memo } from "react"
@@ -18,7 +19,7 @@ const MovieCategoryList = styled.div`
 interface DropdownProps {
   isOpen: boolean
   handleActiveCategory: (category: string) => void
-  categoryList: any[]
+  categoryList: ICategory[]
 }
 
 const Dropdown = (props: DropdownProps) => {
@@ -35,7 +36,7 @@ const Dropdown = (props: DropdownProps) => {
               isButton
               handleActiveCategory={handleActiveCategory}
               variant={category.isActive ? "secondary" : "primary"}
-              hasVoted={category.hasVote}
+              hasVote={category.hasVote}
             />
           ))}
         </MovieCategoryList>

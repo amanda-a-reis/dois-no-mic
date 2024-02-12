@@ -43,12 +43,12 @@ const IconContainer = styled.div`
 `
 
 interface AccordionProps {
+  hasLightBg?: boolean
+  hasTransparency?: boolean
+  hasVote?: boolean
+  isButton?: boolean
   label: string
   variant?: "primary" | "secondary"
-  hasVoted?: boolean
-  hasTransparency?: boolean
-  hasLightBg?: boolean
-  isButton?: boolean
   handleActiveCategory?: (category: string) => void
 }
 
@@ -65,12 +65,12 @@ const theme = {
 
 const Accordion = (props: AccordionProps) => {
   const {
+    hasLightBg = false,
+    hasTransparency = false,
+    hasVote = false,
+    isButton = false,
     label,
     variant,
-    hasVoted = false,
-    hasTransparency = false,
-    hasLightBg = false,
-    isButton = false,
     handleActiveCategory
   } = props
 
@@ -88,11 +88,11 @@ const Accordion = (props: AccordionProps) => {
     >
       <InlineContainer>
         <IconContainer>
-          {!hasVoted && <Check color={theme[variant].iconColor} />}
-          {hasVoted && <CheckFill color={IconColors.selected} />}
+          {!hasVote && <Check color={theme[variant].iconColor} />}
+          {hasVote && <CheckFill color={IconColors.selected} />}
         </IconContainer>
-        {!hasVoted && <Text color={theme[variant].fontColor}>{label}</Text>}
-        {hasVoted && <Text color={TextColors.yellow}>{label}</Text>}
+        {!hasVote && <Text color={theme[variant].fontColor}>{label}</Text>}
+        {hasVote && <Text color={TextColors.yellow}>{label}</Text>}
       </InlineContainer>
     </Container>
   )

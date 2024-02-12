@@ -4,7 +4,7 @@ import Dropdown from "../components/Dropdown/Dropdown"
 import DropdownHeader from "../components/Dropdown/DropdownHeader"
 import Header from "../components/Header/Header"
 import PosterList from "../components/Poster/PosterList"
-import { data, categoryData } from "../movies/data"
+import { votesData, categoryData, IVote, ICategory } from "../movies/data"
 
 import { useCallback, useMemo, useState } from "react"
 import styled from "styled-components"
@@ -66,54 +66,68 @@ const ButtonsCard = styled.div`
 export default function Votes() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
-  const [movieData, setMovieData] = useState<any>(data)
+  const [votes, setVotes] = useState<IVote[]>(votesData)
 
-  const [categoryActive, setCategoryActive] = useState(categoryData[0].label)
-  const [category, setCategoryData] = useState(categoryData)
+  const [activeCategoryId, setActiveCategory] = useState(0)
+  const [categories, setCategory] = useState<ICategory[]>(categoryData)
+
+  const moviesInfo = useMemo(() => {
+    return {
+      list: votes[activeCategoryId].list,
+      selectedMovie: votes[activeCategoryId].selectedMovie
+    }
+  }, [activeCategoryId, votes])
 
   const handleToggle = useCallback(() => {
     setIsDropdownOpen((prevState) => !prevState)
   }, [])
 
-  const categoryActiveId = useMemo(() => {
-    return category.findIndex((x: any) => x.label === categoryActive)
-  }, [categoryActive, category])
-
   const handleSelectMovie = useCallback(
     (movieTitle: string) => {
-      setMovieData((prevState: any) => {
+      setVotes((prevState: any) => {
         const newState = [...prevState]
-        newState[categoryActiveId].selectedMovie = movieTitle
+        newState[activeCategoryId].selectedMovie = movieTitle
         return newState
       })
-      setCategoryData((prevState: any) => {
+      setCategory((prevState: any) => {
         const newState = [...prevState]
-        newState[categoryActiveId].hasVote = true
+        newState[activeCategoryId].hasVote = true
         return newState
       })
     },
-    [categoryActiveId]
+    [activeCategoryId]
   )
 
-  const handleActiveCategory = useCallback((category: string) => {
-    setCategoryActive(category)
-    setCategoryData((prevState: any) => {
+  const handleActiveCategory = useCallback(
+    (category: string) => {
+      const index = categories.findIndex((ctgr) => ctgr.label === category)
+      setActiveCategory(index)
+      setCategory((prevState) => {
+        const newState = [...prevState]
+        newState.forEach((x) => {
+          x.isActive = x.label === category
+        })
+        return newState
+      })
+      setIsDropdownOpen(false)
+    },
+    [categories]
+  )
+
+  const handleNextCategory = useCallback(() => {
+    if (activeCategoryId === categories.length - 1) {
+      return
+    }
+    const nextCategory = activeCategoryId + 1
+    setActiveCategory(nextCategory)
+    setCategory((prevState) => {
       const newState = [...prevState]
-      newState.forEach((x: any) => {
-        x.isActive = x.label === category
+      newState.forEach((x, index: number) => {
+        x.isActive = index === nextCategory
       })
       return newState
     })
-    setIsDropdownOpen(false)
-  }, [])
-
-  const selectedMovie = useMemo(() => {
-    return movieData[categoryActiveId].selectedMovie
-  }, [categoryActiveId, movieData])
-
-  const movieList = useMemo(() => {
-    return movieData[categoryActiveId].list
-  }, [categoryActiveId, movieData])
+  }, [activeCategoryId, categories])
 
   return (
     <Container>
@@ -127,10 +141,10 @@ export default function Votes() {
         {!isDropdownOpen && (
           <AccordionContainer>
             <Accordion
-              label={categoryActive}
-              variant={categoryActive ? "secondary" : "primary"}
+              label={categories[activeCategoryId].label}
+              variant="secondary"
               hasTransparency
-              hasVoted={!!selectedMovie}
+              hasVote={!!moviesInfo.selectedMovie}
             />
           </AccordionContainer>
         )}
@@ -140,25 +154,20 @@ export default function Votes() {
           <Dropdown
             isOpen={isDropdownOpen}
             handleActiveCategory={handleActiveCategory}
-            categoryList={category}
+            categoryList={categories}
           />
         </DropdownContainer>
       )}
       {!isDropdownOpen && (
         <>
           <PosterList
-            list={movieList}
-            movieSelected={selectedMovie}
+            list={moviesInfo.list}
+            movieSelected={moviesInfo.selectedMovie}
             handleSelectMovie={handleSelectMovie}
           />
           <ButtonsContainer>
             <ButtonsCard>
-              <Button
-                label="Próxima categoria"
-                onClick={() => {
-                  alert(selectedMovie)
-                }}
-              />
+              <Button label="Próxima categoria" onClick={handleNextCategory} />
             </ButtonsCard>
           </ButtonsContainer>
         </>

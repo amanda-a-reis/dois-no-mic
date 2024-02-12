@@ -1,4 +1,9 @@
-export const movieList = [
+export interface IMovie {
+  movieTitle: string
+  moviePoster: string
+}
+
+export const movieList: IMovie[] = [
   {
     movieTitle: "Openheimer",
     moviePoster:
@@ -60,29 +65,13 @@ export const movieList = [
   }
 ]
 
-export const categoryList = [
-  "Melhor Filme",
-  "Melhor Ator",
-  "Melhor Atriz",
-  "Melhor Filme Internacional",
-  "Melhor Canção Original",
-  "Melhor Filme de Animação",
-  "Melhor Direção",
-  "Melhores Efeitos Visuais",
-  "Melhor Roteiro Original",
-  "Melhor Atriz Coadjuvante",
-  "Melhor Ator Coadjuvante",
-  "Melhor Roteiro Adaptado",
-  "Melhor Trilha Sonora Original",
-  "Melhor Fotografia",
-  "Melhor Maquiagem e Penteados",
-  "Melhor Direção de Arte",
-  "Melhor Montagem",
-  "Melhor Figurino",
-  "Melhor Som"
-]
+export interface ICategory {
+  label: string
+  isActive: boolean
+  hasVote: boolean
+}
 
-export const categoryData = [
+export const categoryData: ICategory[] = [
   {
     label: "Melhor Filme",
     isActive: true,
@@ -100,7 +89,13 @@ export const categoryData = [
   }
 ]
 
-export const data = [
+export interface IVote {
+  category: string
+  list: IMovie[]
+  selectedMovie: null | string
+}
+
+export const votesData: IVote[] = [
   {
     category: "Melhor Filme",
     list: movieList,
@@ -122,4 +117,27 @@ export const data = [
     ],
     selectedMovie: null
   }
+]
+
+// reference
+export const categoryList = [
+  "Melhor Filme",
+  "Melhor Ator",
+  "Melhor Atriz",
+  "Melhor Filme Internacional",
+  "Melhor Canção Original",
+  "Melhor Filme de Animação",
+  "Melhor Direção",
+  "Melhores Efeitos Visuais",
+  "Melhor Roteiro Original",
+  "Melhor Atriz Coadjuvante",
+  "Melhor Ator Coadjuvante",
+  "Melhor Roteiro Adaptado",
+  "Melhor Trilha Sonora Original",
+  "Melhor Fotografia",
+  "Melhor Maquiagem e Penteados",
+  "Melhor Direção de Arte",
+  "Melhor Montagem",
+  "Melhor Figurino",
+  "Melhor Som"
 ]

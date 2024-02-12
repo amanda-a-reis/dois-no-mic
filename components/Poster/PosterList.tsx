@@ -1,5 +1,7 @@
-import styled from "styled-components"
+import { IMovie, IVote } from "../../movies/data"
 import Poster from "./Poster"
+
+import styled from "styled-components"
 
 const PostersContainer = styled.div`
   display: flex;
@@ -11,14 +13,9 @@ const PostersContainer = styled.div`
   padding-top: 200px;
 `
 
-interface MovieInfo {
-  movieTitle: string
-  moviePoster: string
-}
-
 interface PosterListProps {
-  list: MovieInfo[]
-  movieSelected: null | string
+  list: IMovie[]
+  movieSelected: IVote["selectedMovie"]
   handleSelectMovie: (movieTitle: string) => void
 }
 
