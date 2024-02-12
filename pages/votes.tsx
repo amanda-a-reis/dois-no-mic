@@ -3,7 +3,7 @@ import Button from "../components/Buttons/Button"
 import Dropdown from "../components/Dropdown/Dropdown"
 import DropdownHeader from "../components/Dropdown/DropdownHeader"
 import Header from "../components/Header/Header"
-import Poster from "../components/Poster/Poster"
+import PosterList from "../components/Poster/PosterList"
 
 import { useCallback, useState } from "react"
 import styled from "styled-components"
@@ -62,21 +62,44 @@ const ButtonsCard = styled.div`
   padding: 16px;
 `
 
-const PostersContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding-bottom: 100px;
-  padding-top: 200px;
-`
+const movieList = [
+  {
+    movieTitle: "Top Gun",
+    moviePoster:
+      "https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
+  },
+  {
+    movieTitle: "Top Gun 1",
+    moviePoster:
+      "https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
+  },
+  {
+    movieTitle: "Top Gun 2",
+    moviePoster:
+      "https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
+  },
+  {
+    movieTitle: "Top Gun 3",
+    moviePoster:
+      "https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
+  },
+  {
+    movieTitle: "Top Gun 4",
+    moviePoster:
+      "https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
+  }
+]
 
 export default function Votes() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [movieSelected, setMovieSelected] = useState<string | null>(null)
 
   const handleToggle = useCallback(() => {
     setIsDropdownOpen((prevState) => !prevState)
+  }, [])
+
+  const handleSelectMovie = useCallback((movieTile: string) => {
+    setMovieSelected(movieTile)
   }, [])
 
   return (
@@ -94,52 +117,31 @@ export default function Votes() {
               label="Melhor filme"
               variant="secondary"
               hasTransparency
+              hasVoted={!!movieSelected}
             />
           </AccordionContainer>
         )}
       </FixedContainer>
       {isDropdownOpen && (
         <DropdownContainer className="isDropdownOpen">
-            <Dropdown isOpen={isDropdownOpen} />
+          <Dropdown isOpen={isDropdownOpen} />
         </DropdownContainer>
       )}
       {!isDropdownOpen && (
         <>
-          <PostersContainer>
-            <Poster
-              movieTile="Top Gun"
-              moviePoster="https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
-              variant="selected"
-            />
-            <Poster
-              movieTile="Top Gun"
-              moviePoster="https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
-              variant="default"
-            />
-            <Poster
-              movieTile="Top Gun"
-              moviePoster="https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
-              variant="default"
-            />
-            <Poster
-              movieTile="Top Gun"
-              moviePoster="https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
-              variant="default"
-            />
-            <Poster
-              movieTile="Top Gun"
-              moviePoster="https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
-              variant="default"
-            />
-            <Poster
-              movieTile="Top Gun"
-              moviePoster="https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
-              variant="default"
-            />
-          </PostersContainer>
+          <PosterList
+            list={movieList}
+            movieSelected={movieSelected}
+            handleSelectMovie={handleSelectMovie}
+          />
           <ButtonsContainer>
             <ButtonsCard>
-              <Button label="Próxima categoria" />
+              <Button
+                label="Próxima categoria"
+                onClick={() => {
+                  alert(movieSelected)
+                }}
+              />
             </ButtonsCard>
           </ButtonsContainer>
         </>

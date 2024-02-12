@@ -4,15 +4,20 @@ import { IconColors } from "../Icons/types/IconProps"
 import Text, { TextColors } from "../Typography/Text"
 
 import Image from "next/image"
-import { memo } from "react"
+import { memo, useCallback } from "react"
 import styled from "styled-components"
 
-const Container = styled.div`
+const Container = styled.button`
   width: 150px;
   height: 250px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 `
 
 const MovieImage = styled(Image)`
@@ -41,9 +46,10 @@ const IconContainer = styled.div`
 `
 
 interface PosterProps {
-  movieTile: string
+  movieTitle: string
   moviePoster: string
   variant: "default" | "active" | "selected"
+  handleSelectMovie: (movieTitle: string) => void
 }
 
 const theme = {
@@ -62,9 +68,14 @@ const theme = {
 }
 
 const Poster = (props: PosterProps) => {
-  const { movieTile, moviePoster, variant } = props
+  const { movieTitle, moviePoster, variant, handleSelectMovie } = props
+
+  const onMovieClick = useCallback(() => {
+    handleSelectMovie(movieTitle)
+  }, [movieTitle, handleSelectMovie])
+
   return (
-    <Container>
+    <Container onClick={onMovieClick}>
       <MovieImage
         src={moviePoster}
         alt="Movie Poster"
@@ -74,7 +85,7 @@ const Poster = (props: PosterProps) => {
       <MovieInfoContainer>
         <IconContainer>{theme[variant].icon}</IconContainer>
         <MovieTitleContainer>
-          <Text color={theme[variant].fontColor}>{movieTile}</Text>
+          <Text color={theme[variant].fontColor}>{movieTitle}</Text>
         </MovieTitleContainer>
       </MovieInfoContainer>
     </Container>
