@@ -4,7 +4,9 @@ import Button from "../components/Buttons/Button"
 import Header from "../components/Header/Header"
 
 import Image from "next/image"
+import { useEffect } from "react"
 import styled from "styled-components"
+import useStorageVotes from "../components/votes-page/hooks/useStorageVotes"
 
 const Img = styled(Image)`
   object-fit: cover;
@@ -58,6 +60,15 @@ const LinkStyled = styled(Link)`
 `
 
 export default function Home() {
+  const { verifyStorageVotes, saveInitialVotes } = useStorageVotes()
+
+  useEffect(() => {
+    const { hasStorageVotes } = verifyStorageVotes()
+
+    if (hasStorageVotes) return
+
+    saveInitialVotes()
+  }, [saveInitialVotes, verifyStorageVotes])
   return (
     <Container>
       <Img src="/bg-home.webp" alt="background image" fill priority />

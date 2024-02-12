@@ -1,11 +1,15 @@
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { ICategory, IVote, categoryData, votesData } from "../../../movies/data"
+import useStorageVotes from "./useStorageVotes"
 
 const useVotes = () => {
   const [votes, setVotes] = useState<IVote[]>(votesData)
 
   const [activeCategoryId, setActiveCategory] = useState(0)
   const [categories, setCategory] = useState<ICategory[]>(categoryData)
+
+  const { storageVotes, updateStorageVotes, getStorageVotes } =
+    useStorageVotes()
 
   const _selectActiveCategory = useCallback((activeCategoryIndex: number) => {
     setActiveCategory(activeCategoryIndex)
@@ -21,6 +25,16 @@ const useVotes = () => {
     })
   }, [])
 
+  const _setIfCategoryHasVote = useCallback((index: number) => {
+    setCategory((prevState) => {
+      const newState = [...prevState]
+
+      newState[index].hasVote = true
+
+      return newState
+    })
+  }, [])
+
   const handleSelectMovie = useCallback(
     (movieTitle: string) => {
       setVotes((prevState) => {
@@ -31,15 +45,9 @@ const useVotes = () => {
         return newState
       })
 
-      setCategory((prevState) => {
-        const newState = [...prevState]
-
-        newState[activeCategoryId].hasVote = true
-
-        return newState
-      })
+      _setIfCategoryHasVote(activeCategoryId)
     },
-    [activeCategoryId]
+    [activeCategoryId, _setIfCategoryHasVote]
   )
 
   const handleActiveCategory = useCallback(
@@ -64,13 +72,34 @@ const useVotes = () => {
   }, [activeCategoryId, categories, _selectActiveCategory])
 
   const data = useMemo(() => {
+    const selectedMovie = storageVotes[activeCategoryId]?.selectedMovie
+
     return {
       movieList: votes[activeCategoryId].list,
-      selectedMovie: votes[activeCategoryId].selectedMovie,
+      selectedMovie,
       categoryList: categories,
       activeCategoryLabel: categories[activeCategoryId].label
     }
-  }, [activeCategoryId, votes, categories])
+  }, [activeCategoryId, votes, categories, storageVotes])
+
+  useEffect(() => {
+    if (votes[activeCategoryId].selectedMovie !== null) {
+      updateStorageVotes(
+        activeCategoryId,
+        votes[activeCategoryId].selectedMovie
+      )
+    }
+  }, [activeCategoryId, updateStorageVotes, getStorageVotes, votes])
+
+  useEffect(() => {
+    getStorageVotes()
+
+    storageVotes.forEach((vote, index) => {
+      if (vote.selectedMovie) {
+        _setIfCategoryHasVote(index)
+      }
+    })
+  }, [storageVotes, getStorageVotes, _setIfCategoryHasVote])
 
   return {
     data,
