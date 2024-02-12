@@ -15,12 +15,12 @@ const PostersContainer = styled.div`
 
 interface PosterListProps {
   list: IMovie[]
-  movieSelected: IVote["selectedMovie"]
+  selectedMovie: IVote["selectedMovie"]
   handleSelectMovie: (movieTitle: string) => void
 }
 
 const PosterList = (props: PosterListProps) => {
-  const { list, movieSelected, handleSelectMovie } = props
+  const { list, selectedMovie, handleSelectMovie } = props
   return (
     <PostersContainer>
       {list.map((movie) => (
@@ -28,7 +28,7 @@ const PosterList = (props: PosterListProps) => {
           key={movie.movieTitle}
           movieTitle={movie.movieTitle}
           moviePoster={movie.moviePoster}
-          variant={movieSelected === movie.movieTitle ? "selected" : "default"}
+          variant={selectedMovie === movie.movieTitle ? "selected" : "default"}
           handleSelectMovie={handleSelectMovie}
         />
       ))}

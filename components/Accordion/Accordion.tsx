@@ -74,7 +74,7 @@ const Accordion = (props: AccordionProps) => {
     handleActiveCategory
   } = props
 
-  const onCategoryClick = useCallback(() => {
+  const onAccordionClick = useCallback(() => {
     if (!isButton) {
       return
     }
@@ -84,7 +84,7 @@ const Accordion = (props: AccordionProps) => {
   return (
     <Container
       className={clsx({ hasTransparency, hasLightBg, isButton })}
-      onClick={onCategoryClick}
+      onClick={onAccordionClick}
     >
       <InlineContainer>
         <IconContainer>

@@ -18,12 +18,12 @@ const MovieCategoryList = styled.div`
 
 interface DropdownProps {
   isOpen: boolean
-  handleActiveCategory: (category: string) => void
+  handleClick: (category: string) => void
   categoryList: ICategory[]
 }
 
 const Dropdown = (props: DropdownProps) => {
-  const { isOpen, handleActiveCategory, categoryList } = props
+  const { isOpen, handleClick, categoryList } = props
   return (
     <Container>
       {isOpen && (
@@ -34,7 +34,7 @@ const Dropdown = (props: DropdownProps) => {
               label={category.label}
               hasLightBg={index % 2 === 0}
               isButton
-              handleActiveCategory={handleActiveCategory}
+              handleActiveCategory={handleClick}
               variant={category.isActive ? "secondary" : "primary"}
               hasVote={category.hasVote}
             />
