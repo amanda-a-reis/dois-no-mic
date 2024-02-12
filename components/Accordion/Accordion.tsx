@@ -4,10 +4,10 @@ import CheckFill from "../Icons/CheckFill"
 import { IconColors } from "../Icons/types/IconProps"
 import Text, { TextColors } from "../Typography/Text"
 
-import { memo } from "react"
+import { memo, useCallback, useMemo } from "react"
 import styled from "styled-components"
 
-const Container = styled.div`
+const Container = styled.button`
   width: 100%;
   height: 42px;
   background-color: ${(props) => props.theme.color.gray_secondary};
@@ -15,13 +15,18 @@ const Container = styled.div`
   align-items: center;
   border-radius: 8px;
   padding: 12px;
-  
+  border: none;
+
   &.hasLightBg {
     background-color: ${(props) => props.theme.color.gray_primary};
   }
 
   &.hasTransparency {
     background-color: transparent;
+  }
+
+  &.isButton {
+    cursor: pointer;
   }
 `
 
@@ -43,6 +48,9 @@ interface AccordionProps {
   hasVoted?: boolean
   hasTransparency?: boolean
   hasLightBg?: boolean
+  isButton?: boolean
+  activeCategory?: string
+  handleActiveCategory?: (category: string) => void
 }
 
 const theme = {
@@ -57,16 +65,41 @@ const theme = {
 }
 
 const Accordion = (props: AccordionProps) => {
-  const { label, variant = "primary", hasVoted = false, hasTransparency = false, hasLightBg = false } = props
+  const {
+    label,
+    hasVoted = false,
+    hasTransparency = false,
+    hasLightBg = false,
+    isButton = false,
+    activeCategory,
+    handleActiveCategory
+  } = props
+
+  const onCategoryClick = useCallback(() => {
+    if (!isButton) {
+      return
+    }
+    handleActiveCategory(label)
+  }, [isButton, label, handleActiveCategory])
+
+  const categoryVariant = useMemo(() => {
+    if (activeCategory === label) {
+      return "secondary"
+    }
+    return "primary"
+  }, [activeCategory, label])
 
   return (
-    <Container className={clsx({ hasTransparency, hasLightBg })}>
+    <Container
+      className={clsx({ hasTransparency, hasLightBg, isButton })}
+      onClick={onCategoryClick}
+    >
       <InlineContainer>
         <IconContainer>
-          {!hasVoted && <Check color={theme[variant].iconColor} />}
+          {!hasVoted && <Check color={theme[categoryVariant].iconColor} />}
           {hasVoted && <CheckFill color={IconColors.selected} />}
         </IconContainer>
-        <Text color={theme[variant].fontColor}>{label}</Text>
+        <Text color={theme[categoryVariant].fontColor}>{label}</Text>
       </InlineContainer>
     </Container>
   )

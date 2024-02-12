@@ -64,42 +64,82 @@ const ButtonsCard = styled.div`
 
 const movieList = [
   {
-    movieTitle: "Top Gun",
+    movieTitle: "Openheimer",
     moviePoster:
-      "https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
+      "https://image.tmdb.org/t/p/w500/c0DCmfC7Et2K3URnIJ4ahJpeXR2.jpg"
   },
+
   {
-    movieTitle: "Top Gun 1",
+    movieTitle: "Barbie",
     moviePoster:
-      "https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
+      "https://image.tmdb.org/t/p/w500/yRRuLt7sMBEQkHsd1S3KaaofZn7.jpg"
   },
+
   {
-    movieTitle: "Top Gun 2",
+    movieTitle: "American Fiction",
     moviePoster:
-      "https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
+      "https://image.tmdb.org/t/p/w500/bndwT7YCJv9nEHGSXuzvx9PJ013.jpg"
   },
+
   {
-    movieTitle: "Top Gun 3",
+    movieTitle: "Zona de Interesse",
     moviePoster:
-      "https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
+      "https://image.tmdb.org/t/p/w500/7cvX39QbSykkK4aYx4MQhQpXRdc.jpg"
   },
+
   {
-    movieTitle: "Top Gun 4",
+    movieTitle: "Os Rejeitados",
     moviePoster:
-      "https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_Ratio0.6757_AL_.jpg"
+      "https://image.tmdb.org/t/p/w500/nuljFk9VbHR8JPPl2uNbu9aMlqg.jpg"
+  },
+
+  {
+    movieTitle: "Pobres Criaturas",
+    moviePoster:
+      "https://image.tmdb.org/t/p/w500/kTbBzzdVICzzbv9iFaX0aadvjg0.jpg"
+  },
+
+  {
+    movieTitle: "Vidas Passadas",
+    moviePoster:
+      "https://image.tmdb.org/t/p/w500/toSI71gFF11VnLfz2uiNx6jjNUF.jpg"
+  },
+
+  {
+    movieTitle: "Anatomia de uma Queda",
+    moviePoster:
+      "https://image.tmdb.org/t/p/w500/woXYl0DJTx6TsfYWPkSfNHTsoOx.jpg"
+  },
+
+  {
+    movieTitle: "Maestro",
+    moviePoster:
+      "https://image.tmdb.org/t/p/w500/kxj7rMco6RNYsVcNwuGAIlfWu64.jpg"
+  },
+
+  {
+    movieTitle: "Assassinos da Lua das Flores",
+    moviePoster:
+      "https://image.tmdb.org/t/p/w500/sz0HswdqLa6I5ialoyBvn5gm0r5.jpg"
   }
 ]
 
 export default function Votes() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [movieSelected, setMovieSelected] = useState<string | null>(null)
+  const [categoryActive, setCategoryActive] = useState("Melhor Filme")
 
   const handleToggle = useCallback(() => {
     setIsDropdownOpen((prevState) => !prevState)
   }, [])
 
-  const handleSelectMovie = useCallback((movieTile: string) => {
-    setMovieSelected(movieTile)
+  const handleSelectMovie = useCallback((movieTitle: string) => {
+    setMovieSelected(movieTitle)
+  }, [])
+
+  const handleActiveCategory = useCallback((category: string) => {
+    setCategoryActive(category)
+    setIsDropdownOpen(false)
   }, [])
 
   return (
@@ -114,8 +154,8 @@ export default function Votes() {
         {!isDropdownOpen && (
           <AccordionContainer>
             <Accordion
-              label="Melhor filme"
-              variant="secondary"
+              label={categoryActive}
+              activeCategory={categoryActive}
               hasTransparency
               hasVoted={!!movieSelected}
             />
@@ -124,7 +164,11 @@ export default function Votes() {
       </FixedContainer>
       {isDropdownOpen && (
         <DropdownContainer className="isDropdownOpen">
-          <Dropdown isOpen={isDropdownOpen} />
+          <Dropdown
+            isOpen={isDropdownOpen}
+            handleActiveCategory={handleActiveCategory}
+            activeCategory={categoryActive}
+          />
         </DropdownContainer>
       )}
       {!isDropdownOpen && (

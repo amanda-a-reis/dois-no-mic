@@ -39,16 +39,27 @@ const mockMovieList = [
 
 interface DropdownProps {
   isOpen: boolean
+  hasVoted?: boolean
+  handleActiveCategory: (category: string) => void
+  activeCategory: string
 }
 
 const Dropdown = (props: DropdownProps) => {
-  const { isOpen } = props
+  const { isOpen, handleActiveCategory, activeCategory, hasVoted } = props
   return (
     <Container>
       {isOpen && (
         <MovieCategoryList>
           {mockMovieList.map((movie, index) => (
-            <Accordion key={movie} label={movie} hasLightBg={index % 2 === 0} />
+            <Accordion
+              key={movie}
+              label={movie}
+              hasLightBg={index % 2 === 0}
+              isButton
+              handleActiveCategory={handleActiveCategory}
+              activeCategory={activeCategory}
+              hasVoted={hasVoted}
+            />
           ))}
         </MovieCategoryList>
       )}
