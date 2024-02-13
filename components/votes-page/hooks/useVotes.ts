@@ -47,8 +47,10 @@ const useVotes = () => {
       })
 
       _setIfCategoryHasVote(activeCategoryId)
+
+      getStorageVotes()
     },
-    [activeCategoryId, _setIfCategoryHasVote]
+    [activeCategoryId, _setIfCategoryHasVote, getStorageVotes]
   )
 
   const handleActiveCategory = useCallback(
@@ -94,13 +96,7 @@ const useVotes = () => {
 
   useEffect(() => {
     getStorageVotes()
-
-    storageVotes.forEach((vote, index) => {
-      if (vote.selectedMovie) {
-        _setIfCategoryHasVote(index)
-      }
-    })
-  }, [storageVotes, getStorageVotes, _setIfCategoryHasVote])
+  }, [getStorageVotes])
 
   return {
     data,
