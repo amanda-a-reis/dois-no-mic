@@ -10,7 +10,7 @@ import styled from "styled-components"
 
 const Container = styled.button`
   width: 150px;
-  height: 300px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -19,6 +19,7 @@ const Container = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
+  align-items: flex-start;
 
   &.disabled {
     filter: opacity(0.3);
@@ -31,10 +32,10 @@ const MovieImage = styled(Image)`
 
 const MovieTitleContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
   width: 100%;
-  margin: 0%;
+  margin: 0;
 `
 
 const MovieInfoContainer = styled.div`
@@ -42,12 +43,13 @@ const MovieInfoContainer = styled.div`
   height: 100%;
   display: flex;
   gap: 8px;
+  align-items: flex-start;
 `
 
 const IconContainer = styled.div`
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 `
 
 interface PosterProps {
@@ -87,7 +89,11 @@ const Poster = (props: PosterProps) => {
   }, [movieTitle, handleSelectMovie])
 
   return (
-    <Container onClick={onMovieClick} className={clsx({ disabled })} disabled={disabled}>
+    <Container
+      onClick={onMovieClick}
+      className={clsx({ disabled })}
+      disabled={disabled}
+    >
       <MovieImage
         src={moviePoster}
         alt="Movie Poster"

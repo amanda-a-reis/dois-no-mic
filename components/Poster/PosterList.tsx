@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 const PostersContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
