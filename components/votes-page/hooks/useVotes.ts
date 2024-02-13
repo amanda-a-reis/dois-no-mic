@@ -1,3 +1,5 @@
+"use client"
+
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { votesData, categoriesData } from "../../../movies/oscar_2024"
 import useStorageVotes from "./useStorageVotes"
@@ -26,16 +28,6 @@ const useVotes = () => {
     })
   }, [])
 
-  const _setIfCategoryHasVote = useCallback((index: number) => {
-    setCategory((prevState) => {
-      const newState = [...prevState]
-
-      newState[index].hasVote = true
-
-      return newState
-    })
-  }, [])
-
   const handleSelectMovie = useCallback(
     (movieTitle: string) => {
       setVotes((prevState) => {
@@ -46,11 +38,16 @@ const useVotes = () => {
         return newState
       })
 
-      _setIfCategoryHasVote(activeCategoryId)
+      setCategory((prevState) => {
+        const newState = [...prevState]
 
+        newState[activeCategoryId].hasVote = true
+
+        return newState
+      })
       getStorageVotes()
     },
-    [activeCategoryId, _setIfCategoryHasVote, getStorageVotes]
+    [activeCategoryId, getStorageVotes]
   )
 
   const handleActiveCategory = useCallback(
@@ -76,6 +73,10 @@ const useVotes = () => {
 
   const data = useMemo(() => {
     const selectedMovie = storageVotes[activeCategoryId]?.selectedMovie
+
+    storageVotes.forEach((vote, index) => {
+      categories[index].hasVote = !!vote.selectedMovie
+    })
 
     return {
       movieList: votes[activeCategoryId].list,
