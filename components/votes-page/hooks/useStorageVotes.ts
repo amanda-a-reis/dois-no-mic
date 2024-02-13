@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react"
-import { votesData } from "../../../movies/data"
+import { votesData } from "../../../movies/oscar_2024"
 
 const useStorageVotes = () => {
   const [storageVotes, setStorageVotes] = useState([])
@@ -55,12 +55,17 @@ const useStorageVotes = () => {
     setStorageVotes(votes)
   }, [verifyStorageVotes])
 
+  const resetStorageVotes = useCallback(() => {
+    localStorage.removeItem("userVotes")
+  }, [])
+
   return {
     storageVotes,
     updateStorageVotes,
     verifyStorageVotes,
     getStorageVotes,
-    saveInitialVotes
+    saveInitialVotes,
+    resetStorageVotes
   }
 }
 

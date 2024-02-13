@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { ICategory, IVote, categoryData, votesData } from "../../../movies/data"
+import { votesData, categoriesData } from "../../../movies/oscar_2024"
 import useStorageVotes from "./useStorageVotes"
+import { ICategory, IVote } from "../../../movies/protocols"
 
 const useVotes = () => {
   const [votes, setVotes] = useState<IVote[]>(votesData)
 
   const [activeCategoryId, setActiveCategory] = useState(0)
-  const [categories, setCategory] = useState<ICategory[]>(categoryData)
+  const [categories, setCategory] = useState<ICategory[]>(categoriesData)
 
   const { storageVotes, updateStorageVotes, getStorageVotes } =
     useStorageVotes()

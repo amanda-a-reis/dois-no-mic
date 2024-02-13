@@ -1,4 +1,4 @@
-import { IMovie, IVote } from "../../movies/data"
+import { IMovie, IVote } from "../../movies/protocols"
 import Poster from "./Poster"
 
 import styled from "styled-components"
@@ -25,10 +25,10 @@ const PosterList = (props: PosterListProps) => {
     <PostersContainer>
       {list.map((movie) => (
         <Poster
-          key={movie.movieTitle}
-          movieTitle={movie.movieTitle}
-          moviePoster={movie.moviePoster}
-          variant={selectedMovie === movie.movieTitle ? "selected" : "default"}
+          key={movie.titlePT}
+          movieTitle={movie.titlePT}
+          moviePoster={movie.image}
+          variant={selectedMovie === movie.titlePT ? "selected" : "default"}
           handleSelectMovie={handleSelectMovie}
         />
       ))}

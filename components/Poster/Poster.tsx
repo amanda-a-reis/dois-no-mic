@@ -9,7 +9,7 @@ import styled from "styled-components"
 
 const Container = styled.button`
   width: 150px;
-  height: 270px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   gap: 8px;
