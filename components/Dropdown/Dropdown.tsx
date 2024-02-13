@@ -1,4 +1,4 @@
-import { ICategory } from "../../movies/data"
+import { ICategory } from "../../movies/protocols"
 import Accordion from "../Accordion/Accordion"
 
 import { memo } from "react"
