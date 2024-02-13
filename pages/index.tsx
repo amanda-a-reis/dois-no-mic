@@ -27,6 +27,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 1024px) {
+    padding: 0 20px;
+
+
+  }
 `
 
 const HeaderContainer = styled.div`
@@ -37,6 +43,20 @@ const HeaderContainer = styled.div`
 const BannerContainer = styled.div`
   width: 100%;
   padding: 0 8px 8px 8px;
+  box-sizing: content-box;
+
+  @media (min-width: 1024px) {
+    width: 335px; 
+    height: 750px;
+    position: fixed; 
+    bottom: 90px; 
+    right: -8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
 `
 
 const ButtonsCard = styled.div`
@@ -48,6 +68,16 @@ const ButtonsCard = styled.div`
   align-items: center;
   gap: 12px;
   padding: 16px;
+
+  @media (min-width: 1024px) {
+    width: 335px;
+    position: fixed;
+    bottom: 20px;
+    right: 5px;
+    transform: translateZ(0);
+    gap: 24px;
+    padding: 36px;
+  }
 `
 
 const ButtonsContainer = styled.div`
@@ -57,6 +87,12 @@ const ButtonsContainer = styled.div`
 
 const LinkStyled = styled(Link)`
   width: 100%;
+
+  @media (min-width: 1024px) {
+    &:nth-child(2) {
+      display: none;
+    }
+  }
 `
 
 export default function Home() {
