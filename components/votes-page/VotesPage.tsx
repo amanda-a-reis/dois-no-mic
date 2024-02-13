@@ -6,9 +6,12 @@ import Header from "../Header/Header"
 import PosterList from "../Poster/PosterList"
 import useVotes from "./hooks/useVotes"
 
-import { usePathname, useSearchParams, useRouter } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useMemo, useState } from "react"
 import styled from "styled-components"
+import Modal from "../Modal/Modal"
+import Text, { TextColors } from "../Typography/Text"
+import Image from "next/image"
 
 const Container = styled.div`
   width: 100vw;
@@ -64,8 +67,25 @@ const ButtonsCard = styled.div`
   padding: 16px;
 `
 
+const MovieImage = styled(Image)`
+  border-radius: 8px;
+`
+
+const MovieTitleContainer = styled.div`
+  margin-bottom: 12px;
+  text-align: center;
+`
+
 export default function VotesPage() {
   const [isOpen, setIsDropdownOpen] = useState(false)
+
+  const [isModalOpen, setIsOpen] = useState(false)
+
+  const [activeMovie, setActiveMovie] = useState("")
+
+  const closeModal = useCallback(() => {
+    setIsOpen(false)
+  }, [])
 
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -81,6 +101,11 @@ export default function VotesPage() {
     handleActiveCategory,
     handleNextCategory
   } = useVotes()
+
+  const handlePosterClick = useCallback((movieTitle: string) => {
+    setIsOpen(true)
+    setActiveMovie(movieTitle)
+  }, [])
 
   const handleAccordionClick = useCallback(
     (categoryLabel: string) => {
@@ -98,48 +123,86 @@ export default function VotesPage() {
     return search === "allCategories" || isOpen
   }, [searchParams, isOpen])
   return (
-    <Container>
-      <FixedContainer>
-        <HeaderContainer>
-          <Header />
-        </HeaderContainer>
-        <DropdownContainer>
-          <DropdownHeader isOpen={isDropdownOpen} handleToggle={handleToggle} />
-        </DropdownContainer>
-        {!isDropdownOpen && (
-          <AccordionContainer>
-            <Accordion
-              label={activeCategoryLabel}
-              variant="secondary"
-              hasTransparency
-              hasVote={!!selectedMovie}
+    <>
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <Text color={TextColors.white} size="medium">
+            Escolher
+          </Text>
+          <Text color={TextColors.yellow} size="large">
+            {activeCategoryLabel}
+          </Text>
+          <MovieImage
+            src={
+              movieList.find((movie) => movie.titlePT === activeMovie)?.image
+            }
+            alt="Movie Poster"
+            width={150}
+            height={225}
+          />
+          <MovieTitleContainer>
+            <Text color={TextColors.white} size="medium">
+              {activeMovie}
+            </Text>
+          </MovieTitleContainer>
+          <Button
+            label="Votar"
+            onClick={() => {
+              handleSelectMovie(activeMovie)
+              closeModal()
+            }}
+          />
+        </Modal>
+      )}
+      <Container>
+        <FixedContainer>
+          <HeaderContainer>
+            <Header />
+          </HeaderContainer>
+          <DropdownContainer>
+            <DropdownHeader
+              isOpen={isDropdownOpen}
+              handleToggle={handleToggle}
             />
-          </AccordionContainer>
+          </DropdownContainer>
+          {!isDropdownOpen && (
+            <AccordionContainer>
+              <Accordion
+                label={activeCategoryLabel}
+                variant="secondary"
+                hasTransparency
+                hasVote={!!selectedMovie}
+              />
+            </AccordionContainer>
+          )}
+        </FixedContainer>
+        {isDropdownOpen && (
+          <DropdownContainer className="isDropdownOpen">
+            <Dropdown
+              isOpen={isDropdownOpen}
+              handleClick={handleAccordionClick}
+              categoryList={categoryList}
+            />
+          </DropdownContainer>
         )}
-      </FixedContainer>
-      {isDropdownOpen && (
-        <DropdownContainer className="isDropdownOpen">
-          <Dropdown
-            isOpen={isDropdownOpen}
-            handleClick={handleAccordionClick}
-            categoryList={categoryList}
-          />
-        </DropdownContainer>
-      )}
-      {!isDropdownOpen && (
-        <>
-          <PosterList
-            list={movieList}
-            selectedMovie={selectedMovie}
-            handleSelectMovie={handleSelectMovie}
-          />
-          <ButtonsContainer>
-            <ButtonsCard>
-              <Button label="Próxima categoria" onClick={handleNextCategory} />
-            </ButtonsCard>
-          </ButtonsContainer>
-        </>
-      )}
-    </Container>
+        {!isDropdownOpen && (
+          <>
+            <PosterList
+              list={movieList}
+              selectedMovie={selectedMovie}
+              handleSelectMovie={handlePosterClick}
+            />
+            <ButtonsContainer>
+              <ButtonsCard>
+                <Button
+                  label="Próxima categoria"
+                  onClick={handleNextCategory}
+                />
+              </ButtonsCard>
+            </ButtonsContainer>
+          </>
+        )}
+      </Container>
+    </>
   )
 }
