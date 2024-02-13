@@ -28,10 +28,9 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1023px) {
+    align-items: flex-end;
     padding: 0 20px;
-
-
   }
 `
 
@@ -45,17 +44,15 @@ const BannerContainer = styled.div`
   padding: 0 8px 8px 8px;
   box-sizing: content-box;
 
-  @media (min-width: 1024px) {
-    width: 335px; 
-    height: 750px;
-    position: fixed; 
-    bottom: 90px; 
-    right: -8px;
-    padding: 16px;
+  @media (min-width: 1023px) {
+    margin-left: auto;
+    width: 330px; 
+    height: calc(90vh - 120px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    margin-top: -40px;
   }
 `
 
@@ -69,13 +66,12 @@ const ButtonsCard = styled.div`
   gap: 12px;
   padding: 16px;
 
-  @media (min-width: 1024px) {
-    width: 335px;
+  @media (min-width: 1023px) {
+    width: 330px;
     position: fixed;
     bottom: 20px;
-    right: 5px;
+    right: 9px;
     transform: translateZ(0);
-    gap: 24px;
     padding: 36px;
   }
 `
@@ -88,7 +84,7 @@ const ButtonsContainer = styled.div`
 const LinkStyled = styled(Link)`
   width: 100%;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1023px) {
     &:nth-child(2) {
       display: none;
     }
@@ -112,19 +108,19 @@ export default function Home() {
       <HeaderContainer>
         <Header hasTransparency />
       </HeaderContainer>
-      <BannerContainer>
-        <Banner />
-      </BannerContainer>
-      <ButtonsContainer>
-        <ButtonsCard>
-          <LinkStyled href="/votes">
-            <Button label="Iniciar votação" />
-          </LinkStyled>
-          <LinkStyled href="/votes?q=allCategories">
-            <Button label="Todas as categorias" variant="secondary" />
-          </LinkStyled>
-        </ButtonsCard>
-      </ButtonsContainer>
+        <BannerContainer>
+          <Banner />
+        </BannerContainer>
+        <ButtonsContainer>
+          <ButtonsCard>
+            <LinkStyled href="/votes">
+              <Button label="Iniciar votação" />
+            </LinkStyled>
+            <LinkStyled href="/votes?q=allCategories">
+              <Button label="Todas as categorias" variant="secondary" />
+            </LinkStyled>
+          </ButtonsCard>
+        </ButtonsContainer>
     </Container>
   )
 }

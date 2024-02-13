@@ -22,7 +22,7 @@ const ButtonStyled = styled.button`
     background-color: ${(props) => props.theme.color.yellow};
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1023px) {
     width: 295px;
     position: fixed;
     bottom: 15px;
