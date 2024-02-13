@@ -30,6 +30,7 @@ const PosterList = (props: PosterListProps) => {
           moviePoster={movie.image}
           variant={selectedMovie === movie.titlePT ? "selected" : "default"}
           handleSelectMovie={handleSelectMovie}
+          disabled={!!selectedMovie && selectedMovie !== movie.titlePT}
         />
       ))}
     </PostersContainer>

@@ -28,6 +28,7 @@ const FixedContainer = styled.div`
   gap: 8px;
   background-color: ${(props) => props.theme.color.gray_bg};
   position: fixed;
+  z-index: 10;
 `
 
 const HeaderContainer = styled.div`
@@ -103,9 +104,13 @@ export default function VotesPage() {
   } = useVotes()
 
   const handlePosterClick = useCallback((movieTitle: string) => {
+    if (selectedMovie) {
+      return
+    }
+
     setIsOpen(true)
     setActiveMovie(movieTitle)
-  }, [])
+  }, [selectedMovie])
 
   const handleAccordionClick = useCallback(
     (categoryLabel: string) => {

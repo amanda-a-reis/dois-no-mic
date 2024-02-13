@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import Heart from "../Icons/Heart"
 import HeartFill from "../Icons/HeartFill"
 import { IconColors } from "../Icons/types/IconProps"
@@ -18,6 +19,10 @@ const Container = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
+
+  &.disabled {
+    filter: opacity(0.3);
+  }
 `
 
 const MovieImage = styled(Image)`
@@ -50,6 +55,7 @@ interface PosterProps {
   moviePoster: string
   variant: "default" | "active" | "selected"
   handleSelectMovie: (movieTitle: string) => void
+  disabled?: boolean
 }
 
 const theme = {
@@ -68,14 +74,20 @@ const theme = {
 }
 
 const Poster = (props: PosterProps) => {
-  const { movieTitle, moviePoster, variant, handleSelectMovie } = props
+  const {
+    movieTitle,
+    moviePoster,
+    variant,
+    disabled = false,
+    handleSelectMovie
+  } = props
 
   const onMovieClick = useCallback(() => {
     handleSelectMovie(movieTitle)
   }, [movieTitle, handleSelectMovie])
 
   return (
-    <Container onClick={onMovieClick}>
+    <Container onClick={onMovieClick} className={clsx({ disabled })} disabled={disabled}>
       <MovieImage
         src={moviePoster}
         alt="Movie Poster"
