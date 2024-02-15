@@ -72,7 +72,7 @@ const ButtonsCard = styled.div`
     bottom: 20px;
     right: 9px;
     transform: translateZ(0);
-    padding: 36px;
+    padding: 24px;
   }
 `
 
