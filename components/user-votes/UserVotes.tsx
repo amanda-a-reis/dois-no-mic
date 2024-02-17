@@ -6,11 +6,12 @@ import Text, { TextColors } from "../Typography/Text"
 import VotesTag from "./VotesTag"
 
 import useStorageVotes from "../votes-page/hooks/useStorageVotes"
+import useSaveImg from "./hooks/useSaveImg"
 
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useMemo } from "react"
 import styled from "styled-components"
-import { useRouter } from "next/navigation"
 
 const Container = styled.div`
   display: flex;
@@ -110,6 +111,8 @@ const UserVotes = () => {
 
   const router = useRouter()
 
+  const { ref, saveImgAsPNG } = useSaveImg()
+
   const bestMovieLabel = "Melhor Filme"
 
   const movieInfo = useMemo(() => {
@@ -132,13 +135,17 @@ const UserVotes = () => {
     router.replace("/votes")
   }, [router, saveInitialVotes])
 
+  const handleSaveImg = useCallback(() => {
+    saveImgAsPNG()
+  }, [saveImgAsPNG])
+
   return (
     <>
       <Container>
         <HeaderContainer>
           <Header />
         </HeaderContainer>
-        <CardContainer>
+        <CardContainer ref={ref}>
           <ImgContainer>
             <Img src="/bg-home.webp" alt="background image" priority fill />
           </ImgContainer>
@@ -170,7 +177,7 @@ const UserVotes = () => {
 
         <ButtonsContainer>
           <ButtonsCard>
-            <Button label="Salvar imagem" />
+            <Button label="Salvar imagem" onClick={handleSaveImg}/>
             <Button
               label="Votar novamente"
               variant="secondary"
