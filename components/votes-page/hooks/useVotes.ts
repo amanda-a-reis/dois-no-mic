@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { votesData, categoriesData } from "../../../movies/oscar_2024"
 import useStorageVotes from "./useStorageVotes"
 import { ICategory, IVote } from "../../../movies/protocols"
+import { useRouter } from "next/navigation"
 
 const useVotes = () => {
   const [votes, setVotes] = useState<IVote[]>(votesData)
@@ -13,6 +14,8 @@ const useVotes = () => {
 
   const { storageVotes, updateStorageVotes, getStorageVotes } =
     useStorageVotes()
+
+  const router = useRouter()
 
   const _selectActiveCategory = useCallback((activeCategoryIndex: number) => {
     setActiveCategory(activeCategoryIndex)
@@ -63,13 +66,17 @@ const useVotes = () => {
 
   const handleNextCategory = useCallback(() => {
     if (activeCategoryId === categories.length - 1) {
+      router.push("/my-votes")
+
+      _selectActiveCategory(0)
+
       return
     }
 
     const nextCategory = activeCategoryId + 1
 
     _selectActiveCategory(nextCategory)
-  }, [activeCategoryId, categories, _selectActiveCategory])
+  }, [activeCategoryId, categories, router, _selectActiveCategory])
 
   const data = useMemo(() => {
     const selectedMovie = storageVotes[activeCategoryId]?.selectedMovie

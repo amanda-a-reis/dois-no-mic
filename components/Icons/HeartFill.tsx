@@ -1,15 +1,26 @@
 import { memo } from "react"
-import { IconColors, IconProps } from "./types/IconProps"
+import styled from "styled-components"
+import { IconColors, IconProps, IconSizes } from "./types/IconProps"
+
+const Svg = styled.svg`
+  width: 18px;
+  height: 17px;
+
+  &.size-small {
+    width: 10px;
+    height: auto;
+  }
+`
 
 const HeartFill = (props: IconProps) => {
-  const { color = IconColors.default } = props
+  const { color = IconColors.default, size = IconSizes.default } = props
   return (
-    <svg
+    <Svg
       width="20"
       height="19"
       viewBox="0 0 20 19"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={`size-${size}`}
     >
       <g clipPath="url(#clip0_273_1189)">
         <path
@@ -23,7 +34,7 @@ const HeartFill = (props: IconProps) => {
           <rect width="19.3945" height="18.5254" fill={color} />
         </clipPath>
       </defs>
-    </svg>
+    </Svg>
   )
 }
 

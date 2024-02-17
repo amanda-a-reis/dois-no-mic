@@ -20,6 +20,11 @@ const TextStyled = styled.p`
     color: ${(props) => props.theme.color.black};
   }
 
+  &.fontSize-xSmall {
+    font-size: 8px;
+    line-height: 14px;
+  }
+
   &.fontSize-small {
     font-size: 14px;
     line-height: 17px;
@@ -47,6 +52,10 @@ const TextStyled = styled.p`
   &.fontWeight-regular {
     font-weight: 400;
   }
+
+  &.fontWeight-semiBold {
+    font-weight: 600;
+  }
 `
 
 export enum TextColors {
@@ -58,8 +67,8 @@ export enum TextColors {
 interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode
   color?: TextColors
-  size?: "small" | "medium" | "large" | "xLarge"
-  weigth?: "medium" | "regular"
+  size?: "xSmall" | "small" | "medium" | "large" | "xLarge"
+  weigth?: "medium" | "regular" | "semiBold"
 }
 
 const Text = (props: TextProps) => {
