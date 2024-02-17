@@ -3,15 +3,16 @@ import Button from "../Buttons/Button"
 import Dropdown from "../Dropdown/Dropdown"
 import DropdownHeader from "../Dropdown/DropdownHeader"
 import Header from "../Header/Header"
+import Modal from "../Modal/Modal"
 import PosterList from "../Poster/PosterList"
+import Text, { TextColors } from "../Typography/Text"
+
 import useVotes from "./hooks/useVotes"
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useMemo, useState } from "react"
-import styled from "styled-components"
-import Modal from "../Modal/Modal"
-import Text, { TextColors } from "../Typography/Text"
 import Image from "next/image"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import styled from "styled-components"
 
 const Container = styled.div`
   width: 100vw;
@@ -100,17 +101,21 @@ export default function VotesPage() {
     data: { activeCategoryLabel, selectedMovie, movieList, categoryList },
     handleSelectMovie,
     handleActiveCategory,
-    handleNextCategory
+    handleNextCategory,
+    updateStorageVote
   } = useVotes()
 
-  const handlePosterClick = useCallback((movieTitle: string) => {
-    if (selectedMovie) {
-      return
-    }
+  const handlePosterClick = useCallback(
+    (movieTitle: string) => {
+      if (selectedMovie) {
+        return
+      }
 
-    setIsOpen(true)
-    setActiveMovie(movieTitle)
-  }, [selectedMovie])
+      setIsOpen(true)
+      setActiveMovie(movieTitle)
+    },
+    [selectedMovie]
+  )
 
   const handleAccordionClick = useCallback(
     (categoryLabel: string) => {
@@ -127,6 +132,17 @@ export default function VotesPage() {
 
     return search === "allCategories" || isOpen
   }, [searchParams, isOpen])
+
+  const handleConfirmVote = useCallback(() => {
+    handleSelectMovie(activeMovie)
+    updateStorageVote()
+    closeModal()
+  }, [activeMovie, handleSelectMovie, updateStorageVote, closeModal])
+
+  useEffect(() => {
+    handleActiveCategory("Melhor Filme")
+  }, [])
+
   return (
     <>
       {isModalOpen && (
@@ -152,10 +168,7 @@ export default function VotesPage() {
           </MovieTitleContainer>
           <Button
             label="Votar"
-            onClick={() => {
-              handleSelectMovie(activeMovie)
-              closeModal()
-            }}
+            onClick={handleConfirmVote}
           />
         </Modal>
       )}

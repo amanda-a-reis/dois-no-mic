@@ -60,16 +60,15 @@ const LinkStyled = styled(Link)`
 `
 
 export default function Home() {
-  const { verifyStorageVotes, saveInitialVotes, resetStorageVotes } = useStorageVotes()
+  const { verifyStorageVotes, saveInitialVotes } = useStorageVotes()
 
   useEffect(() => {
-    resetStorageVotes()
     const { hasStorageVotes } = verifyStorageVotes()
 
-    if (hasStorageVotes) return
-
-    saveInitialVotes()
-  }, [saveInitialVotes, verifyStorageVotes, resetStorageVotes])
+    if (!hasStorageVotes) {
+      saveInitialVotes()
+    }
+  }, [saveInitialVotes, verifyStorageVotes])
   return (
     <Container>
       <Img src="/bg-home.webp" alt="background image" fill priority />

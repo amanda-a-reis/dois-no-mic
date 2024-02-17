@@ -1,3 +1,5 @@
+"use client"
+
 import { useCallback, useMemo, useState } from "react"
 import { votesData } from "../../../movies/oscar_2024"
 
@@ -6,7 +8,7 @@ const useStorageVotes = () => {
 
   const initialVotesToSaveAtLocalStorage = useMemo(() => {
     return votesData.map((vote) => ({
-      selectedMovie: vote.selectedMovie,
+      selectedMovie: null,
       category: vote.category
     }))
   }, [])
@@ -31,18 +33,14 @@ const useStorageVotes = () => {
     (id: number, selectedMovie: string) => {
       const { hasStorageVotes, votes } = verifyStorageVotes()
 
-      if (!hasStorageVotes) {
-        saveInitialVotes()
-        return
-      }
+      const updatedVotes = hasStorageVotes ? votes : initialVotesToSaveAtLocalStorage
 
-      const updatedVotes = votes
       updatedVotes[id].selectedMovie = selectedMovie
 
       localStorage.setItem("userVotes", JSON.stringify(updatedVotes))
       setStorageVotes(updatedVotes)
     },
-    [saveInitialVotes, verifyStorageVotes]
+    [verifyStorageVotes, initialVotesToSaveAtLocalStorage]
   )
 
   const getStorageVotes = useCallback(() => {
@@ -55,7 +53,7 @@ const useStorageVotes = () => {
     setStorageVotes(votes)
   }, [verifyStorageVotes])
 
-  const resetStorageVotes = useCallback(() => {
+  const removeStorageVotes = useCallback(() => {
     localStorage.removeItem("userVotes")
   }, [])
 
@@ -65,7 +63,7 @@ const useStorageVotes = () => {
     verifyStorageVotes,
     getStorageVotes,
     saveInitialVotes,
-    resetStorageVotes
+    removeStorageVotes
   }
 }
 

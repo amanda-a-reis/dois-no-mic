@@ -68,8 +68,6 @@ const useVotes = () => {
     if (activeCategoryId === categories.length - 1) {
       router.push("/my-votes")
 
-      _selectActiveCategory(0)
-
       return
     }
 
@@ -93,14 +91,18 @@ const useVotes = () => {
     }
   }, [activeCategoryId, votes, categories, storageVotes])
 
-  useEffect(() => {
-    if (votes[activeCategoryId].selectedMovie !== null) {
-      updateStorageVotes(
-        activeCategoryId,
-        votes[activeCategoryId].selectedMovie
-      )
-    }
-  }, [activeCategoryId, updateStorageVotes, getStorageVotes, votes])
+  // useEffect(() => {
+  //   if (votes[activeCategoryId].selectedMovie !== null) {
+  //     updateStorageVotes(
+  //       activeCategoryId,
+  //       votes[activeCategoryId].selectedMovie
+  //     )
+  //   }
+  // }, [activeCategoryId, updateStorageVotes, getStorageVotes, votes])
+
+  const updateStorageVote = useCallback(() => {
+    updateStorageVotes(activeCategoryId, votes[activeCategoryId].selectedMovie)
+  }, [activeCategoryId, updateStorageVotes, votes])
 
   useEffect(() => {
     getStorageVotes()
@@ -110,7 +112,8 @@ const useVotes = () => {
     data,
     handleSelectMovie,
     handleActiveCategory,
-    handleNextCategory
+    handleNextCategory,
+    updateStorageVote
   }
 }
 

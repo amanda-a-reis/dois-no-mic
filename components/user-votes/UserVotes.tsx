@@ -1,3 +1,5 @@
+"use client"
+
 import Button from "../Buttons/Button"
 import Header from "../Header/Header"
 import Text, { TextColors } from "../Typography/Text"
@@ -6,8 +8,9 @@ import VotesTag from "./VotesTag"
 import useStorageVotes from "../votes-page/hooks/useStorageVotes"
 
 import Image from "next/image"
-import { useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import styled from "styled-components"
+import { useRouter } from "next/navigation"
 
 const Container = styled.div`
   display: flex;
@@ -103,21 +106,31 @@ const ButtonsContainer = styled.div`
 `
 
 const UserVotes = () => {
-  const { storageVotes, getStorageVotes } = useStorageVotes()
+  const { storageVotes, getStorageVotes, saveInitialVotes } = useStorageVotes()
+
+  const router = useRouter()
 
   const bestMovieLabel = "Melhor Filme"
 
-  const bestMovie = useMemo(() => {
-    return storageVotes.find((vote) => vote.category === bestMovieLabel)
-  }, [storageVotes])
-
-  const userVotesList = useMemo(() => {
-    return storageVotes.filter((vote) => vote.category !== bestMovieLabel)
+  const movieInfo = useMemo(() => {
+    return {
+      bestMovie: storageVotes.find((vote) => vote.category === bestMovieLabel),
+      userVotesList: storageVotes.filter(
+        (vote) => vote.category !== bestMovieLabel
+      ),
+      hasVotes: storageVotes.some((vote) => vote.selectedMovie)
+    }
   }, [storageVotes])
 
   useEffect(() => {
     getStorageVotes()
   }, [])
+
+  const handleVoteAgain = useCallback(() => {
+    saveInitialVotes()
+
+    router.replace("/votes")
+  }, [router, saveInitialVotes])
 
   return (
     <>
@@ -135,27 +148,36 @@ const UserVotes = () => {
                 Seus favoritos para o Oscar® 2024
               </Text>
             </CardDescriptionContainer>
-            <MoviesContainer>
-              {bestMovie?.selectedMovie && (
-                <BestMovieContainer>
-                  <VotesTag {...bestMovie} categoryColor={TextColors.yellow} />
-                </BestMovieContainer>
-              )}
-              <VotesContainer>
-                {userVotesList.map((vote) => (
-                  <>{vote.selectedMovie && <VotesTag {...vote} />}</>
-                ))}
-              </VotesContainer>
-            </MoviesContainer>
+            {movieInfo.hasVotes && (
+              <MoviesContainer>
+                {movieInfo.bestMovie?.selectedMovie && (
+                  <BestMovieContainer>
+                    <VotesTag
+                      {...movieInfo.bestMovie}
+                      categoryColor={TextColors.yellow}
+                    />
+                  </BestMovieContainer>
+                )}
+                <VotesContainer>
+                  {movieInfo.userVotesList?.map((vote) => (
+                    <>{vote.selectedMovie && <VotesTag {...vote} />}</>
+                  ))}
+                </VotesContainer>
+              </MoviesContainer>
+            )}
           </CardContentContainer>
         </CardContainer>
 
         <ButtonsContainer>
-        <ButtonsCard>
+          <ButtonsCard>
             <Button label="Salvar imagem" />
-            <Button label="Votar novamente" variant="secondary" />
-        </ButtonsCard>
-      </ButtonsContainer>
+            <Button
+              label="Votar novamente"
+              variant="secondary"
+              onClick={handleVoteAgain}
+            />
+          </ButtonsCard>
+        </ButtonsContainer>
       </Container>
     </>
   )
