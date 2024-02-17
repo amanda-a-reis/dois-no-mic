@@ -1,3 +1,4 @@
+import axios from "axios"
 import Accordion from "../Accordion/Accordion"
 import Button from "../Buttons/Button"
 import Dropdown from "../Dropdown/Dropdown"
@@ -78,7 +79,15 @@ const MovieTitleContainer = styled.div`
   text-align: center;
 `
 
-export default function VotesPage() {
+interface VotesPageProps {
+  environment: {
+    url: string
+  }
+}
+
+export default function VotesPage(props: VotesPageProps) {
+  const { url } = props.environment
+
   const [isOpen, setIsDropdownOpen] = useState(false)
 
   const [isModalOpen, setIsOpen] = useState(false)
@@ -133,11 +142,24 @@ export default function VotesPage() {
     return search === "allCategories" || isOpen
   }, [searchParams, isOpen])
 
-  const handleConfirmVote = useCallback(() => {
+  const handleConfirmVote = useCallback(async () => {
     handleSelectMovie(activeMovie)
     updateStorageVote()
+    const URL = `${url}/api/oscar/votes`
+
+    await axios.post(URL, {
+      movie: activeMovie,
+      category: activeCategoryLabel
+    })
     closeModal()
-  }, [activeMovie, handleSelectMovie, updateStorageVote, closeModal])
+  }, [
+    activeMovie,
+    activeCategoryLabel,
+    url,
+    handleSelectMovie,
+    updateStorageVote,
+    closeModal
+  ])
 
   useEffect(() => {
     handleActiveCategory("Melhor Filme")
@@ -166,10 +188,7 @@ export default function VotesPage() {
               {activeMovie}
             </Text>
           </MovieTitleContainer>
-          <Button
-            label="Votar"
-            onClick={handleConfirmVote}
-          />
+          <Button label="Votar" onClick={handleConfirmVote} />
         </Modal>
       )}
       <Container>
