@@ -28,7 +28,7 @@ const Container = styled.div`
   align-items: center;
   gap: 8px;
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1024px) {
     align-items: flex-end;
     min-height: calc(100vh - 60px);
     justify-content: space-between;
@@ -39,7 +39,7 @@ const HeaderContainer = styled.div`
   width: 100%;
   padding: 8px 8px 0 8px;
 
-  @media (min-width: 1023px) {
+  @media (min-width: 1024px) {
     padding: 16px 16px 0 16px;
   }
 `
@@ -48,7 +48,7 @@ const BannerContainer = styled.div`
   width: 100%;
   padding: 0px 8px 0px 8px;
 
-  @media (min-width: 1023px) {
+  @media (min-width: 1024px) {
     padding: 0px 16px 0px 0px;
     box-sizing: content-box;
     margin-left: auto;
@@ -71,7 +71,7 @@ const ButtonsCard = styled.div`
   gap: 12px;
   padding: 16px;
 
-  @media (min-width: 1023px) {
+  @media (min-width: 1024px) {
     width: 360px;
     position: fixed;
     bottom: 20px;
@@ -85,7 +85,7 @@ const ButtonsContainer = styled.div`
   width: 100%;
   padding: 0 8px 8px 8px;
 
-  @media (min-width: 1023px) {
+  @media (min-width: 1024px) {
     padding: 0 16px 16px 0;
   }
 `
@@ -93,7 +93,7 @@ const ButtonsContainer = styled.div`
 const LinkStyled = styled(Link)`
   width: 100%;
 
-  @media (min-width: 1023px) {
+  @media (min-width: 1024px) {
     &:nth-child(2) {
       display: none;
     }
