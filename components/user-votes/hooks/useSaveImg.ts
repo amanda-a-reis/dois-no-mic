@@ -4,13 +4,15 @@ import { toPng } from "html-to-image"
 const useSaveImg = () => {
   const ref = useRef<HTMLDivElement>(null)
 
-  const saveImgAsPNG = useCallback(() => {
+  const savePngImgFromHTML = useCallback(() => {
     if (ref.current === null) {
       return
     }
 
     toPng(ref.current, { cacheBust: true })
       .then((dataUrl) => {
+        window.location.reload()
+
         const link = document.createElement("a")
         link.download = "my-image-name.png"
         link.href = dataUrl
@@ -23,7 +25,7 @@ const useSaveImg = () => {
 
   return {
     ref,
-    saveImgAsPNG
+    savePngImgFromHTML
   }
 }
 
