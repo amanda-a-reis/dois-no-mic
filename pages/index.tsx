@@ -22,37 +22,42 @@ const Img = styled(Image)`
 
 const Container = styled.div`
   width: 100vw;
-  min-height: calc(100vh - 60px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
 
   @media (max-width: 1023px) {
     align-items: flex-end;
-    padding: 0 20px;
+    min-height: calc(100vh - 60px);
+    justify-content: space-between;
   }
 `
 
 const HeaderContainer = styled.div`
   width: 100%;
-  padding: 8px;
+  padding: 8px 8px 0 8px;
+
+  @media (min-width: 1023px) {
+    padding: 16px 16px 0 16px;
+  }
 `
 
 const BannerContainer = styled.div`
   width: 100%;
-  padding: 0 8px 8px 8px;
-  box-sizing: content-box;
+  padding: 0px 8px 0px 8px;
 
   @media (min-width: 1023px) {
+    padding: 0px 16px 0px 0px;
+    box-sizing: content-box;
     margin-left: auto;
-    width: 330px; 
-    height: calc(90vh - 120px);
+    width: 360px; 
+    height: calc(100vh - 186px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    margin-top: -40px;
   }
 `
 
@@ -67,18 +72,22 @@ const ButtonsCard = styled.div`
   padding: 16px;
 
   @media (min-width: 1023px) {
-    width: 330px;
+    width: 360px;
     position: fixed;
     bottom: 20px;
-    right: 9px;
+    right: 16px;
     transform: translateZ(0);
-    padding: 24px;
+    padding: 16px;
   }
 `
 
 const ButtonsContainer = styled.div`
   width: 100%;
   padding: 0 8px 8px 8px;
+
+  @media (min-width: 1023px) {
+    padding: 0 16px 16px 0;
+  }
 `
 
 const LinkStyled = styled(Link)`
