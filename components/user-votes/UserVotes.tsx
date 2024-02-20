@@ -121,7 +121,7 @@ const UserVotes = () => {
       (vote) => vote.category === bestMovieCategoryLabel
     )
 
-    const posterKey = bestMovie?.selectedMovie?.replace(/ /g, "_").toLowerCase()
+    const posterKey = bestMovie?.selectedMovie?.replace(/ /g, "_").toLowerCase() || "default"
 
     return {
       bestMovie,
@@ -160,7 +160,7 @@ const UserVotes = () => {
         <CardContentContainer>
           <CardDescriptionContainer>
             <Text size="large" color={TextColors.black}>
-              Seus favoritos para o Oscar® 2024
+              Meus favoritos para o Oscar® 2024
             </Text>
           </CardDescriptionContainer>
           {movieInfo.hasVotes && (

@@ -99,6 +99,8 @@ const Poster = (props: PosterProps) => {
         alt="Movie Poster"
         width={150}
         height={225}
+        placeholder="blur"
+        blurDataURL="/shimmer.gif"
       />
       <MovieInfoContainer>
         <IconContainer>{theme[variant].icon}</IconContainer>

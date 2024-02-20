@@ -54,5 +54,9 @@ export const bestMoviePoster = {
   vidas_passadas: {
     src: "/bestMovie/vidas-passadas.webp",
     alt: "Vidas Passadas"
+  },
+  default: {
+    src: "/bg-home.webp",
+    alt: "Background Home"
   }
 }
