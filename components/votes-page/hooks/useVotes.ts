@@ -74,6 +74,8 @@ const useVotes = () => {
     const nextCategory = activeCategoryId + 1
 
     _selectActiveCategory(nextCategory)
+
+    window.scrollTo(0, 0)
   }, [activeCategoryId, categories, router, _selectActiveCategory])
 
   const data = useMemo(() => {
