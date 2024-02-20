@@ -9,12 +9,18 @@ const useSaveImg = () => {
       return
     }
 
+    const timestamp = Date.now().toString()
+
+    const uniqueNumber = timestamp.slice(-6)
+
+    const fileName = `meus-votos-oscar-2024-${uniqueNumber}.png`
+
     toPng(ref.current, { cacheBust: true })
       .then((dataUrl) => {
         window.location.reload()
 
         const link = document.createElement("a")
-        link.download = "my-image-name.png"
+        link.download = fileName
         link.href = dataUrl
         link.click()
       })
