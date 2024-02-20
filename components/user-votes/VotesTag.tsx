@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import HeartFill from "../Icons/HeartFill"
 import { IconColors, IconSizes } from "../Icons/types/IconProps"
 import Text, { TextColors } from "../Typography/Text"
@@ -10,6 +11,10 @@ const VoteContainer = styled.div`
   grid-template-columns: 6fr auto 5fr;
   align-items: start;
   gap: 8px;
+
+  &.fullWidth {
+    grid-template-columns: 45% auto 100%;
+  }
 `
 
 const IconContainer = styled.div`
@@ -24,13 +29,19 @@ interface VotesTagProps {
   category: string
   selectedMovie: string
   categoryColor: TextColors
+  fullWidth: boolean
 }
 
 const VotesTag = (props: VotesTagProps) => {
-  const { category, selectedMovie, categoryColor = TextColors.white } = props
+  const {
+    category,
+    selectedMovie,
+    categoryColor = TextColors.white,
+    fullWidth = false
+  } = props
 
   return (
-    <VoteContainer>
+    <VoteContainer className={clsx({ fullWidth })}>
       <Text size="xSmall" weigth="semiBold" color={categoryColor}>
         {category.toUpperCase()}
       </Text>

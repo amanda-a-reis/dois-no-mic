@@ -170,6 +170,7 @@ const UserVotes = () => {
                   <VotesTag
                     {...movieInfo.bestMovie}
                     categoryColor={TextColors.yellow}
+                    fullWidth
                   />
                 </BestMovieContainer>
               )}
