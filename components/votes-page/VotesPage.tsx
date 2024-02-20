@@ -79,15 +79,7 @@ const MovieTitleContainer = styled.div`
   text-align: center;
 `
 
-interface VotesPageProps {
-  environment: {
-    url: string
-  }
-}
-
-export default function VotesPage(props: VotesPageProps) {
-  const { url } = props.environment
-
+export default function VotesPage() {
   const [isOpen, setIsDropdownOpen] = useState(false)
 
   const [isModalOpen, setIsOpen] = useState(false)
@@ -145,7 +137,8 @@ export default function VotesPage(props: VotesPageProps) {
   const handleConfirmVote = useCallback(async () => {
     handleSelectMovie(activeMovie)
     updateStorageVote()
-    const URL = `${url}/api/oscar/votes`
+
+    const URL = `${pathname.replace("/votes", "")}/api/oscar/votes`
 
     await axios.post(URL, {
       movie: activeMovie,
@@ -155,7 +148,7 @@ export default function VotesPage(props: VotesPageProps) {
   }, [
     activeMovie,
     activeCategoryLabel,
-    url,
+    pathname,
     handleSelectMovie,
     updateStorageVote,
     closeModal
