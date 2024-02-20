@@ -84,6 +84,8 @@ export default function VotesPage() {
 
   const [isModalOpen, setIsOpen] = useState(false)
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const [activeMovie, setActiveMovie] = useState("")
 
   const closeModal = useCallback(() => {
@@ -140,10 +142,15 @@ export default function VotesPage() {
 
     const URL = `${pathname.replace("/votes", "")}/api/oscar/votes`
 
+    setIsLoading(true)
+
     await axios.post(URL, {
       movie: activeMovie,
       category: activeCategoryLabel
     })
+
+    setIsLoading(false)
+
     closeModal()
   }, [
     activeMovie,
@@ -181,7 +188,7 @@ export default function VotesPage() {
               {activeMovie}
             </Text>
           </MovieTitleContainer>
-          <Button label="Votar" onClick={handleConfirmVote} />
+          <Button label="Votar" onClick={handleConfirmVote} isLoading={isLoading} />
         </Modal>
       )}
       <Container>

@@ -2,6 +2,8 @@ import Text, { TextColors } from "../Typography/Text"
 
 import { memo } from "react"
 import styled from "styled-components"
+import Lottie from "react-lottie"
+import loadingAnimation from "./loading-lottie.json"
 
 const ButtonStyled = styled.button`
   width: 100%;
@@ -36,11 +38,13 @@ const IconContainer = styled.div`
   align-items: center;
 `
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string
   iconLeft?: React.ReactNode
   iconRight?: React.ReactNode
   variant?: "primary" | "secondary"
+  isLoading?: boolean
 }
 
 const theme = {
@@ -53,15 +57,37 @@ const theme = {
 }
 
 const Button = (props: ButtonProps) => {
-  const { label, iconLeft, iconRight, variant = "primary", ...rest } = props
+  const {
+    label,
+    iconLeft,
+    iconRight,
+    variant = "primary",
+    isLoading = false,
+    ...rest
+  } = props
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loadingAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  }
 
   return (
-    <ButtonStyled className={`bgColor-${variant}`} {...rest}>
+    <ButtonStyled className={`bgColor-${variant}`} {...rest} disabled={isLoading}>
       <ButtonContainer>
         {iconLeft && <IconContainer>{iconLeft}</IconContainer>}
-        <Text color={theme[variant].fontColor} size="small">
-          {label}
-        </Text>
+        {!isLoading && (
+          <Text color={theme[variant].fontColor} size="small">
+            {label}
+          </Text>
+        )}
+
+        {isLoading && (
+          <Lottie options={defaultOptions} height={20} width={20} />
+        )}
         {iconRight && <IconContainer>{iconRight}</IconContainer>}
       </ButtonContainer>
     </ButtonStyled>
