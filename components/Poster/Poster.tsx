@@ -4,7 +4,7 @@ import HeartFill from "../Icons/HeartFill"
 import { IconColors } from "../Icons/types/IconProps"
 import Text, { TextColors } from "../Typography/Text"
 
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { memo, useCallback } from "react"
 import styled from "styled-components"
 
