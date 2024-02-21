@@ -11,7 +11,7 @@ import useSaveImg from "./hooks/useSaveImg"
 
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useCallback, useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo, useRef } from "react"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -114,14 +114,17 @@ const UserVotes = () => {
 
   const router = useRouter()
 
-  const { ref, savePngImgFromHTML } = useSaveImg()
+  const ref = useRef(null)
+
+  const { exportAsImage } = useSaveImg()
 
   const movieInfo = useMemo(() => {
     const bestMovie = storageVotes.find(
       (vote) => vote.category === bestMovieCategoryLabel
     )
 
-    const posterKey = bestMovie?.selectedMovie?.replace(/ /g, "_").toLowerCase() || "default"
+    const posterKey =
+      bestMovie?.selectedMovie?.replace(/ /g, "_").toLowerCase() || "default"
 
     return {
       bestMovie,
@@ -186,7 +189,12 @@ const UserVotes = () => {
 
       <ButtonsContainer>
         <ButtonsCard>
-          <Button label="Salvar imagem" onClick={savePngImgFromHTML} />
+          <Button
+            label="Salvar imagem"
+            onClick={async () => {
+              await exportAsImage(ref.current, "oscar_2024.png")
+            }}
+          />
           <Button
             label="Votar novamente"
             variant="secondary"

@@ -1,37 +1,37 @@
-import { useCallback, useRef } from "react"
-import { toPng } from "html-to-image"
+import html2canvas from "html2canvas"
 
 const useSaveImg = () => {
-  const ref = useRef<HTMLDivElement>(null)
+  const exportAsImage = async (element) => {
+    const canvas = await html2canvas(element)
 
-  const savePngImgFromHTML = useCallback(() => {
-    if (ref.current === null) {
-      return
-    }
+    const image = canvas.toDataURL("image/png", 1.0)
 
+    downloadImage(image)
+  }
+
+  const downloadImage = (blob) => {
     const timestamp = Date.now().toString()
 
     const uniqueNumber = timestamp.slice(-6)
 
     const fileName = `meus-votos-oscar-2024-${uniqueNumber}.png`
 
-    toPng(ref.current, { cacheBust: true })
-      .then((dataUrl) => {
-        window.location.reload()
+    const fakeLink = window.document.createElement("a")
+    const fakeLinkStyle = fakeLink.style
+    fakeLinkStyle.display = "none"
+    fakeLink.download = fileName
 
-        const link = document.createElement("a")
-        link.download = fileName
-        link.href = dataUrl
-        link.click()
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [ref])
+    fakeLink.href = blob
+
+    document.body.appendChild(fakeLink)
+    fakeLink.click()
+    document.body.removeChild(fakeLink)
+
+    fakeLink.remove()
+  }
 
   return {
-    ref,
-    savePngImgFromHTML
+    exportAsImage
   }
 }
 
