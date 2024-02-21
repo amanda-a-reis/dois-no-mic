@@ -28,6 +28,10 @@ const HeaderLabel = styled(Text)`
   &.isOpen {
     color: ${(props) => props.theme.color.yellow};
   }
+
+  @media (min-width: 1023px) {
+    display: none;
+  }
 `
 
 interface DropdownProps {
