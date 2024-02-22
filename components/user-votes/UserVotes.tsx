@@ -192,7 +192,7 @@ const UserVotes = () => {
           <Button
             label="Salvar imagem"
             onClick={async () => {
-              await exportAsImage(ref.current, "oscar_2024.png")
+              await exportAsImage(ref.current)
             }}
           />
           <Button

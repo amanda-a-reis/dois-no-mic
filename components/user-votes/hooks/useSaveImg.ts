@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import html2canvas from "html2canvas"
 
 const useSaveImg = () => {
-  const exportAsImage = async (element) => {
-    const canvas = await html2canvas(element)
+  const exportAsImage = async (element: HTMLDivElement) => {
+    const canvas = await html2canvas(element, {
+      backgroundColor: null
+    })
+
+    console.log("element", element)
 
     const image = canvas.toDataURL("image/png", 1.0)
 
