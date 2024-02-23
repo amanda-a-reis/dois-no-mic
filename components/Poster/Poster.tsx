@@ -2,7 +2,7 @@ import clsx from "clsx"
 import Heart from "../Icons/Heart"
 import HeartFill from "../Icons/HeartFill"
 import { IconColors } from "../Icons/types/IconProps"
-import Text, { TextColors } from "../Typography/Text"
+import Text, { TextColors, TextWeights } from "../Typography/Text"
 
 import Image from "next/legacy/image"
 import { memo, useCallback } from "react"
@@ -109,7 +109,7 @@ const Poster = (props: PosterProps) => {
       <MovieInfoContainer>
         <IconContainer className={clsx({ isVoted: variant === "selected" })}>{theme[variant].icon}</IconContainer>
         <MovieTitleContainer>
-          <Text color={theme[variant].fontColor}>{movieTitle}</Text>
+          <Text color={theme[variant].fontColor} weigth={TextWeights.medium}>{movieTitle}</Text>
         </MovieTitleContainer>
       </MovieInfoContainer>
     </Container>

@@ -64,6 +64,12 @@ export enum TextColors {
   black = "black"
 }
 
+export enum TextWeights {
+  medium = "medium",
+  regular = "regular",
+  semiBold = "semiBold"
+}
+
 interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode
   color?: TextColors

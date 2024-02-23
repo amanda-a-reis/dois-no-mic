@@ -2,7 +2,7 @@ import clsx from "clsx"
 import Check from "../Icons/Check"
 import CheckFill from "../Icons/CheckFill"
 import { IconColors } from "../Icons/types/IconProps"
-import Text, { TextColors } from "../Typography/Text"
+import Text, { TextColors, TextWeights } from "../Typography/Text"
 
 import { memo, useCallback } from "react"
 import styled from "styled-components"
@@ -55,10 +55,12 @@ interface AccordionProps {
 const theme = {
   primary: {
     fontColor: TextColors.white,
+    fontWeight: TextWeights.regular,
     iconColor: IconColors.default
   },
   secondary: {
     fontColor: TextColors.yellow,
+    fontWeight: TextWeights.semiBold,
     iconColor: IconColors.selected
   }
 }
@@ -91,8 +93,19 @@ const Accordion = (props: AccordionProps) => {
           {!hasVote && <Check color={theme[variant].iconColor} />}
           {hasVote && <CheckFill color={IconColors.selected} />}
         </IconContainer>
-        {!hasVote && <Text color={theme[variant].fontColor}>{label}</Text>}
-        {hasVote && <Text color={TextColors.yellow}>{label}</Text>}
+        {!hasVote && (
+          <Text
+            color={theme[variant].fontColor}
+            weigth={theme[variant].fontWeight}
+          >
+            {label}
+          </Text>
+        )}
+        {hasVote && (
+          <Text color={TextColors.yellow} weigth={TextWeights.semiBold}>
+            {label}
+          </Text>
+        )}
       </InlineContainer>
     </Container>
   )
