@@ -7,7 +7,7 @@ import PosterList from "../Poster/PosterList"
 import useVotes from "./hooks/useVotes"
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { use, useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import styled from "styled-components"
 import Modal from "../Modal/Modal"
 import Text, { TextColors } from "../Typography/Text"
@@ -128,25 +128,13 @@ const MovieTitleContainer = styled.div`
   text-align: center;
 `
 
-const Test = styled.div`
-  @media (min-width: 1023px) {
-    width: 1600px;
-    height: 918px;
-    position: absolute;
-    bottom: 120px;
-    padding: 48px 68px 48px 68px;
-    display: flex;
-    flex-wrap: wrap;
-  }
-`
-
 export default function VotesPage() {
   const [isOpen, setIsDropdownOpen] = useState(false)
 
   const [isModalOpen, setIsOpen] = useState(false)
 
   const [activeMovie, setActiveMovie] = useState("")
-  
+
   const closeModal = useCallback(() => {
     setIsOpen(false)
   }, [])
@@ -238,7 +226,7 @@ export default function VotesPage() {
             <Header />
           </HeaderContainer>
           <DropdownContainer>
-            <DropdownHeader 
+            <DropdownHeader
               isOpen={isDropdownOpen}
               handleToggle={handleToggle}
             />
@@ -256,14 +244,14 @@ export default function VotesPage() {
         </FixedContainer>
         {isDropdownOpen && (
           <DropdownContainer className={isDropdownOpen ? "isDropdownOpen" : ""}>
-            <Dropdown 
+            <Dropdown
               isOpen={isDropdownOpen}
               handleClick={handleAccordionClick}
               categoryList={categoryList}
             />
           </DropdownContainer>
         )}
-        {!isDropdownOpen || window.innerWidth > 1023 && (
+        {!isDropdownOpen || (window.innerWidth > 1023) && (
           <>
             <PosterList
               list={movieList}
