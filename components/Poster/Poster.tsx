@@ -36,13 +36,13 @@ const MovieTitleContainer = styled.div`
   height: 100%;
   width: 100%;
   margin: 0;
+  text-align: left;
 `
 
 const MovieInfoContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  gap: 8px;
   align-items: flex-start;
 `
 
@@ -50,6 +50,10 @@ const IconContainer = styled.div`
   height: 100%;
   display: flex;
   align-items: flex-start;
+
+  &.isVoted {
+    padding-right: 8px;
+  }
 `
 
 interface PosterProps {
@@ -103,7 +107,7 @@ const Poster = (props: PosterProps) => {
         blurDataURL="/shimmer.gif"
       />
       <MovieInfoContainer>
-        <IconContainer>{theme[variant].icon}</IconContainer>
+        <IconContainer className={clsx({ isVoted: variant === "selected" })}>{theme[variant].icon}</IconContainer>
         <MovieTitleContainer>
           <Text color={theme[variant].fontColor}>{movieTitle}</Text>
         </MovieTitleContainer>
