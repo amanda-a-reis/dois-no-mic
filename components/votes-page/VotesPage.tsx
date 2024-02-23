@@ -174,20 +174,20 @@ export default function VotesPage() {
     [pathname, router, handleActiveCategory]
   )
 
-  const [mount, setMount] = useState(false);
+  const [mount, setMount] = useState(false)
 
   useEffect(() => {
-    setMount(true);
-  }, []);
+    setMount(true)
+  }, [])
 
   const isDropdownOpen = useMemo(() => {
     const search = searchParams.get("q")
     if (mount && (window.innerWidth > 1023)) {
-      setIsDropdownOpen(true);
-      return true;
+      setIsDropdownOpen(true)
+      return true
     }
     return search === "allCategories" || isOpen;
-  }, [searchParams, isOpen, mount]);
+  }, [searchParams, isOpen, mount])
   return (
     <>
       {isModalOpen && (
@@ -251,7 +251,7 @@ export default function VotesPage() {
             />
           </DropdownContainer>
         )}
-        {!isDropdownOpen || (window.innerWidth > 1023) && (
+        {(!isDropdownOpen || window.innerWidth > 1023) ? (
           <>
             <PosterList
               list={movieList}
@@ -272,7 +272,7 @@ export default function VotesPage() {
               </ButtonsCard>
             </ButtonsContainer>
           </>
-        )}
+        ) : null}
       </Container>
     </>
   )
