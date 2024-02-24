@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import DoisNoMicLogoAlter from "../Icons/DoisNoMicLogoAlter"
 import Text, { TextColors } from "../Typography/Text"
-import VotesTag from "../user-votes/VotesTag"
+import VotesTagLarge from "../user-votes/VotesTagLarge"
 
 const CardContentContainer = styled.div`
   width: 100%;
@@ -57,10 +57,10 @@ interface PersonalShareProps {
   moviePoster: any
 }
 
-const PersonalShare = (props: PersonalShareProps) => {
+const PersonalShareLarge = (props: PersonalShareProps) => {
   const { bestMovie, userVotesList, hasVotes } = props
   return (
-    <CardContentContainer>
+    <CardContentContainer >
       <CardDescriptionContainer>
         <DescriptionTextContainer>
           <Text size="large" color={TextColors.black}>
@@ -75,12 +75,12 @@ const PersonalShare = (props: PersonalShareProps) => {
         <MoviesContainer>
           {bestMovie?.selectedMovie && (
             <BestMovieContainer>
-              <VotesTag {...bestMovie} fullWidth />
+              <VotesTagLarge {...bestMovie} fullWidth />
             </BestMovieContainer>
           )}
           <VotesContainer>
             {userVotesList?.map((vote) => (
-              <>{vote.selectedMovie && <VotesTag {...vote} />}</>
+              <>{vote.selectedMovie && <VotesTagLarge {...vote} />}</>
             ))}
           </VotesContainer>
         </MoviesContainer>
@@ -89,4 +89,4 @@ const PersonalShare = (props: PersonalShareProps) => {
   )
 }
 
-export default PersonalShare
+export default PersonalShareLarge

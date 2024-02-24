@@ -22,6 +22,11 @@ const TextStyled = styled.p`
     color: ${(props) => props.theme.color.black};
   }
 
+  &.fontSize-img {
+    font-size: 10px;
+    line-height: 16px;
+  }
+
   &.fontSize-xSmall {
     font-size: 8px;
     line-height: 14px;
@@ -47,8 +52,13 @@ const TextStyled = styled.p`
     line-height: 44px;
   }
 
+  &.fontSize-xxLarge {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
   &.fontWeight-medium {
-    font-weight: medium;
+    font-weight: 500;
   }
 
   &.fontWeight-regular {
@@ -75,7 +85,7 @@ export enum TextWeights {
 interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode
   color?: TextColors
-  size?: "xSmall" | "small" | "medium" | "large" | "xLarge"
+  size?: "xSmall" | "small" | "medium" | "large" | "xLarge" | "xxLarge" | "img"
   weigth?: "medium" | "regular" | "semiBold"
 }
 

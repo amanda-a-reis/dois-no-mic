@@ -8,9 +8,11 @@ import useStorageVotes from "../votes-page/hooks/useStorageVotes"
 import useSaveImg from "./hooks/useSaveImg"
 
 import { useRouter } from "next/navigation"
-import { useCallback, useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import styled from "styled-components"
 import PersonalShare from "../PersonalShare/PersonalShare"
+import PersonalShareBannerLarge from "../Banner/PersonalShareBannerLarge"
+import PersonalShareLarge from "../PersonalShare/PersonalShareLarge"
 
 const Container = styled.div`
   display: flex;
@@ -21,6 +23,10 @@ const Container = styled.div`
   align-items: center;
   padding: 8px;
   gap: 8px;
+
+  @media (min-width: 1024px) {
+    padding: 18px 16px;
+  }
 `
 
 const HeaderContainer = styled.div`
@@ -30,6 +36,37 @@ const HeaderContainer = styled.div`
 const CardContainer = styled.div`
   width: 100%;
   min-height: 424px;
+`
+
+const ContainerLarge = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 48px;
+  padding: 48px 72px;
+
+  @media (max-height: 800px) {
+    padding: 16px 72px;
+  }
+`
+
+const CardContainerLarge = styled.div`
+  width: 39%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background-color: ${(props) => props.theme.color.gray_primary};
+  border-radius: 8px;
+
+  @media (max-height: 900px) {
+    width: 70%;
+  }
+`
+
+const ImgLarge = styled.div`
+  width: 100%;
+  height: 100%;
 `
 
 const ButtonsCard = styled.div`
@@ -54,6 +91,8 @@ const ButtonsContainer = styled.div`
 const bestMovieCategoryLabel = "Melhor Filme"
 
 const UserVotes = () => {
+  const [mount, setMount] = useState(false)
+
   const { storageVotes, getStorageVotes, saveInitialVotes } = useStorageVotes()
 
   const router = useRouter()
@@ -86,7 +125,12 @@ const UserVotes = () => {
 
   useEffect(() => {
     getStorageVotes()
+    setMount(true)
   }, [])
+
+  const isLargeWindow = useMemo(() => {
+    return mount && window.innerWidth > 1024
+  }, [mount])
 
   return (
     <Container>
@@ -94,23 +138,40 @@ const UserVotes = () => {
         <Header />
       </HeaderContainer>
 
-      <CardContainer ref={ref}>
-        <PersonalShare {...movieInfo} />
-      </CardContainer>
+      {!isLargeWindow && (
+        <>
+          <CardContainer ref={ref}>
+            <PersonalShare {...movieInfo} />
+          </CardContainer>
 
-      <ButtonsContainer>
-        <ButtonsCard>
-          <Button
-            label="Salvar imagem"
-            onClick={exportAsImage}
-          />
-          <Button
-            label="Votar novamente"
-            variant="secondary"
-            onClick={handleVoteAgain}
-          />
-        </ButtonsCard>
-      </ButtonsContainer>
+          <ButtonsContainer>
+            <ButtonsCard>
+              <Button label="Salvar imagem" onClick={exportAsImage} />
+              <Button
+                label="Votar novamente"
+                variant="secondary"
+                onClick={handleVoteAgain}
+              />
+            </ButtonsCard>
+          </ButtonsContainer>
+        </>
+      )}
+
+      {isLargeWindow && (
+        <ContainerLarge>
+          <PersonalShareBannerLarge onVote={handleVoteAgain} />
+          <CardContainerLarge>
+            <ImgLarge ref={ref}>
+              <PersonalShareLarge {...movieInfo} />
+            </ImgLarge>
+            <Button
+              label="Salvar imagem"
+              variant="primary"
+              onClick={exportAsImage}
+            />
+          </CardContainerLarge>
+        </ContainerLarge>
+      )}
     </Container>
   )
 }
