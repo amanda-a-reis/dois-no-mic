@@ -12,7 +12,7 @@ const Img = styled(Image)`
   object-fit: cover;
   object-position: right top;
 
-  z-index: -1;
+  z-index: 0;
   position: fixed !important;
 
   @media (max-width: 345px) {
@@ -32,11 +32,13 @@ const Container = styled.div`
 const HeaderContainer = styled.div`
   width: 100%;
   padding: 8px;
+  z-index: 1;
 `
 
 const BannerContainer = styled.div`
   width: 100%;
   padding: 0 8px 8px 8px;
+  z-index: 1;
 `
 
 const ButtonsCard = styled.div`
@@ -53,6 +55,7 @@ const ButtonsCard = styled.div`
 const ButtonsContainer = styled.div`
   width: 100%;
   padding: 0 8px 8px 8px;
+  z-index: 1;
 `
 
 const LinkStyled = styled(Link)`
