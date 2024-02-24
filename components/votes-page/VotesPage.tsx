@@ -152,13 +152,16 @@ export default function VotesPage() {
     setIsLoading(false)
 
     closeModal()
+
+    handleNextCategory()
   }, [
     activeMovie,
     activeCategoryLabel,
     pathname,
     handleSelectMovie,
     updateStorageVote,
-    closeModal
+    closeModal,
+    handleNextCategory
   ])
 
   useEffect(() => {
