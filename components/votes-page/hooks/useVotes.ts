@@ -71,6 +71,16 @@ const useVotes = () => {
     _selectActiveCategory(nextCategory)
   }, [activeCategoryId, categories, _selectActiveCategory])
 
+  const handlePreviousCategory = useCallback(() => {
+    if (activeCategoryId === 0) {
+      return
+    }
+
+    const previousCategory = activeCategoryId - 1
+
+    _selectActiveCategory(previousCategory)
+  }, [activeCategoryId, _selectActiveCategory])
+
   const data = useMemo(() => {
     const selectedMovie = storageVotes[activeCategoryId]?.selectedMovie
 
@@ -103,7 +113,8 @@ const useVotes = () => {
     data,
     handleSelectMovie,
     handleActiveCategory,
-    handleNextCategory
+    handleNextCategory,
+    handlePreviousCategory
   }
 }
 

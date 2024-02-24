@@ -7,7 +7,7 @@ import PosterList from "../Poster/PosterList"
 import useVotes from "./hooks/useVotes"
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import styled from "styled-components"
 import Modal from "../Modal/Modal"
 import Text, { TextColors } from "../Typography/Text"
@@ -34,6 +34,10 @@ const FixedContainer = styled.div`
 const HeaderContainer = styled.div`
   width: 100%;
   padding: 8px;
+
+  @media (min-width: 1023px) {
+    padding: 18px 16px 8px 16px;
+  }
 `
 
 const ButtonsContainer = styled.div`
@@ -42,6 +46,11 @@ const ButtonsContainer = styled.div`
   position: fixed;
   bottom: 0;
   background-color: ${(props) => props.theme.color.gray_bg};
+
+  @media (min-width: 1023px) {
+    padding-bottom: 18px;
+    padding-right: 16px;
+  }
 `
 
 const DropdownContainer = styled.div`
@@ -51,11 +60,44 @@ const DropdownContainer = styled.div`
   &.isDropdownOpen {
     padding-top: 134px;
   }
+
+  @media (min-width: 1023px) {
+    position: fixed;
+    right: 0;
+    width: 360px;
+    overflow-y: scroll;
+    padding-right: 16px;
+    padding-bottom: 8px;
+
+    &.isDropdownOpen {
+      padding-top: 86px;
+
+      @media (min-height: 400px) {
+        max-height: 81%;
+        @media (min-height: 600px) {
+          max-height: 85%;
+          @media (min-height: 800px) {
+            max-height: 89%;
+            @media (min-height: 1000px) {
+              max-height: 92%;
+              @media (min-height: 1200px) {
+                max-height: 95%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 `
 
 const AccordionContainer = styled.div`
   width: 100%;
   padding: 0 8px 8px 8px;
+
+  @media (min-width: 1023px) {
+    display: none;
+  }
 `
 
 const ButtonsCard = styled.div`
@@ -66,10 +108,18 @@ const ButtonsCard = styled.div`
   justify-content: center;
   align-items: center;
   padding: 16px;
+
+  @media (min-width: 1023px) {
+    flex-direction: row;
+    padding: 12px;
+    gap: 8px;
+  }
 `
 
 const MovieImage = styled(Image)`
   border-radius: 8px;
+  width: 150px;
+  height: 225px;
 `
 
 const MovieTitleContainer = styled.div`
@@ -100,17 +150,21 @@ export default function VotesPage() {
     data: { activeCategoryLabel, selectedMovie, movieList, categoryList },
     handleSelectMovie,
     handleActiveCategory,
-    handleNextCategory
+    handleNextCategory,
+    handlePreviousCategory
   } = useVotes()
 
-  const handlePosterClick = useCallback((movieTitle: string) => {
-    if (selectedMovie) {
-      return
-    }
+  const handlePosterClick = useCallback(
+    (movieTitle: string) => {
+      if (selectedMovie) {
+        return
+      }
 
-    setIsOpen(true)
-    setActiveMovie(movieTitle)
-  }, [selectedMovie])
+      setIsOpen(true)
+      setActiveMovie(movieTitle)
+    },
+    [selectedMovie]
+  )
 
   const handleAccordionClick = useCallback(
     (categoryLabel: string) => {
@@ -122,11 +176,20 @@ export default function VotesPage() {
     [pathname, router, handleActiveCategory]
   )
 
+  const [mount, setMount] = useState(false)
+
+  useEffect(() => {
+    setMount(true)
+  }, [])
+
   const isDropdownOpen = useMemo(() => {
     const search = searchParams.get("q")
-
+    if (mount && window.innerWidth > 1023) {
+      setIsDropdownOpen(true)
+      return true
+    }
     return search === "allCategories" || isOpen
-  }, [searchParams, isOpen])
+  }, [searchParams, isOpen, mount])
   return (
     <>
       {isModalOpen && (
@@ -182,7 +245,7 @@ export default function VotesPage() {
           )}
         </FixedContainer>
         {isDropdownOpen && (
-          <DropdownContainer className="isDropdownOpen">
+          <DropdownContainer className={isDropdownOpen ? "isDropdownOpen" : ""}>
             <Dropdown
               isOpen={isDropdownOpen}
               handleClick={handleAccordionClick}
@@ -190,7 +253,8 @@ export default function VotesPage() {
             />
           </DropdownContainer>
         )}
-        {!isDropdownOpen && (
+        {!isDropdownOpen || window.innerWidth > 1023
+          ? (
           <>
             <PosterList
               list={movieList}
@@ -200,13 +264,19 @@ export default function VotesPage() {
             <ButtonsContainer>
               <ButtonsCard>
                 <Button
+                  label="Categoria anterior"
+                  variant="secondary"
+                  onClick={handlePreviousCategory}
+                />
+                <Button
                   label="Próxima categoria"
                   onClick={handleNextCategory}
                 />
               </ButtonsCard>
             </ButtonsContainer>
           </>
-        )}
+            )
+          : null}
       </Container>
     </>
   )

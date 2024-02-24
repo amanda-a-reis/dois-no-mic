@@ -11,6 +11,13 @@ const PostersContainer = styled.div`
   flex-wrap: wrap;
   padding-bottom: 120px;
   padding-top: 200px;
+
+  @media (min-width: 1023px) {
+    max-width: calc(100vw - 336px);
+    height: 100%;
+    gap: 48px;
+    padding: 126px 68px 126px 68px;
+  }
 `
 
 interface PosterListProps {

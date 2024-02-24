@@ -24,10 +24,23 @@ const Container = styled.button`
   &.disabled {
     filter: opacity(0.3);
   }
+
+  @media (min-width: 1023px) {
+    width: 240px;
+    height: 360px;
+  }
 `
 
 const MovieImage = styled(Image)`
   border-radius: 8px;
+  width: 150px;
+  height: 225px;
+
+  @media (min-width: 1023px) {
+    width: 240px;
+    height: 360px;
+    
+  }
 `
 
 const MovieTitleContainer = styled.div`
