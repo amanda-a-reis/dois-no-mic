@@ -8,7 +8,7 @@ import useStorageVotes from "../votes-page/hooks/useStorageVotes"
 import useSaveImg from "./hooks/useSaveImg"
 
 import { useRouter } from "next/navigation"
-import { useCallback, useEffect, useMemo, useRef } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import styled from "styled-components"
 import PersonalShare from "../PersonalShare/PersonalShare"
 
