@@ -4,13 +4,13 @@ import Poster from "./Poster"
 import styled from "styled-components"
 
 const PostersContainer = styled.div`
+  width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 12px;
   flex-wrap: wrap;
-  padding-bottom: 120px;
-  padding-top: 200px;
+  padding: 176px 8px 120px 8px;
+  gap: 12px;
 `
 
 interface PosterListProps {

@@ -27,7 +27,6 @@ const FixedContainer = styled.div`
   align-items: center;
   width: 100%;
   top: 0;
-  gap: 8px;
   background-color: ${(props) => props.theme.color.gray_bg};
   position: fixed;
   z-index: 10;
@@ -35,7 +34,7 @@ const FixedContainer = styled.div`
 
 const HeaderContainer = styled.div`
   width: 100%;
-  padding: 8px;
+  padding: 8px 8px 0px 8px;
 `
 
 const ButtonsContainer = styled.div`
@@ -46,18 +45,28 @@ const ButtonsContainer = styled.div`
   background-color: ${(props) => props.theme.color.gray_bg};
 `
 
-const DropdownContainer = styled.div`
+const DropdownHeaderContainer = styled.div`
   width: 100%;
-  padding: 0 8px 8px 8px;
+  padding: 8px 8px 8px 8px;
 
   &.isDropdownOpen {
     padding-top: 134px;
   }
 `
 
+const DropdownContainer = styled.div`
+  width: 100%;
+  padding: 0px 8px 0px 8px;
+
+  &.isDropdownOpen {
+    padding-top: 126px;
+    padding-bottom: 8px;
+  }
+`
+
 const AccordionContainer = styled.div`
   width: 100%;
-  padding: 0 8px 8px 8px;
+  padding: 0px 8px 8px 8px;
 `
 
 const ButtonsCard = styled.div`
@@ -196,12 +205,12 @@ export default function VotesPage() {
           <HeaderContainer>
             <Header />
           </HeaderContainer>
-          <DropdownContainer>
+          <DropdownHeaderContainer>
             <DropdownHeader
               isOpen={isDropdownOpen}
               handleToggle={handleToggle}
             />
-          </DropdownContainer>
+          </DropdownHeaderContainer>
           {!isDropdownOpen && (
             <AccordionContainer>
               <Accordion
