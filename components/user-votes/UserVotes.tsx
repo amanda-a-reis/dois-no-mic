@@ -58,9 +58,7 @@ const UserVotes = () => {
 
   const router = useRouter()
 
-  const ref = useRef(null)
-
-  const { exportAsImage } = useSaveImg()
+  const { exportAsImage, ref } = useSaveImg()
 
   const movieInfo = useMemo(() => {
     const bestMovie = storageVotes.find(
@@ -104,9 +102,7 @@ const UserVotes = () => {
         <ButtonsCard>
           <Button
             label="Salvar imagem"
-            onClick={async () => {
-              await exportAsImage(ref.current)
-            }}
+            onClick={exportAsImage}
           />
           <Button
             label="Votar novamente"

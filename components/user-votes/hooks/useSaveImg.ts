@@ -1,42 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-import html2canvas from "html2canvas"
+import { toPng } from "html-to-image"
+import { useCallback, useRef } from "react"
 
 const useSaveImg = () => {
-  const exportAsImage = async (element: HTMLDivElement) => {
-    const canvas = await html2canvas(element, {
-      backgroundColor: null
-    })
+  const ref = useRef<HTMLDivElement>(null)
 
-    console.log("element", element)
+  const exportAsImage = useCallback(() => {
+    if (ref.current === null) {
+      return
+    }
 
-    const image = canvas.toDataURL("image/png", 1.0)
-
-    downloadImage(image)
-  }
-
-  const downloadImage = (blob) => {
     const timestamp = Date.now().toString()
 
     const uniqueNumber = timestamp.slice(-6)
 
     const fileName = `meus-votos-oscar-2024-${uniqueNumber}.png`
 
-    const fakeLink = window.document.createElement("a")
-    const fakeLinkStyle = fakeLink.style
-    fakeLinkStyle.display = "none"
-    fakeLink.download = fileName
-
-    fakeLink.href = blob
-
-    document.body.appendChild(fakeLink)
-    fakeLink.click()
-    document.body.removeChild(fakeLink)
-
-    fakeLink.remove()
-  }
+    toPng(ref.current, {
+      cacheBust: true
+    })
+      .then((dataUrl) => {
+        const link = document.createElement("a")
+        link.download = fileName
+        link.href = dataUrl
+        link.click()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [ref])
 
   return {
-    exportAsImage
+    exportAsImage,
+    ref
   }
 }
 
