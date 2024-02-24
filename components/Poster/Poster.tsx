@@ -109,7 +109,7 @@ const Poster = (props: PosterProps) => {
       <MovieInfoContainer>
         <IconContainer className={clsx({ isVoted: variant === "selected" })}>{theme[variant].icon}</IconContainer>
         <MovieTitleContainer>
-          <Text color={theme[variant].fontColor} weigth={TextWeights.medium}>{movieTitle}</Text>
+          <Text color={theme[variant].fontColor} weigth={TextWeights.medium} size="small">{movieTitle}</Text>
         </MovieTitleContainer>
       </MovieInfoContainer>
     </Container>

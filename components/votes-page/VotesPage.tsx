@@ -10,10 +10,10 @@ import Text, { TextColors } from "../Typography/Text"
 
 import useVotes from "./hooks/useVotes"
 
-import Image from "next/image"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import styled from "styled-components"
+import Poster from "../Poster/Poster"
 
 const Container = styled.div`
   width: 100vw;
@@ -77,15 +77,6 @@ const ButtonsCard = styled.div`
   justify-content: center;
   align-items: center;
   padding: 16px;
-`
-
-const MovieImage = styled(Image)`
-  border-radius: 8px;
-`
-
-const MovieTitleContainer = styled.div`
-  margin-bottom: 12px;
-  text-align: center;
 `
 
 export default function VotesPage() {
@@ -178,26 +169,22 @@ export default function VotesPage() {
     <>
       {isModalOpen && (
         <Modal onClose={closeModal}>
-          <Text color={TextColors.white} size="medium">
-            Escolher
-          </Text>
-          <Text color={TextColors.yellow} size="large">
+          <Text color={TextColors.yellow} size="medium">
             {activeCategoryLabel}
           </Text>
-          <MovieImage
-            src={
+          <Poster
+            handleSelectMovie={() => {}}
+            movieTitle={activeMovie}
+            moviePoster={
               movieList.find((movie) => movie.titlePT === activeMovie)?.image
             }
-            alt="Movie Poster"
-            width={150}
-            height={225}
+            variant="selected"
           />
-          <MovieTitleContainer>
-            <Text color={TextColors.white} size="medium">
-              {activeMovie}
-            </Text>
-          </MovieTitleContainer>
-          <Button label="Votar" onClick={handleConfirmVote} isLoading={isLoading} />
+          <Button
+            label="Confirmar"
+            onClick={handleConfirmVote}
+            isLoading={isLoading}
+          />
         </Modal>
       )}
       <Container>

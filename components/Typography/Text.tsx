@@ -2,11 +2,13 @@ import React, { memo } from "react"
 import styled from "styled-components"
 
 const TextStyled = styled.p`
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
   display: flex;
   align-items: center;
   font-size: 16px;
   font-weight: 400;
   margin: 0;
+  font-family: "Inter", sans-serif;
 
   &.fontColor-yellow {
     color: ${(props) => props.theme.color.yellow};
@@ -46,7 +48,7 @@ const TextStyled = styled.p`
   }
 
   &.fontWeight-medium {
-    font-weight: 500;
+    font-weight: medium;
   }
 
   &.fontWeight-regular {

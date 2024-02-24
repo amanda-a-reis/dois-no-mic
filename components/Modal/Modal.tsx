@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import styled from "styled-components"
+import CloseModalButton from "../Buttons/CloseModalButton"
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -17,16 +18,24 @@ const ModalWrapper = styled.div`
   z-index: 999;
 `
 
+const ModalWithButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+`
+
 const ModalContent = styled.div`
+  box-sizing: border-box;
   background-color: ${(props) => props.theme.color.gray_secondary};
-  width: 344px;
+  width: 258px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 8px;
-  gap: 8px;
+  padding: 16px;
+  gap: 16px;
 `
 
 interface ModalProps {
@@ -69,9 +78,10 @@ export default function Modal(props: ModalProps) {
       {mounted &&
         createPortal(
           <ModalWrapper>
-            <ModalContent ref={ref}>
-              {children}
-            </ModalContent>
+            <ModalWithButton>
+              <ModalContent ref={ref}>{children}</ModalContent>
+              <CloseModalButton onClick={onClose} />
+            </ModalWithButton>
           </ModalWrapper>,
           document.getElementById("modal-root")
         )}
