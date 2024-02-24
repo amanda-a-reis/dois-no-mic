@@ -1,28 +1,19 @@
 import clsx from "clsx"
-import HeartFill from "../Icons/HeartFill"
-import { IconColors, IconSizes } from "../Icons/types/IconProps"
 import Text, { TextColors } from "../Typography/Text"
 
 import { memo } from "react"
 import styled from "styled-components"
 
 const VoteContainer = styled.div`
-  display: grid;
-  grid-template-columns: 6fr auto 5fr;
-  align-items: start;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
 
   &.fullWidth {
-    grid-template-columns: 45% auto 100%;
+    display: grid;
+    align-items: start;
+    gap: 16px;
+    grid-template-columns: auto 150%;
   }
-`
-
-const IconContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 10px;
-  height: 11px;
 `
 
 interface VotesTagProps {
@@ -42,15 +33,27 @@ const VotesTag = (props: VotesTagProps) => {
 
   return (
     <VoteContainer className={clsx({ fullWidth })}>
-      <Text size="xSmall" weigth="semiBold" color={categoryColor}>
-        {category.toUpperCase()}
-      </Text>
-      <IconContainer>
-        <HeartFill size={IconSizes.small} color={IconColors.selected} />
-      </IconContainer>
-      <Text size="xSmall" weigth="semiBold" color={TextColors.yellow}>
-        {selectedMovie.toUpperCase().split(" - ")[0]}
-      </Text>
+      {fullWidth && (
+        <>
+          <Text size="medium" weigth="semiBold" color={categoryColor}>
+            {category}
+          </Text>
+          <Text size="medium" weigth="semiBold" color={TextColors.yellow}>
+            {selectedMovie.toUpperCase().split(" - ")[0]}
+          </Text>
+        </>
+      )}
+
+      {!fullWidth && (
+        <>
+          <Text size="xSmall" weigth="semiBold" color={categoryColor}>
+            {category}
+          </Text>
+          <Text size="xSmall" weigth="semiBold" color={TextColors.yellow}>
+            {selectedMovie.toUpperCase().split(" - ")[0]}
+          </Text>
+        </>
+      )}
     </VoteContainer>
   )
 }
