@@ -39,7 +39,7 @@ const HeaderContainer = styled.div`
 
 const ButtonsContainer = styled.div`
   width: 100%;
-  padding: 0 8px 8px 8px;
+  padding: 8px 8px 8px 8px;
   position: fixed;
   bottom: 0;
   background-color: ${(props) => props.theme.color.gray_bg};

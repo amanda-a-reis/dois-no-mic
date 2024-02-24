@@ -9,7 +9,7 @@ const PostersContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 176px 8px 120px 8px;
+  padding: 176px 8px 90px 8px;
   gap: 12px;
 `
 

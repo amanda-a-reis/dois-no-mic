@@ -7,7 +7,7 @@ import styled from "styled-components"
 
 const Header = styled.button`
   width: 100%;
-  height: 42px;
+  height: 43px;
   background-color: ${(props) => props.theme.color.gray_secondary};
   display: flex;
   align-items: center;
