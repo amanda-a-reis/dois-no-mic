@@ -37,7 +37,6 @@ const HeaderContainer = styled.div`
 
   @media (min-width: 1023px) {
     padding: 18px 16px 8px 16px;
-
   }
 `
 
@@ -73,8 +72,8 @@ const DropdownContainer = styled.div`
     &.isDropdownOpen {
       padding-top: 86px;
 
-    @media (min-height: 400px) { 
-      max-height: 81%; 
+      @media (min-height: 400px) {
+        max-height: 81%;
         @media (min-height: 600px) {
           max-height: 85%;
           @media (min-height: 800px) {
@@ -155,14 +154,17 @@ export default function VotesPage() {
     handlePreviousCategory
   } = useVotes()
 
-  const handlePosterClick = useCallback((movieTitle: string) => {
-    if (selectedMovie) {
-      return
-    }
+  const handlePosterClick = useCallback(
+    (movieTitle: string) => {
+      if (selectedMovie) {
+        return
+      }
 
-    setIsOpen(true)
-    setActiveMovie(movieTitle)
-  }, [selectedMovie])
+      setIsOpen(true)
+      setActiveMovie(movieTitle)
+    },
+    [selectedMovie]
+  )
 
   const handleAccordionClick = useCallback(
     (categoryLabel: string) => {
@@ -182,11 +184,11 @@ export default function VotesPage() {
 
   const isDropdownOpen = useMemo(() => {
     const search = searchParams.get("q")
-    if (mount && (window.innerWidth > 1023)) {
+    if (mount && window.innerWidth > 1023) {
       setIsDropdownOpen(true)
       return true
     }
-    return search === "allCategories" || isOpen;
+    return search === "allCategories" || isOpen
   }, [searchParams, isOpen, mount])
   return (
     <>
@@ -251,7 +253,8 @@ export default function VotesPage() {
             />
           </DropdownContainer>
         )}
-        {(!isDropdownOpen || window.innerWidth > 1023) ? (
+        {!isDropdownOpen || window.innerWidth > 1023
+          ? (
           <>
             <PosterList
               list={movieList}
@@ -272,7 +275,8 @@ export default function VotesPage() {
               </ButtonsCard>
             </ButtonsContainer>
           </>
-        ) : null}
+            )
+          : null}
       </Container>
     </>
   )
