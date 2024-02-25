@@ -15,6 +15,8 @@ const Img = styled(Image)`
   z-index: 0;
   position: fixed !important;
 
+  overflow: hidden;
+
   @media (max-width: 345px) {
     object-position: center;
   }
@@ -22,23 +24,23 @@ const Img = styled(Image)`
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  overflow: hidden;
 
   @media (max-width: 1023px) {
     align-items: flex-end;
     min-height: calc(100vh - 60px);
-    justify-content: space-between;
   }
 `
 
 const HeaderContainer = styled.div`
   width: 100%;
-  z-index: 1;
-  padding: 8px 8px 0 8px;
+  z-index: 2;
+  padding: 8px 8px 8px 8px;
+  position: fixed;
 
   @media (min-width: 1023px) {
     padding: 16px 16px 0 16px;
@@ -49,17 +51,23 @@ const BannerContainer = styled.div`
   width: 100%;
   z-index: 1;
   padding: 0px 8px 0px 8px;
+  position: fixed;
+  top: 76px;
+  height: calc(100% - 220px);
+  overflow: hidden;
 
   @media (min-width: 1023px) {
-    padding: 0px 16px 0px 0px;
     box-sizing: content-box;
+    right: 0;
+    padding: 0px 16px 0px 0px;
     margin-left: auto;
     width: 360px;
-    height: calc(100vh - 186px);
+    height: calc(100vh - 194px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    margin-top: 12px;
   }
 `
 
@@ -85,8 +93,10 @@ const ButtonsCard = styled.div`
 
 const ButtonsContainer = styled.div`
   width: 100%;
-  padding: 0 8px 8px 8px;
+  padding: 8px 8px 8px 8px;
   z-index: 1;
+  position: fixed;
+  bottom: 0;
 
   @media (min-width: 1023px) {
     padding: 0 16px 16px 0;
