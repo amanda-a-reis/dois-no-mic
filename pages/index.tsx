@@ -12,7 +12,7 @@ const Img = styled(Image)`
   object-fit: cover;
   object-position: right top;
 
-  z-index: -1;
+  z-index: 0;
   position: fixed !important;
 
   @media (max-width: 345px) {
@@ -37,6 +37,7 @@ const Container = styled.div`
 
 const HeaderContainer = styled.div`
   width: 100%;
+  z-index: 1;
   padding: 8px 8px 0 8px;
 
   @media (min-width: 1023px) {
@@ -46,6 +47,7 @@ const HeaderContainer = styled.div`
 
 const BannerContainer = styled.div`
   width: 100%;
+  z-index: 1;
   padding: 0px 8px 0px 8px;
 
   @media (min-width: 1023px) {
@@ -84,6 +86,7 @@ const ButtonsCard = styled.div`
 const ButtonsContainer = styled.div`
   width: 100%;
   padding: 0 8px 8px 8px;
+  z-index: 1;
 
   @media (min-width: 1023px) {
     padding: 0 16px 16px 0;
@@ -101,16 +104,15 @@ const LinkStyled = styled(Link)`
 `
 
 export default function Home() {
-  const { verifyStorageVotes, saveInitialVotes, resetStorageVotes } = useStorageVotes()
+  const { verifyStorageVotes, saveInitialVotes } = useStorageVotes()
 
   useEffect(() => {
-    resetStorageVotes()
     const { hasStorageVotes } = verifyStorageVotes()
 
-    if (hasStorageVotes) return
-
-    saveInitialVotes()
-  }, [saveInitialVotes, verifyStorageVotes, resetStorageVotes])
+    if (!hasStorageVotes) {
+      saveInitialVotes()
+    }
+  }, [saveInitialVotes, verifyStorageVotes])
   return (
     <Container>
       <Img src="/bg-home.webp" alt="background image" fill priority />

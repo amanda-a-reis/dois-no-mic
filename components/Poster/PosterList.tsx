@@ -4,19 +4,17 @@ import Poster from "./Poster"
 import styled from "styled-components"
 
 const PostersContainer = styled.div`
+  width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 12px;
   flex-wrap: wrap;
-  padding-bottom: 120px;
-  padding-top: 200px;
+  padding: 176px 8px 90px 8px;
+  gap: 12px;
 
-  @media (min-width: 1023px) {
-    max-width: calc(100vw - 336px);
-    height: 100%;
+  @media (min-width: 1025px) {
+    padding: 0px 48px 78px 0px;
     gap: 48px;
-    padding: 126px 68px 126px 68px;
   }
 `
 

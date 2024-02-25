@@ -1,12 +1,15 @@
+import clsx from "clsx"
 import React, { memo } from "react"
 import styled from "styled-components"
 
 const TextStyled = styled.p`
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
   display: flex;
   align-items: center;
   font-size: 16px;
   font-weight: 400;
   margin: 0;
+  font-family: "Inter", sans-serif;
 
   &.fontColor-yellow {
     color: ${(props) => props.theme.color.yellow};
@@ -18,6 +21,16 @@ const TextStyled = styled.p`
 
   &.fontColor-black {
     color: ${(props) => props.theme.color.black};
+  }
+
+  &.fontSize-img {
+    font-size: 10px;
+    line-height: 16px;
+  }
+
+  &.fontSize-xSmall {
+    font-size: 8px;
+    line-height: 14px;
   }
 
   &.fontSize-small {
@@ -40,12 +53,28 @@ const TextStyled = styled.p`
     line-height: 44px;
   }
 
+  &.fontSize-xxLarge {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
   &.fontWeight-medium {
     font-weight: 500;
   }
 
   &.fontWeight-regular {
     font-weight: 400;
+  }
+
+  &.fontWeight-semiBold {
+    font-weight: 600;
+  }
+
+  &.isPosterTitle {
+    @media (min-width: 1025px) {
+      font-size: 16px;
+      line-height: 19px;
+    }
   }
 `
 
@@ -55,11 +84,18 @@ export enum TextColors {
   black = "black"
 }
 
+export enum TextWeights {
+  medium = "medium",
+  regular = "regular",
+  semiBold = "semiBold"
+}
+
 interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode
   color?: TextColors
-  size?: "small" | "medium" | "large" | "xLarge"
-  weigth?: "medium" | "regular"
+  size?: "xSmall" | "small" | "medium" | "large" | "xLarge" | "xxLarge" | "img"
+  weigth?: "medium" | "regular" | "semiBold"
+  isPosterTitle?: boolean
 }
 
 const Text = (props: TextProps) => {
@@ -68,11 +104,15 @@ const Text = (props: TextProps) => {
     color = TextColors.yellow,
     size = "medium",
     weigth = "regular",
+    isPosterTitle,
     ...rest
   } = props
   return (
     <TextStyled
-      className={`fontColor-${color} fontSize-${size} fontWeight-${weigth}`}
+      className={clsx(
+        `fontColor-${color} fontSize-${size} fontWeight-${weigth}`,
+        { isPosterTitle }
+      )}
       {...rest}
     >
       {children}

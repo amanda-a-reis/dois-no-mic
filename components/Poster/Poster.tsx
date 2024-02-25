@@ -1,11 +1,13 @@
+"use client"
+
 import clsx from "clsx"
 import Heart from "../Icons/Heart"
 import HeartFill from "../Icons/HeartFill"
 import { IconColors } from "../Icons/types/IconProps"
-import Text, { TextColors } from "../Typography/Text"
+import Text, { TextColors, TextWeights } from "../Typography/Text"
 
-import Image from "next/image"
-import { memo, useCallback } from "react"
+import Image from "next/legacy/image"
+import { useCallback } from "react"
 import styled from "styled-components"
 
 const Container = styled.button`
@@ -25,44 +27,91 @@ const Container = styled.button`
     filter: opacity(0.3);
   }
 
-  @media (min-width: 1023px) {
-    width: 240px;
-    height: 360px;
+  width: 180px;
+  min-height: 295px;
+
+  @media (max-width: 1440px) {
+    width: 150px;
+    min-height: 250px;
   }
-`
 
-const MovieImage = styled(Image)`
-  border-radius: 8px;
-  width: 150px;
-  height: 225px;
-
-  @media (min-width: 1023px) {
+  @media (min-width: 1920px) {
     width: 240px;
-    height: 360px;
-    
+    min-height: 387px;
+  }
+
+  &.isModal {
+    @media (max-width: 1024px) {
+      width: 150px;
+      min-height: 250px;
+    }
+
+    @media (min-width: 1440px) {
+      width: 180px;
+      min-height: 295px;
+    }
+
+    @media (min-width: 1920px) {
+      width: 240px;
+    min-height: 360px;
+    }
   }
 `
 
 const MovieTitleContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  height: 100%;
   width: 100%;
   margin: 0;
+  text-align: left;
 `
 
 const MovieInfoContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
-  gap: 8px;
   align-items: flex-start;
+
+  @media (max-width: 1024px) {
+    height: 100%;
+  }
+
+  width: 180px;
+
+  @media (max-width: 1366px) {
+    width: 150px;
+  }
+
+  @media (min-width: 1920px) {
+    width: 240px;
+  }
 `
 
 const IconContainer = styled.div`
   height: 100%;
   display: flex;
   align-items: flex-start;
+
+  &.isVoted {
+    padding-right: 8px;
+  }
+`
+
+const MoviePosterContainer = styled.div`
+  position: relative;
+
+  width: 180px;
+  min-height: 270px;
+
+  @media (max-width: 1336px) {
+    width: 150px;
+    min-height: 225px;
+  }
+
+  @media (min-width: 1920px) {
+    width: 240px;
+    min-height: 360px;
+  }
 `
 
 interface PosterProps {
@@ -71,6 +120,7 @@ interface PosterProps {
   variant: "default" | "active" | "selected"
   handleSelectMovie: (movieTitle: string) => void
   disabled?: boolean
+  isModal?: boolean
 }
 
 const theme = {
@@ -94,6 +144,7 @@ const Poster = (props: PosterProps) => {
     moviePoster,
     variant,
     disabled = false,
+    isModal = false,
     handleSelectMovie
   } = props
 
@@ -104,23 +155,37 @@ const Poster = (props: PosterProps) => {
   return (
     <Container
       onClick={onMovieClick}
-      className={clsx({ disabled })}
+      className={clsx({ disabled, isModal })}
       disabled={disabled}
     >
-      <MovieImage
-        src={moviePoster}
-        alt="Movie Poster"
-        width={150}
-        height={225}
-      />
+      <MoviePosterContainer>
+        <Image
+          src={moviePoster}
+          alt={movieTitle}
+          style={{ borderRadius: "8px" }}
+          placeholder="blur"
+          blurDataURL="/shimmer.gif"
+          layout="fill"
+          priority
+        />
+      </MoviePosterContainer>
       <MovieInfoContainer>
-        <IconContainer>{theme[variant].icon}</IconContainer>
+        <IconContainer className={clsx({ isVoted: variant === "selected" })}>
+          {theme[variant].icon}
+        </IconContainer>
         <MovieTitleContainer>
-          <Text color={theme[variant].fontColor}>{movieTitle}</Text>
+          <Text
+            color={theme[variant].fontColor}
+            weigth={TextWeights.medium}
+            size="small"
+            isPosterTitle
+          >
+            {movieTitle}
+          </Text>
         </MovieTitleContainer>
       </MovieInfoContainer>
     </Container>
   )
 }
 
-export default memo(Poster)
+export default Poster

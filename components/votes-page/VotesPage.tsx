@@ -1,31 +1,46 @@
+"use client"
+
+import axios from "axios"
 import Accordion from "../Accordion/Accordion"
 import Button from "../Buttons/Button"
 import Dropdown from "../Dropdown/Dropdown"
 import DropdownHeader from "../Dropdown/DropdownHeader"
 import Header from "../Header/Header"
+import Modal from "../Modal/Modal"
+import Poster from "../Poster/Poster"
 import PosterList from "../Poster/PosterList"
+import Text, { TextColors } from "../Typography/Text"
+
 import useVotes from "./hooks/useVotes"
 
+import clsx from "clsx"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import styled from "styled-components"
-import Modal from "../Modal/Modal"
-import Text, { TextColors } from "../Typography/Text"
-import Image from "next/image"
+import CloseMarkButton from "../Buttons/CloseMarkButton"
 
+// general
 const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
   background-color: ${(props) => props.theme.color.gray_bg};
+
+  &.isLargeScreen {
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 `
 
+// small screens
 const FixedContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   top: 0;
-  gap: 8px;
   background-color: ${(props) => props.theme.color.gray_bg};
   position: fixed;
   z-index: 10;
@@ -33,70 +48,50 @@ const FixedContainer = styled.div`
 
 const HeaderContainer = styled.div`
   width: 100%;
-  padding: 8px;
+  padding: 8px 8px 0px 8px;
 
-  @media (min-width: 1023px) {
-    padding: 18px 16px 8px 16px;
+  &.isLargeScreen {
+    padding: 0px;
   }
 `
 
-const ButtonsContainer = styled.div`
+const DropdownHeaderContainer = styled.div`
   width: 100%;
-  padding: 0 8px 8px 8px;
-  position: fixed;
-  bottom: 0;
-  background-color: ${(props) => props.theme.color.gray_bg};
+  padding: 8px 8px 8px 8px;
 
-  @media (min-width: 1023px) {
-    padding-bottom: 18px;
-    padding-right: 16px;
+  &.isDropdownOpen {
+    padding-top: 134px;
   }
 `
 
 const DropdownContainer = styled.div`
   width: 100%;
-  padding: 0 8px 8px 8px;
+  padding: 0px 8px 0px 8px;
 
   &.isDropdownOpen {
-    padding-top: 134px;
-  }
-
-  @media (min-width: 1023px) {
-    position: fixed;
-    right: 0;
-    width: 360px;
-    overflow-y: scroll;
-    padding-right: 16px;
+    padding-top: 126px;
     padding-bottom: 8px;
-
-    &.isDropdownOpen {
-      padding-top: 86px;
-
-      @media (min-height: 400px) {
-        max-height: 81%;
-        @media (min-height: 600px) {
-          max-height: 85%;
-          @media (min-height: 800px) {
-            max-height: 89%;
-            @media (min-height: 1000px) {
-              max-height: 92%;
-              @media (min-height: 1200px) {
-                max-height: 95%;
-              }
-            }
-          }
-        }
-      }
-    }
   }
 `
 
 const AccordionContainer = styled.div`
   width: 100%;
-  padding: 0 8px 8px 8px;
+  padding: 0px 8px 8px 8px;
 
-  @media (min-width: 1023px) {
-    display: none;
+  &.isLargeScreen {
+    width: auto;
+  }
+`
+
+const ButtonsContainer = styled.div`
+  width: 100%;
+  padding: 8px 8px 8px 8px;
+  position: fixed;
+  bottom: 0;
+  background-color: ${(props) => props.theme.color.gray_bg};
+
+  &.isLargeScreen {
+    padding: 8px 16px 16px 16px;
   }
 `
 
@@ -109,28 +104,56 @@ const ButtonsCard = styled.div`
   align-items: center;
   padding: 16px;
 
-  @media (min-width: 1023px) {
+  &.isLargeScreen {
     flex-direction: row;
+    gap: 12px;
     padding: 12px;
-    gap: 8px;
   }
 `
 
-const MovieImage = styled(Image)`
-  border-radius: 8px;
-  width: 150px;
-  height: 225px;
+// large screens
+
+const MovieCategoryContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  padding-top: 8px;
+  justify-content: center;
+  gap: 8px;
 `
 
-const MovieTitleContainer = styled.div`
-  margin-bottom: 12px;
-  text-align: center;
+const Content = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+`
+
+const DowpdownLargeContainer = styled.div`
+  width: 360px;
+  height: 100%;
+  padding-top: 8px;
+  padding-bottom: 76px;
+`
+
+const PosterContainer = styled.div`
+  &.isLargeScreen {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `
 
 export default function VotesPage() {
   const [isOpen, setIsDropdownOpen] = useState(false)
 
   const [isModalOpen, setIsOpen] = useState(false)
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const [mount, setMount] = useState(false)
 
   const [activeMovie, setActiveMovie] = useState("")
 
@@ -151,6 +174,7 @@ export default function VotesPage() {
     handleSelectMovie,
     handleActiveCategory,
     handleNextCategory,
+    updateStorageVote,
     handlePreviousCategory
   } = useVotes()
 
@@ -176,108 +200,171 @@ export default function VotesPage() {
     [pathname, router, handleActiveCategory]
   )
 
-  const [mount, setMount] = useState(false)
+  const isDropdownOpen = useMemo(() => {
+    const search = searchParams.get("q")
+
+    return search === "allCategories" || isOpen
+  }, [searchParams, isOpen])
+
+  const handleConfirmVote = useCallback(async () => {
+    handleSelectMovie(activeMovie)
+    updateStorageVote()
+
+    const URL = `${pathname.replace("/votes", "")}/api/oscar/votes`
+
+    setIsLoading(true)
+
+    await axios.post(URL, {
+      movie: activeMovie,
+      category: activeCategoryLabel
+    })
+
+    setIsLoading(false)
+
+    closeModal()
+
+    handleNextCategory()
+  }, [
+    activeMovie,
+    activeCategoryLabel,
+    pathname,
+    handleSelectMovie,
+    updateStorageVote,
+    closeModal,
+    handleNextCategory
+  ])
 
   useEffect(() => {
+    handleActiveCategory("Melhor Filme")
     setMount(true)
   }, [])
 
-  const isDropdownOpen = useMemo(() => {
-    const search = searchParams.get("q")
-    if (mount && window.innerWidth > 1023) {
-      setIsDropdownOpen(true)
-      return true
-    }
-    return search === "allCategories" || isOpen
-  }, [searchParams, isOpen, mount])
+  const isLargeScreen = useMemo(() => {
+    return mount && window.innerWidth > 1024
+  }, [mount])
+
   return (
     <>
       {isModalOpen && (
         <Modal onClose={closeModal}>
-          <Text color={TextColors.white} size="medium">
-            Escolher
-          </Text>
-          <Text color={TextColors.yellow} size="large">
+          { isLargeScreen && (
+            <CloseMarkButton onClick={closeModal} />
+          )}
+          <Text color={TextColors.yellow} size={isLargeScreen ? "large" : "medium"}>
             {activeCategoryLabel}
           </Text>
-          <MovieImage
-            src={
-              movieList.find((movie) => movie.titlePT === activeMovie)?.image
-            }
-            alt="Movie Poster"
-            width={150}
-            height={225}
-          />
-          <MovieTitleContainer>
-            <Text color={TextColors.white} size="medium">
-              {activeMovie}
-            </Text>
-          </MovieTitleContainer>
+          <PosterContainer className={clsx({ isLargeScreen })}>
+            <Poster
+              handleSelectMovie={() => {}}
+              movieTitle={activeMovie}
+              moviePoster={
+                movieList.find((movie) => movie.titlePT === activeMovie)?.image
+              }
+              variant="selected"
+              isModal
+            />
+          </PosterContainer>
           <Button
-            label="Votar"
-            onClick={() => {
-              handleSelectMovie(activeMovie)
-              closeModal()
-            }}
+            label="Confirmar"
+            onClick={handleConfirmVote}
+            isLoading={isLoading}
           />
         </Modal>
       )}
-      <Container>
-        <FixedContainer>
-          <HeaderContainer>
+
+      {!isLargeScreen && (
+        <Container>
+          <FixedContainer>
+            <HeaderContainer>
+              <Header />
+            </HeaderContainer>
+            <DropdownHeaderContainer>
+              <DropdownHeader
+                isOpen={isDropdownOpen}
+                handleToggle={handleToggle}
+              />
+            </DropdownHeaderContainer>
+            {!isDropdownOpen && (
+              <AccordionContainer>
+                <Accordion
+                  label={activeCategoryLabel}
+                  variant="secondary"
+                  hasTransparency
+                  hasVote={!!selectedMovie}
+                />
+              </AccordionContainer>
+            )}
+          </FixedContainer>
+          {isDropdownOpen && (
+            <DropdownContainer className="isDropdownOpen">
+              <Dropdown
+                isOpen={isDropdownOpen}
+                handleClick={handleAccordionClick}
+                categoryList={categoryList}
+              />
+            </DropdownContainer>
+          )}
+          {!isDropdownOpen && (
+            <>
+              <PosterList
+                list={movieList}
+                selectedMovie={selectedMovie}
+                handleSelectMovie={handlePosterClick}
+              />
+              <ButtonsContainer>
+                <ButtonsCard>
+                  <Button
+                    label="Próxima categoria"
+                    onClick={handleNextCategory}
+                  />
+                </ButtonsCard>
+              </ButtonsContainer>
+            </>
+          )}
+        </Container>
+      )}
+
+      {isLargeScreen && (
+        <Container className={clsx({ isLargeScreen })}>
+          <HeaderContainer className={clsx({ isLargeScreen })}>
             <Header />
           </HeaderContainer>
-          <DropdownContainer>
-            <DropdownHeader
-              isOpen={isDropdownOpen}
-              handleToggle={handleToggle}
-            />
-          </DropdownContainer>
-          {!isDropdownOpen && (
-            <AccordionContainer>
+          <Content>
+            <MovieCategoryContainer>
               <Accordion
                 label={activeCategoryLabel}
                 variant="secondary"
                 hasTransparency
                 hasVote={!!selectedMovie}
               />
-            </AccordionContainer>
-          )}
-        </FixedContainer>
-        {isDropdownOpen && (
-          <DropdownContainer className={isDropdownOpen ? "isDropdownOpen" : ""}>
-            <Dropdown
-              isOpen={isDropdownOpen}
-              handleClick={handleAccordionClick}
-              categoryList={categoryList}
-            />
-          </DropdownContainer>
-        )}
-        {!isDropdownOpen || window.innerWidth > 1023
-          ? (
-          <>
-            <PosterList
-              list={movieList}
-              selectedMovie={selectedMovie}
-              handleSelectMovie={handlePosterClick}
-            />
-            <ButtonsContainer>
-              <ButtonsCard>
-                <Button
-                  label="Categoria anterior"
-                  variant="secondary"
-                  onClick={handlePreviousCategory}
-                />
-                <Button
-                  label="Próxima categoria"
-                  onClick={handleNextCategory}
-                />
-              </ButtonsCard>
-            </ButtonsContainer>
-          </>
-            )
-          : null}
-      </Container>
+              <PosterList
+                list={movieList}
+                selectedMovie={selectedMovie}
+                handleSelectMovie={handlePosterClick}
+              />
+            </MovieCategoryContainer>
+            <DowpdownLargeContainer>
+              <Dropdown
+                isOpen
+                handleClick={handleAccordionClick}
+                categoryList={categoryList}
+                isLargeScreen
+              />
+            </DowpdownLargeContainer>
+          </Content>
+
+          <ButtonsContainer className={clsx({ isLargeScreen })}>
+            <ButtonsCard className={clsx({ isLargeScreen })}>
+              <Button
+                label="Categoria anterior"
+                onClick={handlePreviousCategory}
+                variant="secondary"
+              />
+              <Button label="Próxima categoria" onClick={handleNextCategory} />
+            </ButtonsCard>
+          </ButtonsContainer>
+        </Container>
+      )}
     </>
   )
 }
