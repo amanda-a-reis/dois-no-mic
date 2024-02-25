@@ -9,13 +9,8 @@ const CardContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  /* margin: 68px 0px 0px 0px; */
   background-color: ${(props) => props.theme.color.gray_primary};
   border-radius: 8px;
-
-  @media (max-height: 628px) {
-    /* margin: 68px 0px 0px 0px; */
-  }
 `
 
 const CardDescriptionContainer = styled.div`
