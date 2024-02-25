@@ -11,6 +11,7 @@ const CardContentContainer = styled.div`
   gap: 8px;
   padding-bottom: 8px;
   background-color: ${(props) => props.theme.color.gray_primary};
+  border-radius: 8px;
 `
 
 const CardDescriptionContainer = styled.div`
@@ -19,6 +20,7 @@ const CardDescriptionContainer = styled.div`
   background-color: ${(props) => props.theme.color.yellow};
   padding: 16px;
   justify-content: space-between;
+  border-radius: 8px 8px 0 0;
 `
 
 const DescriptionTextContainer = styled.div`
