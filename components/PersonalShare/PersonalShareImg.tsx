@@ -1,5 +1,5 @@
+import Image from "next/image"
 import styled from "styled-components"
-import DoisNoMicLarge from "../Icons/DoisNoMicLarge"
 import Text, { TextColors } from "../Typography/Text"
 import VotesTagImg from "../user-votes/VotesTagImg"
 
@@ -69,7 +69,13 @@ const PersonalShareImg = (props: PersonalShareProps) => {
           </Text>
         </DescriptionTextContainer>
         <IconContainer>
-          <DoisNoMicLarge />
+        <Image
+            src="/doisnomic-logo-large.png"
+            alt="logo"
+            width={124}
+            height={124}
+            priority
+          />
         </IconContainer>
       </CardDescriptionContainer>
       {hasVotes && (
