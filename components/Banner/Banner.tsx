@@ -25,8 +25,8 @@ const Banner = () => {
         Escolha seus favoritos para o Oscar® 2024
       </Text>
       <Text size="large" color={TextColors.white}>
-        O resultado dos filmes mais votados será apresentado no podcast em
-        [dia/hora].
+        O resultado dos filmes mais votados será apresentado no podcast no dia
+        8 de março às 12:00.
       </Text>
     </Container>
   )
