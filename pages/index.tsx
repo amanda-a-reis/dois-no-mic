@@ -5,7 +5,7 @@ import Header from "../components/Header/Header"
 import useStorageVotes from "../components/votes-page/hooks/useStorageVotes"
 
 import Image from "next/image"
-import { useEffect } from "react"
+import { useEffect, useMemo, useState } from "react"
 import styled from "styled-components"
 
 const Img = styled(Image)`
@@ -54,7 +54,7 @@ const BannerContainer = styled.div`
     padding: 0px 16px 0px 0px;
     box-sizing: content-box;
     margin-left: auto;
-    width: 360px; 
+    width: 360px;
     height: calc(100vh - 186px);
     display: flex;
     flex-direction: column;
@@ -106,6 +106,8 @@ const LinkStyled = styled(Link)`
 export default function Home() {
   const { verifyStorageVotes, saveInitialVotes } = useStorageVotes()
 
+  const [mount, setMount] = useState(false)
+
   useEffect(() => {
     const { hasStorageVotes } = verifyStorageVotes()
 
@@ -113,25 +115,39 @@ export default function Home() {
       saveInitialVotes()
     }
   }, [saveInitialVotes, verifyStorageVotes])
+
+  useEffect(() => {
+    setMount(true)
+  }, [])
+
+  const isLargeScreen = useMemo(() => {
+    return mount && window.innerWidth > 1023
+  }, [mount])
   return (
     <Container>
-      <Img src="/bg-home.webp" alt="background image" fill priority />
+      {!isLargeScreen && (
+        <Img src="/bg-home.webp" alt="background image" fill priority />
+      )}
+
+      {isLargeScreen && (
+        <Img src="/large-bg.png" alt="background image" fill priority />
+      )}
       <HeaderContainer>
         <Header hasTransparency />
       </HeaderContainer>
-        <BannerContainer>
-          <Banner />
-        </BannerContainer>
-        <ButtonsContainer>
-          <ButtonsCard>
-            <LinkStyled href="/votes">
-              <Button label="Iniciar votação" />
-            </LinkStyled>
-            <LinkStyled href="/votes?q=allCategories">
-              <Button label="Todas as categorias" variant="secondary" />
-            </LinkStyled>
-          </ButtonsCard>
-        </ButtonsContainer>
+      <BannerContainer>
+        <Banner />
+      </BannerContainer>
+      <ButtonsContainer>
+        <ButtonsCard>
+          <LinkStyled href="/votes">
+            <Button label="Iniciar votação" />
+          </LinkStyled>
+          <LinkStyled href="/votes?q=allCategories">
+            <Button label="Todas as categorias" variant="secondary" />
+          </LinkStyled>
+        </ButtonsCard>
+      </ButtonsContainer>
     </Container>
   )
 }
