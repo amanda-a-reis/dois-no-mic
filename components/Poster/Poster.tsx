@@ -58,6 +58,16 @@ const MovieInfoContainer = styled.div`
   @media (max-width: 1024px) {
     height: 100%;
   }
+
+  width: 180px;
+
+  @media (max-width: 1366px) {
+    width: 150px;
+  }
+
+  @media (min-width: 1920px) {
+    width: 240px;
+  }
 `
 
 const IconContainer = styled.div`

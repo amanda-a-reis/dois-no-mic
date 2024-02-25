@@ -3,12 +3,12 @@ import styled from "styled-components"
 import { IconColors, IconProps, IconSizes } from "./types/IconProps"
 
 const Svg = styled.svg`
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
 
   &.size-small {
-    width: 6px;
-    height: 12px;
+    width: 15px;
+  height: 15px;
   }
 `
 

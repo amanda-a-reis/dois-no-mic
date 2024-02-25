@@ -36,6 +36,12 @@ const ModalContent = styled.div`
   align-items: center;
   padding: 16px;
   gap: 16px;
+
+  @media (min-width: 1025px) {
+    padding: 24px;
+    width: 382px;
+    gap: 20px;
+  }
 `
 
 interface ModalProps {

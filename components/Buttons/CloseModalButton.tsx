@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import Text, { TextColors } from "../Typography/Text"
 import CloseMark from "../Icons/CloseMark"
+import { IconSizes } from "../Icons/types/IconProps"
 
 const ButtonContainer = styled.button`
   border-radius: 32px;
@@ -31,7 +32,7 @@ const CloseModalButton = (props: ButtonProps) => {
   return (
     <ButtonContainer {...rest}>
       <ButtonInlineContainer>
-        <CloseMark />
+        <CloseMark size={IconSizes.small} />
         <Text size="small" color={TextColors.white}>
           Fechar
         </Text>

@@ -13,10 +13,11 @@ import Text, { TextColors } from "../Typography/Text"
 
 import useVotes from "./hooks/useVotes"
 
+import clsx from "clsx"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import styled from "styled-components"
-import clsx from "clsx"
+import CloseMarkButton from "../Buttons/CloseMarkButton"
 
 // general
 const Container = styled.div`
@@ -136,6 +137,12 @@ const DowpdownLargeContainer = styled.div`
   padding-bottom: 76px;
 `
 
+const PosterContainer = styled.div`
+  &.isLargeScreen {
+    width: 180px;
+  }
+`
+
 export default function VotesPage() {
   const [isOpen, setIsDropdownOpen] = useState(false)
 
@@ -237,17 +244,22 @@ export default function VotesPage() {
     <>
       {isModalOpen && (
         <Modal onClose={closeModal}>
+          { isLargeScreen && (
+            <CloseMarkButton onClick={closeModal} />
+          )}
           <Text color={TextColors.yellow} size="medium">
             {activeCategoryLabel}
           </Text>
-          <Poster
-            handleSelectMovie={() => {}}
-            movieTitle={activeMovie}
-            moviePoster={
-              movieList.find((movie) => movie.titlePT === activeMovie)?.image
-            }
-            variant="selected"
-          />
+          <PosterContainer className={clsx({ isLargeScreen })}>
+            <Poster
+              handleSelectMovie={() => {}}
+              movieTitle={activeMovie}
+              moviePoster={
+                movieList.find((movie) => movie.titlePT === activeMovie)?.image
+              }
+              variant="selected"
+            />
+          </PosterContainer>
           <Button
             label="Confirmar"
             onClick={handleConfirmVote}
