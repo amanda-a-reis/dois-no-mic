@@ -5,13 +5,17 @@ import VotesTag from "../user-votes/VotesTag"
 
 const CardContentContainer = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 424px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding-bottom: 8px;
+  /* margin: 68px 0px 0px 0px; */
   background-color: ${(props) => props.theme.color.gray_primary};
   border-radius: 8px;
+
+  @media (max-height: 628px) {
+    /* margin: 68px 0px 0px 0px; */
+  }
 `
 
 const CardDescriptionContainer = styled.div`
