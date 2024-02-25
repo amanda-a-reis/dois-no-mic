@@ -12,6 +12,10 @@ const Container = styled.div`
   border-radius: 8px;
   padding: 0 16px;
   gap: 8px;
+
+  @media (min-width: 1023px) {
+    height: 100%;
+  }
 `
 
 const Banner = () => {

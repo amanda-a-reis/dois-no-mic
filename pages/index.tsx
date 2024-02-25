@@ -22,23 +22,45 @@ const Img = styled(Image)`
 
 const Container = styled.div`
   width: 100vw;
-  min-height: calc(100vh - 60px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
+
+  @media (max-width: 1023px) {
+    align-items: flex-end;
+    min-height: calc(100vh - 60px);
+    justify-content: space-between;
+  }
 `
 
 const HeaderContainer = styled.div`
   width: 100%;
-  padding: 8px;
   z-index: 1;
+  padding: 8px 8px 0 8px;
+
+  @media (min-width: 1023px) {
+    padding: 16px 16px 0 16px;
+  }
 `
 
 const BannerContainer = styled.div`
   width: 100%;
-  padding: 0 8px 8px 8px;
   z-index: 1;
+  padding: 0px 8px 0px 8px;
+
+  @media (min-width: 1023px) {
+    padding: 0px 16px 0px 0px;
+    box-sizing: content-box;
+    margin-left: auto;
+    width: 360px; 
+    height: calc(100vh - 186px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
 `
 
 const ButtonsCard = styled.div`
@@ -50,16 +72,35 @@ const ButtonsCard = styled.div`
   align-items: center;
   gap: 12px;
   padding: 16px;
+
+  @media (min-width: 1023px) {
+    width: 360px;
+    position: fixed;
+    bottom: 20px;
+    right: 16px;
+    transform: translateZ(0);
+    padding: 16px;
+  }
 `
 
 const ButtonsContainer = styled.div`
   width: 100%;
   padding: 0 8px 8px 8px;
   z-index: 1;
+
+  @media (min-width: 1023px) {
+    padding: 0 16px 16px 0;
+  }
 `
 
 const LinkStyled = styled(Link)`
   width: 100%;
+
+  @media (min-width: 1023px) {
+    &:nth-child(2) {
+      display: none;
+    }
+  }
 `
 
 export default function Home() {
@@ -78,19 +119,19 @@ export default function Home() {
       <HeaderContainer>
         <Header hasTransparency />
       </HeaderContainer>
-      <BannerContainer>
-        <Banner />
-      </BannerContainer>
-      <ButtonsContainer>
-        <ButtonsCard>
-          <LinkStyled href="/votes">
-            <Button label="Iniciar votação" />
-          </LinkStyled>
-          <LinkStyled href="/votes?q=allCategories">
-            <Button label="Todas as categorias" variant="secondary" />
-          </LinkStyled>
-        </ButtonsCard>
-      </ButtonsContainer>
+        <BannerContainer>
+          <Banner />
+        </BannerContainer>
+        <ButtonsContainer>
+          <ButtonsCard>
+            <LinkStyled href="/votes">
+              <Button label="Iniciar votação" />
+            </LinkStyled>
+            <LinkStyled href="/votes?q=allCategories">
+              <Button label="Todas as categorias" variant="secondary" />
+            </LinkStyled>
+          </ButtonsCard>
+        </ButtonsContainer>
     </Container>
   )
 }

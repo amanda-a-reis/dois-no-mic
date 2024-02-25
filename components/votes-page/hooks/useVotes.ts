@@ -78,6 +78,16 @@ const useVotes = () => {
     window.scrollTo(0, 0)
   }, [activeCategoryId, categories, router, _selectActiveCategory])
 
+  const handlePreviousCategory = useCallback(() => {
+    if (activeCategoryId === 0) {
+      return
+    }
+
+    const previousCategory = activeCategoryId - 1
+
+    _selectActiveCategory(previousCategory)
+  }, [activeCategoryId, _selectActiveCategory])
+
   const data = useMemo(() => {
     const selectedMovie = storageVotes[activeCategoryId]?.selectedMovie
 
@@ -100,16 +110,6 @@ const useVotes = () => {
   useEffect(() => {
     getStorageVotes()
   }, [getStorageVotes])
-
-  const handlePreviousCategory = useCallback(() => {
-    if (activeCategoryId === 0) {
-      return
-    }
-
-    const previousCategory = activeCategoryId - 1
-
-    _selectActiveCategory(previousCategory)
-  }, [activeCategoryId, _selectActiveCategory])
 
   return {
     data,
