@@ -139,7 +139,10 @@ const DowpdownLargeContainer = styled.div`
 
 const PosterContainer = styled.div`
   &.isLargeScreen {
-    width: 180px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `
 
@@ -247,7 +250,7 @@ export default function VotesPage() {
           { isLargeScreen && (
             <CloseMarkButton onClick={closeModal} />
           )}
-          <Text color={TextColors.yellow} size="medium">
+          <Text color={TextColors.yellow} size={isLargeScreen ? "large" : "medium"}>
             {activeCategoryLabel}
           </Text>
           <PosterContainer className={clsx({ isLargeScreen })}>
@@ -258,6 +261,7 @@ export default function VotesPage() {
                 movieList.find((movie) => movie.titlePT === activeMovie)?.image
               }
               variant="selected"
+              isModal
             />
           </PosterContainer>
           <Button

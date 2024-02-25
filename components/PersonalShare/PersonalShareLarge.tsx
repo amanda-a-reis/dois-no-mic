@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import DoisNoMicLogoAlter from "../Icons/DoisNoMicLogoAlter"
 import Text, { TextColors } from "../Typography/Text"
 import VotesTagLarge from "../user-votes/VotesTagLarge"
+import DoisNoMicLogoAlter from "../Icons/DoisNoMicLogoAlter"
 
 const CardContentContainer = styled.div`
   width: 100%;

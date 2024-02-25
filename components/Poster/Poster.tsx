@@ -39,6 +39,23 @@ const Container = styled.button`
     width: 240px;
     min-height: 387px;
   }
+
+  &.isModal {
+    @media (max-width: 1024px) {
+      width: 150px;
+      min-height: 250px;
+    }
+
+    @media (min-width: 1440px) {
+      width: 180px;
+      min-height: 295px;
+    }
+
+    @media (min-width: 1920px) {
+      width: 240px;
+    min-height: 360px;
+    }
+  }
 `
 
 const MovieTitleContainer = styled.div`
@@ -86,7 +103,7 @@ const MoviePosterContainer = styled.div`
   width: 180px;
   min-height: 270px;
 
-  @media (max-width: 1366px) {
+  @media (max-width: 1336px) {
     width: 150px;
     min-height: 225px;
   }
@@ -103,6 +120,7 @@ interface PosterProps {
   variant: "default" | "active" | "selected"
   handleSelectMovie: (movieTitle: string) => void
   disabled?: boolean
+  isModal?: boolean
 }
 
 const theme = {
@@ -126,6 +144,7 @@ const Poster = (props: PosterProps) => {
     moviePoster,
     variant,
     disabled = false,
+    isModal = false,
     handleSelectMovie
   } = props
 
@@ -136,7 +155,7 @@ const Poster = (props: PosterProps) => {
   return (
     <Container
       onClick={onMovieClick}
-      className={clsx({ disabled })}
+      className={clsx({ disabled, isModal })}
       disabled={disabled}
     >
       <MoviePosterContainer>
