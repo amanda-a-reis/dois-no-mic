@@ -101,12 +101,23 @@ const useVotes = () => {
     getStorageVotes()
   }, [getStorageVotes])
 
+  const handlePreviousCategory = useCallback(() => {
+    if (activeCategoryId === 0) {
+      return
+    }
+
+    const previousCategory = activeCategoryId - 1
+
+    _selectActiveCategory(previousCategory)
+  }, [activeCategoryId, _selectActiveCategory])
+
   return {
     data,
     handleSelectMovie,
     handleActiveCategory,
     handleNextCategory,
-    updateStorageVote
+    updateStorageVote,
+    handlePreviousCategory
   }
 }
 

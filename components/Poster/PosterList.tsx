@@ -11,6 +11,10 @@ const PostersContainer = styled.div`
   flex-wrap: wrap;
   padding: 176px 8px 90px 8px;
   gap: 12px;
+
+  @media (min-width: 1025px) {
+    padding: 48px;
+  }
 `
 
 interface PosterListProps {

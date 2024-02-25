@@ -18,12 +18,13 @@ const MovieCategoryList = styled.div`
 
 interface DropdownProps {
   isOpen: boolean
+  isLargeScreen?: boolean
   handleClick: (category: string) => void
   categoryList: ICategory[]
 }
 
 const Dropdown = (props: DropdownProps) => {
-  const { isOpen, handleClick, categoryList } = props
+  const { isOpen, handleClick, categoryList, isLargeScreen = false } = props
   return (
     <Container>
       {isOpen && (
@@ -37,6 +38,7 @@ const Dropdown = (props: DropdownProps) => {
               handleActiveCategory={handleClick}
               variant={category.isActive ? "secondary" : "primary"}
               hasVote={category.hasVote}
+              isLargeScreen={isLargeScreen}
             />
           ))}
         </MovieCategoryList>

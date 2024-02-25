@@ -28,6 +28,10 @@ const Container = styled.button`
   &.isButton {
     cursor: pointer;
   }
+
+  &.isLargeScreen {
+    width: 360px;
+  }
 `
 
 const InlineContainer = styled.div`
@@ -50,6 +54,7 @@ interface AccordionProps {
   label: string
   variant?: "primary" | "secondary"
   handleActiveCategory?: (category: string) => void
+  isLargeScreen?: boolean
 }
 
 const theme = {
@@ -73,6 +78,7 @@ const Accordion = (props: AccordionProps) => {
     isButton = false,
     label,
     variant,
+    isLargeScreen,
     handleActiveCategory
   } = props
 
@@ -85,7 +91,7 @@ const Accordion = (props: AccordionProps) => {
 
   return (
     <Container
-      className={clsx({ hasTransparency, hasLightBg, isButton })}
+      className={clsx({ hasTransparency, hasLightBg, isButton, isLargeScreen })}
       onClick={onAccordionClick}
     >
       <InlineContainer>
