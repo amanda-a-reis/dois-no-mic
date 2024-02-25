@@ -10,7 +10,6 @@ const VoteContainer = styled.div`
 
   &.fullWidth {
     display: grid;
-    align-items: start;
     gap: 16px;
     grid-template-columns: auto 150%;
   }

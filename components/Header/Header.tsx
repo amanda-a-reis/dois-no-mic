@@ -30,6 +30,8 @@ const SocialMediaContainer = styled.div`
 
 const LinkContainer = styled(Link)`
   height: 24px;
+  display: flex;
+  align-items: center;
 `
 
 interface HeaderProps {
@@ -41,7 +43,11 @@ const Header = (props: HeaderProps) => {
 
   return (
     <Container className={clsx({ hasTransparency })}>
-      <DoisNoMicLogo />
+      <LinkContainer
+        href="/"
+      >
+        <DoisNoMicLogo />
+      </LinkContainer>
 
       <SocialMediaContainer>
         <LinkContainer

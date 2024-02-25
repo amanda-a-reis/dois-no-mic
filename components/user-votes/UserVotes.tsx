@@ -27,6 +27,7 @@ const Container = styled.div`
 
   @media (min-width: 1024px) {
     padding: 18px 16px;
+    min-height: 100vh;
   }
 `
 
@@ -36,10 +37,29 @@ const HeaderContainer = styled.div`
 
 const CardContainer = styled.div`
   width: 100%;
-  min-height: 424px;
+  height: calc(100vh - 128px);
+
+  padding-bottom: 100px;
+  overflow-y: scroll;
 `
 
 const ContainerLarge = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${(props) => props.theme.color.gray_bg};
+  align-items: center;
+  padding: 8px;
+  gap: 8px;
+
+  @media (min-width: 1024px) {
+    padding: 18px 16px;
+    min-height: 100vh;
+  }
+`
+
+const ContentLarge = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -95,6 +115,7 @@ const ButtonsContainer = styled.div`
   padding: 8px;
   position: fixed;
   bottom: 0;
+  background-color: ${(props) => props.theme.color.gray_bg};
 `
 
 const bestMovieCategoryLabel = "Melhor Filme"
@@ -142,17 +163,18 @@ const UserVotes = () => {
   }, [mount])
 
   return (
-    <Container>
-      <HeaderContainer>
-        <Header />
-      </HeaderContainer>
-
+    <>
       <ImgLargeFake ref={refFake}>
         <PersonalShareImg {...movieInfo} />
       </ImgLargeFake>
 
       {!isLargeWindow && (
-        <>
+        <Container>
+          {/* <FixedContainer> */}
+          <HeaderContainer>
+            <Header />
+          </HeaderContainer>
+          {/* </FixedContainer> */}
           <CardContainer>
             <PersonalShare {...movieInfo} />
           </CardContainer>
@@ -167,26 +189,31 @@ const UserVotes = () => {
               />
             </ButtonsCard>
           </ButtonsContainer>
-        </>
+        </Container>
       )}
 
       {isLargeWindow && (
         <ContainerLarge>
-          <PersonalShareBannerLarge onVote={handleVoteAgain} />
-          <CardContainerLarge>
-            <ImgLarge>
-              <PersonalShareLarge {...movieInfo} />
-            </ImgLarge>
+          <HeaderContainer>
+            <Header />
+          </HeaderContainer>
+          <ContentLarge>
+            <PersonalShareBannerLarge onVote={handleVoteAgain} />
+            <CardContainerLarge>
+              <ImgLarge>
+                <PersonalShareLarge {...movieInfo} />
+              </ImgLarge>
 
-            <Button
-              label="Salvar imagem"
-              variant="primary"
-              onClick={exportAsImage}
-            />
-          </CardContainerLarge>
+              <Button
+                label="Salvar imagem"
+                variant="primary"
+                onClick={exportAsImage}
+              />
+            </CardContainerLarge>
+          </ContentLarge>
         </ContainerLarge>
       )}
-    </Container>
+    </>
   )
 }
 

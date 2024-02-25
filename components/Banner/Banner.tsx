@@ -7,11 +7,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 420px;
+  height: 100%;
   background-color: rgba(63, 63, 63, 0.74);
   border-radius: 8px;
   padding: 0 16px;
   gap: 8px;
+
+  overflow: hidden;
 
   @media (min-width: 1023px) {
     height: 100%;
@@ -25,8 +27,8 @@ const Banner = () => {
         Escolha seus favoritos para o Oscar® 2024
       </Text>
       <Text size="large" color={TextColors.white}>
-        O resultado dos filmes mais votados será apresentado no podcast em
-        [dia/hora].
+        O resultado dos filmes mais votados será apresentado no podcast no dia
+        8 de março às 12:00.
       </Text>
     </Container>
   )

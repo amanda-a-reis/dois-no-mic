@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const ContentText = styled.div`
   width: 372px;
-  height: 224px;
+  height: 244px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -60,8 +60,8 @@ const PersonalShareBannerLarge = (props: PersonalShareBannerLargeProps) => {
             color={TextColors.white}
             weigth={TextWeights.regular}
           >
-            O resultado dos filmes mais votados será apresentado no podcast em
-            [dia/hora].
+            O resultado dos filmes mais votados será apresentado no podcast no
+            dia 8 de março às 12:00.
           </Text>
         </ContentText>
         <ButtonContainer>
