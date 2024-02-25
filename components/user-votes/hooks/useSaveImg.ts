@@ -5,6 +5,8 @@ import { useCallback, useRef } from "react"
 const useSaveImg = () => {
   const ref = useRef<HTMLDivElement>(null)
 
+  const refFake = useRef<HTMLDivElement>(null)
+
   const downloadImg = useCallback((blob) => {
     const timestamp = Date.now().toString()
 
@@ -27,20 +29,28 @@ const useSaveImg = () => {
   }, [])
 
   const exportAsImage = useCallback(async () => {
-    if (ref.current === null) {
+    if (refFake.current === null) {
       return
     }
 
-    const canvas = await html2canvas(ref.current)
+    const canvas = await html2canvas(refFake.current, {
+      backgroundColor: "transparent",
+      scale: 1,
+      windowHeight: 1600,
+      windowWidth: 900,
+      width: 900,
+      height: 1600
+    })
 
-    const image = canvas.toDataURL("image/png", 1.0)
+    const img = canvas.toDataURL("image/png", 1.0)
 
-    downloadImg(image)
-  }, [ref, downloadImg])
+    downloadImg(img)
+  }, [refFake, downloadImg])
 
   return {
     exportAsImage,
-    ref
+    ref,
+    refFake
   }
 }
 

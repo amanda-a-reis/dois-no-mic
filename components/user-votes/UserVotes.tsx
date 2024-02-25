@@ -13,6 +13,7 @@ import styled from "styled-components"
 import PersonalShare from "../PersonalShare/PersonalShare"
 import PersonalShareBannerLarge from "../Banner/PersonalShareBannerLarge"
 import PersonalShareLarge from "../PersonalShare/PersonalShareLarge"
+import PersonalShareImg from "../PersonalShare/PersonalShareImg"
 
 const Container = styled.div`
   display: flex;
@@ -68,6 +69,14 @@ const ImgLarge = styled.div`
   width: 100%;
   height: 100%;
 `
+const ImgLargeFake = styled.div`
+  width: 900px;
+  height: 1600px;
+  z-index: -100;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+`
 
 const ButtonsCard = styled.div`
   width: 100%;
@@ -97,7 +106,7 @@ const UserVotes = () => {
 
   const router = useRouter()
 
-  const { exportAsImage, ref } = useSaveImg()
+  const { exportAsImage, refFake } = useSaveImg()
 
   const movieInfo = useMemo(() => {
     const bestMovie = storageVotes.find(
@@ -138,9 +147,13 @@ const UserVotes = () => {
         <Header />
       </HeaderContainer>
 
+      <ImgLargeFake ref={refFake}>
+        <PersonalShareImg {...movieInfo} />
+      </ImgLargeFake>
+
       {!isLargeWindow && (
         <>
-          <CardContainer ref={ref}>
+          <CardContainer>
             <PersonalShare {...movieInfo} />
           </CardContainer>
 
@@ -161,9 +174,10 @@ const UserVotes = () => {
         <ContainerLarge>
           <PersonalShareBannerLarge onVote={handleVoteAgain} />
           <CardContainerLarge>
-            <ImgLarge ref={ref}>
+            <ImgLarge>
               <PersonalShareLarge {...movieInfo} />
             </ImgLarge>
+
             <Button
               label="Salvar imagem"
               variant="primary"

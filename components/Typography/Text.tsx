@@ -58,6 +58,22 @@ const TextStyled = styled.p`
     line-height: 48px;
   }
 
+  &.fontSize-smallImage {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  &.fontSize-mediumImage {
+    font-size: 48px;
+    line-height: 58px;
+  }
+
+  &.fontSize-largeImage {
+    font-size: 64px;
+    line-height: 77px;
+  }
+
+
   &.fontWeight-medium {
     font-weight: 500;
   }
@@ -93,7 +109,7 @@ export enum TextWeights {
 interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode
   color?: TextColors
-  size?: "xSmall" | "small" | "medium" | "large" | "xLarge" | "xxLarge" | "img"
+  size?: "xSmall" | "small" | "medium" | "large" | "xLarge" | "xxLarge" | "img" | "largeImage" | "smallImage" | "mediumImage"
   weigth?: "medium" | "regular" | "semiBold"
   isPosterTitle?: boolean
 }
