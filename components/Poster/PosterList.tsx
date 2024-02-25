@@ -13,7 +13,8 @@ const PostersContainer = styled.div`
   gap: 12px;
 
   @media (min-width: 1025px) {
-    padding: 48px;
+    padding: 0px 48px 78px 0px;
+    gap: 48px;
   }
 `
 

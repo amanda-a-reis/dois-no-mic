@@ -76,6 +76,10 @@ const DropdownContainer = styled.div`
 const AccordionContainer = styled.div`
   width: 100%;
   padding: 0px 8px 8px 8px;
+
+  &.isLargeScreen {
+    width: auto;
+  }
 `
 
 const ButtonsContainer = styled.div`
@@ -86,7 +90,7 @@ const ButtonsContainer = styled.div`
   background-color: ${(props) => props.theme.color.gray_bg};
 
   &.isLargeScreen {
-    padding: 0px 16px 16px 16px;
+    padding: 8px 16px 16px 16px;
   }
 `
 
@@ -107,6 +111,16 @@ const ButtonsCard = styled.div`
 `
 
 // large screens
+
+const MovieCategoryContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  padding-top: 8px;
+  justify-content: center;
+  gap: 8px;
+`
 
 const Content = styled.div`
   width: 100%;
@@ -300,15 +314,23 @@ export default function VotesPage() {
             <Header />
           </HeaderContainer>
           <Content>
-            <PosterList
-              list={movieList}
-              selectedMovie={selectedMovie}
-              handleSelectMovie={handlePosterClick}
-            />
+            <MovieCategoryContainer>
+              <Accordion
+                label={activeCategoryLabel}
+                variant="secondary"
+                hasTransparency
+                hasVote={!!selectedMovie}
+              />
+              <PosterList
+                list={movieList}
+                selectedMovie={selectedMovie}
+                handleSelectMovie={handlePosterClick}
+              />
+            </MovieCategoryContainer>
             <DowpdownLargeContainer>
               <Dropdown
                 isOpen
-                handleClick={() => {}}
+                handleClick={handleAccordionClick}
                 categoryList={categoryList}
                 isLargeScreen
               />

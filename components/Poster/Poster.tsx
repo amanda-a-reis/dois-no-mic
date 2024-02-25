@@ -1,3 +1,5 @@
+"use client"
+
 import clsx from "clsx"
 import Heart from "../Icons/Heart"
 import HeartFill from "../Icons/HeartFill"
@@ -5,7 +7,7 @@ import { IconColors } from "../Icons/types/IconProps"
 import Text, { TextColors, TextWeights } from "../Typography/Text"
 
 import Image from "next/legacy/image"
-import { memo, useCallback } from "react"
+import { useCallback } from "react"
 import styled from "styled-components"
 
 const Container = styled.button`
@@ -24,16 +26,24 @@ const Container = styled.button`
   &.disabled {
     filter: opacity(0.3);
   }
-`
 
-const MovieImage = styled(Image)`
-  border-radius: 8px;
+  width: 180px;
+  min-height: 295px;
+
+  @media (max-width: 1440px) {
+    width: 150px;
+    min-height: 250px;
+  }
+
+  @media (min-width: 1920px) {
+    width: 240px;
+    min-height: 387px;
+  }
 `
 
 const MovieTitleContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  height: 100%;
   width: 100%;
   margin: 0;
   text-align: left;
@@ -41,9 +51,13 @@ const MovieTitleContainer = styled.div`
 
 const MovieInfoContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   align-items: flex-start;
+
+  @media (max-width: 1024px) {
+    height: 100%;
+  }
 `
 
 const IconContainer = styled.div`
@@ -53,6 +67,23 @@ const IconContainer = styled.div`
 
   &.isVoted {
     padding-right: 8px;
+  }
+`
+
+const MoviePosterContainer = styled.div`
+  position: relative;
+
+  width: 180px;
+  min-height: 270px;
+
+  @media (max-width: 1366px) {
+    width: 150px;
+    min-height: 225px;
+  }
+
+  @media (min-width: 1920px) {
+    width: 240px;
+    min-height: 360px;
   }
 `
 
@@ -98,22 +129,34 @@ const Poster = (props: PosterProps) => {
       className={clsx({ disabled })}
       disabled={disabled}
     >
-      <MovieImage
-        src={moviePoster}
-        alt="Movie Poster"
-        width={150}
-        height={225}
-        placeholder="blur"
-        blurDataURL="/shimmer.gif"
-      />
+      <MoviePosterContainer>
+        <Image
+          src={moviePoster}
+          alt={movieTitle}
+          style={{ borderRadius: "8px" }}
+          placeholder="blur"
+          blurDataURL="/shimmer.gif"
+          layout="fill"
+          priority
+        />
+      </MoviePosterContainer>
       <MovieInfoContainer>
-        <IconContainer className={clsx({ isVoted: variant === "selected" })}>{theme[variant].icon}</IconContainer>
+        <IconContainer className={clsx({ isVoted: variant === "selected" })}>
+          {theme[variant].icon}
+        </IconContainer>
         <MovieTitleContainer>
-          <Text color={theme[variant].fontColor} weigth={TextWeights.medium} size="small">{movieTitle}</Text>
+          <Text
+            color={theme[variant].fontColor}
+            weigth={TextWeights.medium}
+            size="small"
+            isPosterTitle
+          >
+            {movieTitle}
+          </Text>
         </MovieTitleContainer>
       </MovieInfoContainer>
     </Container>
   )
 }
 
-export default memo(Poster)
+export default Poster

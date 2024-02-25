@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import React, { memo } from "react"
 import styled from "styled-components"
 
@@ -68,6 +69,13 @@ const TextStyled = styled.p`
   &.fontWeight-semiBold {
     font-weight: 600;
   }
+
+  &.isPosterTitle {
+    @media (min-width: 1025px) {
+      font-size: 16px;
+      line-height: 19px;
+    }
+  }
 `
 
 export enum TextColors {
@@ -87,6 +95,7 @@ interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   color?: TextColors
   size?: "xSmall" | "small" | "medium" | "large" | "xLarge" | "xxLarge" | "img"
   weigth?: "medium" | "regular" | "semiBold"
+  isPosterTitle?: boolean
 }
 
 const Text = (props: TextProps) => {
@@ -95,11 +104,15 @@ const Text = (props: TextProps) => {
     color = TextColors.yellow,
     size = "medium",
     weigth = "regular",
+    isPosterTitle,
     ...rest
   } = props
   return (
     <TextStyled
-      className={`fontColor-${color} fontSize-${size} fontWeight-${weigth}`}
+      className={clsx(
+        `fontColor-${color} fontSize-${size} fontWeight-${weigth}`,
+        { isPosterTitle }
+      )}
       {...rest}
     >
       {children}
