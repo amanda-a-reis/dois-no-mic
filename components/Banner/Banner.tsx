@@ -28,7 +28,7 @@ const Banner = () => {
       </Text>
       <Text size="large" color={TextColors.white}>
         O resultado dos filmes mais votados será apresentado no podcast no dia
-        8 de março às 12:00.
+        28 de fevereiro às 12:00.
       </Text>
     </Container>
   )

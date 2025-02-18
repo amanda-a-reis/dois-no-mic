@@ -136,11 +136,11 @@ export default function Home() {
   return (
     <Container>
       {!isLargeScreen && (
-        <Img src="/bg-home.webp" alt="background image" fill priority />
+        <Img src="/bg-home-2.png" alt="background image" fill priority />
       )}
 
       {isLargeScreen && (
-        <Img src="/large-bg.webp" alt="background image large" fill priority />
+        <Img src="/large-bg-2.jpg" alt="background image large" fill priority />
       )}
       <HeaderContainer>
         <Header hasTransparency />
