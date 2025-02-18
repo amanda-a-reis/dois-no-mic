@@ -65,7 +65,7 @@ const PersonalShareImg = (props: PersonalShareProps) => {
       <CardDescriptionContainer>
         <DescriptionTextContainer>
           <Text size="largeImage" color={TextColors.black} weigth="medium">
-            Meus favoritos para o Oscar® 2024
+            Meus favoritos para o Oscar® 2025
           </Text>
         </DescriptionTextContainer>
         <IconContainer>

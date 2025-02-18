@@ -24,7 +24,7 @@ const Banner = () => {
   return (
     <Container>
       <Text size="xLarge" weigth="medium">
-        Escolha seus favoritos para o Oscar® 2024
+        Escolha seus favoritos para o Oscar® 2025
       </Text>
       <Text size="large" color={TextColors.white}>
         O resultado dos filmes mais votados será apresentado no podcast no dia

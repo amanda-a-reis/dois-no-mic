@@ -12,7 +12,7 @@ const useSaveImg = () => {
 
     const uniqueNumber = timestamp.slice(-6)
 
-    const fileName = `meus-votos-oscar-2024-${uniqueNumber}.png`
+    const fileName = `meus-votos-oscar-2025-${uniqueNumber}.png`
 
     const fakeLink = window.document.createElement("a")
     const fakeLinkStyle = fakeLink.style as CSSStyleDeclaration
