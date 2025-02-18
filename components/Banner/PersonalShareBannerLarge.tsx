@@ -61,7 +61,7 @@ const PersonalShareBannerLarge = (props: PersonalShareBannerLargeProps) => {
             weigth={TextWeights.regular}
           >
             O resultado dos filmes mais votados será apresentado no podcast no
-            dia 8 de março às 12:00.
+            dia 28 de fevereiro às 12:00.
           </Text>
         </ContentText>
         <ButtonContainer>
