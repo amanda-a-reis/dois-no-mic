@@ -52,7 +52,7 @@ const PersonalShareBannerLarge = (props: PersonalShareBannerLargeProps) => {
               color={TextColors.yellow}
               weigth={TextWeights.medium}
             >
-              Registramos seus favoritos para Oscar® 2024
+              Registramos seus favoritos para o Oscar® 2025
             </Text>
           </TextContainer>
           <Text
