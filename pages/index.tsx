@@ -140,7 +140,7 @@ export default function Home() {
       )}
 
       {isLargeScreen && (
-        <Img src="/large-bg-2.jpg" alt="background image large" fill priority />
+        <Img src="/large.jpg" alt="background image large" fill priority />
       )}
       <HeaderContainer>
         <Header hasTransparency />
