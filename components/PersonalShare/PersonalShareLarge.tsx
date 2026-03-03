@@ -64,7 +64,7 @@ const PersonalShareLarge = (props: PersonalShareProps) => {
       <CardDescriptionContainer>
         <DescriptionTextContainer>
           <Text size="large" color={TextColors.black}>
-            Meus favoritos para o Oscar® 2025
+            Meus favoritos para o Oscar® 2026
           </Text>
         </DescriptionTextContainer>
         <IconContainer>
