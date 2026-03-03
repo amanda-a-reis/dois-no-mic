@@ -1,19 +1,11 @@
 {
   "extends": [
-    "next/core-web-vitals",
-    "standard-with-typescript"
+    "next/core-web-vitals"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "rules": {
-    "prefer-const": "error",
-    "@typescript-eslint/prefer-nullish-coalescing": "off",
-    "@typescript-eslint/strict-boolean-expressions": "off",
-    "@typescript-eslint/no-misused-promises": "off",
-    "@typescript-eslint/space-before-function-paren": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/consistent-type-imports": "off",
-    "@typescript-eslint/quotes": "off"
+    "prefer-const": "error"
   }
 }
