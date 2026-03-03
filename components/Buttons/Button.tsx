@@ -1,9 +1,11 @@
 import Text, { TextColors } from "../Typography/Text"
 
 import { memo } from "react"
+import dynamic from "next/dynamic"
 import styled from "styled-components"
-import Lottie from "react-lottie"
 import loadingAnimation from "./loading-lottie.json"
+
+const Lottie = dynamic(() => import("react-lottie"), { ssr: false })
 
 const ButtonStyled = styled.button`
   width: 100%;
