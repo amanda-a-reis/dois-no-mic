@@ -166,7 +166,8 @@ const Poster = (props: PosterProps) => {
           placeholder="blur"
           blurDataURL="/shimmer.gif"
           layout="fill"
-          priority
+          loading="lazy"
+          unoptimized
         />
       </MoviePosterContainer>
       <MovieInfoContainer>

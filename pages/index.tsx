@@ -17,7 +17,7 @@ const Img = styled(Image)`
 
   overflow: hidden;
 
-  @media (max-width: 345px) {
+  @media (max-width: 500px) {
     object-position: center;
   }
 `
@@ -136,11 +136,11 @@ export default function Home() {
   return (
     <Container>
       {!isLargeScreen && (
-        <Img src="/bg-home-2.png" alt="background image" fill priority />
+        <Img src="/bg_2026_small_screen.webp" alt="background image" fill priority />
       )}
 
       {isLargeScreen && (
-        <Img src="/large.jpg" alt="background image large" fill priority />
+        <Img src="/bg_2026.webp" alt="background image large" fill priority />
       )}
       <HeaderContainer>
         <Header hasTransparency />
